@@ -28,12 +28,13 @@ def main():
                 row_length = len(row)
                 for x in range(1, row_length, 2):
                     for inflection in row[x]:
-                        pos = row[x+1][0]
+                        pos = row[x + 1][0]
                         pattern = i.pattern
                         inflections_pos += [(inflection, pos, pattern)]
 
     inflections_pos = sorted(
-        inflections_pos, key=lambda x: (pali_sort_key(x[0]), x[1], x[2]))
+        inflections_pos, key=lambda x: (pali_sort_key(x[0]), x[1], x[2])
+    )
 
     path = pth.temp_dir.joinpath("inflections_raw.tsv")
     headers = ["inflection", "pos", "pattern"]

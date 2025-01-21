@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-""" Filter most frequent words into csv with limiting the number. Also not incluading those which already has been filtered."""
+"""Filter most frequent words into csv with limiting the number. Also not incluading those which already has been filtered."""
 
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths
@@ -27,40 +27,49 @@ def save_filtered_words():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    dpd_db = db_session.query(DpdHeadword).filter(
-        DpdHeadword.meaning_1 != "",
-        DpdHeadword.ebt_count != "0",
-    ).order_by(DpdHeadword.ebt_count.desc()).all()
+    dpd_db = (
+        db_session.query(DpdHeadword)
+        .filter(
+            DpdHeadword.meaning_1 != "",
+            DpdHeadword.ebt_count != "0",
+        )
+        .order_by(DpdHeadword.ebt_count.desc())
+        .all()
+    )
 
     # Read existing IDs from CSV files in the directory
     existing_ids = set()
     for file in os.listdir(dpspth.freqent_words_dir):
-        if file.endswith('.csv'):
-            with open(os.path.join(dpspth.freqent_words_dir, file), 'r') as csvfile:
-                reader = csv.DictReader(csvfile, delimiter='\t')
+        if file.endswith(".csv"):
+            with open(os.path.join(dpspth.freqent_words_dir, file), "r") as csvfile:
+                reader = csv.DictReader(csvfile, delimiter="\t")
                 for row in reader:
-                    existing_ids.add(row['id'])
+                    existing_ids.add(row["id"])
 
     # Filter out existing IDs and limit to 300
-    filtered_dpd_db = [word for word in dpd_db if str(word.id) not in existing_ids][:300]
+    filtered_dpd_db = [word for word in dpd_db if str(word.id) not in existing_ids][
+        :300
+    ]
 
-    file_name = f'{date}.csv'
+    file_name = f"{date}.csv"
     full_file_path = os.path.join(dpspth.freqent_words_dir, file_name)
 
     # Write to CSV using tab as delimiter first 300
-    with open(full_file_path, 'w', newline='') as csvfile:
-        fieldnames = ['id', 'pali', 'pos', 'meaning']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
+    with open(full_file_path, "w", newline="") as csvfile:
+        fieldnames = ["id", "pali", "pos", "meaning"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
 
         writer.writeheader()  # Write the header
 
         for word in filtered_dpd_db:
-            writer.writerow({
-                'id': word.id,
-                'pali': word.lemma_1,
-                'pos': word.pos,
-                'meaning': word.meaning_1,
-            })
+            writer.writerow(
+                {
+                    "id": word.id,
+                    "pali": word.lemma_1,
+                    "pos": word.pos,
+                    "meaning": word.meaning_1,
+                }
+            )
 
     db_session.close()
 

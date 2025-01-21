@@ -21,10 +21,10 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    db_session.execute(DpdHeadword.__table__.delete()) # type: ignore
-    db_session.execute(DpdRoot.__table__.delete()) # type: ignore
-    db_session.execute(Russian.__table__.delete()) # type: ignore
-    db_session.execute(SBS.__table__.delete()) # type: ignore
+    db_session.execute(DpdHeadword.__table__.delete())  # type: ignore
+    db_session.execute(DpdRoot.__table__.delete())  # type: ignore
+    db_session.execute(Russian.__table__.delete())  # type: ignore
+    db_session.execute(SBS.__table__.delete())  # type: ignore
 
     make_pali_word_table_data(pth, db_session)
     make_pali_root_table_data(pth, db_session)

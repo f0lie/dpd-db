@@ -10,7 +10,7 @@ from dps.tools.ai_related import get_openai_client
 from db.db_helpers import get_db_session
 from db.models import Russian
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths  
+from dps.tools.paths_dps import DPSPaths
 
 dpspth = DPSPaths()
 pth = ProjectPaths()
@@ -23,23 +23,19 @@ def upload_and_create_batch(file_name):
     if client is None:
         print("OpenAI client is not initialized. Cannot proceed with batch creation.")
         return
-    
+
     # Define file parameters
     file_path = os.path.join(dpspth.ai_for_batch_api_dir, f"{file_name}.jsonl")
 
     try:
         # Upload file and create batch
         with open(file_path, "rb") as file:
-            batch_input_file = client.files.create(
-                file=file,
-                purpose="batch"
-            )
+            batch_input_file = client.files.create(file=file, purpose="batch")
             # Print the response from the API
             print("File upload response:", batch_input_file)
 
             # Count the number of lines in the file
-            num_lines = sum(1 for line in open(file_path, 'r'))
-
+            num_lines = sum(1 for line in open(file_path, "r"))
 
             # Optionally, proceed to create a batch using the file ID
             # Customize the endpoint and other parameters as needed
@@ -47,7 +43,7 @@ def upload_and_create_batch(file_name):
                 input_file_id=batch_input_file.id,
                 endpoint="/v1/chat/completions",
                 completion_window="24h",
-                metadata={"description": f"batch of {num_lines} words"}
+                metadata={"description": f"batch of {num_lines} words"},
             )
             print("Batch creation response:", batch_response)
 
@@ -100,7 +96,7 @@ def serialize_request_counts(request_counts):
     return {
         "total": request_counts.total,
         "completed": request_counts.completed,
-        "failed": request_counts.failed
+        "failed": request_counts.failed,
     }
 
 
@@ -112,7 +108,7 @@ def print_batch_info(batch_id):
     try:
         # Retrieve batch information
         batch_info = client.batches.retrieve(batch_id=batch_id)
-        
+
         # Create a dictionary to represent the batch info
         batch_details = {
             "id": batch_info.id,
@@ -136,12 +132,14 @@ def print_batch_info(batch_id):
             "request_counts": serialize_request_counts(batch_info.request_counts),
             "metadata": batch_info.metadata,
         }
-        
+
         # Print the batch details in a formatted JSON structure
         print(json.dumps(batch_details, indent=2))
 
     except Exception as e:
-        print(f"An error occurred while retrieving batch {batch_id} information:", str(e))
+        print(
+            f"An error occurred while retrieving batch {batch_id} information:", str(e)
+        )
 
 
 def cancel_batch(batch_id):
@@ -162,7 +160,6 @@ def cancel_batch(batch_id):
 
     except openai.APIError as e:
         print(f"Error canceling batch '{batch_id}': {e}")
-
 
 
 def save_batch_results(batch_id, file_name):
@@ -194,21 +191,23 @@ def save_batch_results(batch_id, file_name):
             file_path = os.path.join(dpspth.ai_from_batch_api_dir, f"{file_name}.jsonl")
 
             # Process each line
-            with open(file_path, 'a', encoding='utf-8') as f:
+            with open(file_path, "a", encoding="utf-8") as f:
                 for line in response_lines:
                     try:
                         # Decode each JSON object
                         decoded_response = json.loads(line)
 
                         # Extract custom_id and translated_text
-                        custom_id = decoded_response.get('custom_id', '')
-                        id = custom_id.split('-')[1] if '-' in custom_id else custom_id  # Extract the ID
+                        custom_id = decoded_response.get("custom_id", "")
+                        id = (
+                            custom_id.split("-")[1] if "-" in custom_id else custom_id
+                        )  # Extract the ID
                         translated_text = (
-                            decoded_response.get('response', {})
-                            .get('body', {})
-                            .get('choices', [{}])[0]
-                            .get('message', {})
-                            .get('content', None)
+                            decoded_response.get("response", {})
+                            .get("body", {})
+                            .get("choices", [{}])[0]
+                            .get("message", {})
+                            .get("content", None)
                         )
 
                         if translated_text and id:
@@ -216,8 +215,12 @@ def save_batch_results(batch_id, file_name):
                             ids_and_contents[id] = translated_text
 
                             # Save to JSONL format
-                            json.dump({"id": id, "translated_text": translated_text}, f, ensure_ascii=False)
-                            f.write('\n')  # Newline for JSONL format
+                            json.dump(
+                                {"id": id, "translated_text": translated_text},
+                                f,
+                                ensure_ascii=False,
+                            )
+                            f.write("\n")  # Newline for JSONL format
                         else:
                             print(f"Missing content or id in line: {line}")
                     except json.JSONDecodeError as e:
@@ -257,7 +260,6 @@ def update_ru_meaning_raw(ids_and_contents):
 
 
 if __name__ == "__main__":
-
     file_name_in = ""
 
     # upload_and_create_batch(file_name_in)
@@ -274,6 +276,3 @@ if __name__ == "__main__":
     # cancel_batch(specific_batch_id)
 
     # check_batch_status(specific_batch_id)
-
-
-

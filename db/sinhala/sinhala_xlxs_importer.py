@@ -19,7 +19,7 @@ def main():
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db_session.execute(Sinhala.__table__.delete()) #type: ignore
+    db_session.execute(Sinhala.__table__.delete())  # type: ignore
     id_dict = get_id_dict()
 
     file_to_import = "db/sinhala/dpd sinhala 1.1.xlsx"
@@ -47,7 +47,7 @@ def main():
                 print(f"[green]id updated from {si_id} to {new_id}")
             else:
                 print(f"[red]{si_id} not in db")
-    
+
     db_session.commit()
 
     toc()

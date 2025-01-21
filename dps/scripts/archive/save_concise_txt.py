@@ -27,20 +27,24 @@ def main():
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(DpdHeadword).all()
-    dpd_db = sorted(
-        dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
+    dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
 
     save_concise_txt(dpspth, dpd_db)
-    
+
     toc()
-
-
 
 
 def save_concise_txt(dpspth, dpd_db):
     console.print("[bold blue]saving concise txt")
 
-    header = ['lemma_1', 'grammar', 'meaning_1', 'meaning_lit', 'ru_meaning', 'ru_meaning_lit']
+    header = [
+        "lemma_1",
+        "grammar",
+        "meaning_1",
+        "meaning_lit",
+        "ru_meaning",
+        "ru_meaning_lit",
+    ]
 
     def row_to_string(i: DpdHeadword) -> str:
         return " ,".join(map(str, pali_row(i)))
@@ -48,21 +52,23 @@ def save_concise_txt(dpspth, dpd_db):
     rows = [" ,".join(map(str, header))]
     rows += [row_to_string(i) for i in dpd_db]
 
-    with open(dpspth.dpd_dps_concise_txt_path, "w", encoding='utf-8') as f:
+    with open(dpspth.dpd_dps_concise_txt_path, "w", encoding="utf-8") as f:
         f.write("\n".join(rows))
 
 
 def pali_row(i: DpdHeadword, output="ai") -> List[str]:
     fields = []
 
-    fields.extend([ 
-        i.lemma_1,
-        i.grammar,
-        i.meaning_1 if i.meaning_1 else i.meaning_2,
-        i.meaning_lit,
-        i.ru.ru_meaning if i.ru else None,
-        i.ru.ru_meaning_lit if i.ru else None,
-    ])
+    fields.extend(
+        [
+            i.lemma_1,
+            i.grammar,
+            i.meaning_1 if i.meaning_1 else i.meaning_2,
+            i.meaning_lit,
+            i.ru.ru_meaning if i.ru else None,
+            i.ru.ru_meaning_lit if i.ru else None,
+        ]
+    )
 
     return none_to_empty(fields)
 

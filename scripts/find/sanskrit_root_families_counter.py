@@ -19,11 +19,7 @@ def main():
 
     root_family_dict = {}
     for counter, i in enumerate(db):
-        if (
-            i.root_key
-            and i.family_root
-            and "[" not in i.sanskrit
-        ):  
+        if i.root_key and i.family_root and "[" not in i.sanskrit:
             if i.root_key not in root_family_dict:
                 root_family_dict[i.root_key] = 1
             else:
@@ -38,6 +34,7 @@ def main():
         route = input()
         if route == "x":
             return
+
 
 if __name__ == "__main__":
     main()

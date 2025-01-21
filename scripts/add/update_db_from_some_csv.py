@@ -29,14 +29,16 @@ input("press enter to continue: ")
 
 # iterate through the csv item by item
 for i in csv:
-
     # find the column name you want to change, in this case "Category"
     if i.Category:
         # this find the dpd word which matches the user_id
         # here you could also use Russian or SBS instead of DpdHeadword
         csv_user_id = i.ID
-        db_entry = db_session.query(DpdHeadword).filter(
-            DpdHeadword.user_id == csv_user_id).first()
+        db_entry = (
+            db_session.query(DpdHeadword)
+            .filter(DpdHeadword.user_id == csv_user_id)
+            .first()
+        )
 
         # this updates the db entry with the csv value
         print(f"old: {db_entry.family_set}")

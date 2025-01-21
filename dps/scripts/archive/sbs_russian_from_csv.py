@@ -33,8 +33,8 @@ def main():
             print(f"[bright_red]File does not exist: {p}")
             sys.exit(1)
 
-    db_session.execute(Russian.__table__.delete()) # type: ignore
-    db_session.execute(SBS.__table__.delete()) # type: ignore
+    db_session.execute(Russian.__table__.delete())  # type: ignore
+    db_session.execute(SBS.__table__.delete())  # type: ignore
     add_dps_russian(dpspth, db_session)
     add_dps_sbs(dpspth, db_session)
 
@@ -46,8 +46,8 @@ def add_dps_russian(dpspth, db_session: Session):
     console.print("[bold green]processing dps russian")
 
     rows = []
-    with open(dpspth.dps_csv_path, 'r') as f:
-        reader = csv.DictReader(f, delimiter='\t')
+    with open(dpspth.dps_csv_path, "r") as f:
+        reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             for key, value in row.items():
                 row[key] = value.replace("<br/>", "\n")
@@ -59,8 +59,9 @@ def add_dps_russian(dpspth, db_session: Session):
     duplicated_ids = set()  # Use a set to keep track of duplicated ids
 
     for r in rows:
-        id_search = db_session.query(DpdHeadword.id).filter(
-            DpdHeadword.id == r["id"]).first()
+        id_search = (
+            db_session.query(DpdHeadword.id).filter(DpdHeadword.id == r["id"]).first()
+        )
 
         if id_search is not None:
             id = id_search[0]
@@ -102,17 +103,17 @@ def _csv_row_to_russian(x: Dict[str, str], id, db_session) -> Russian:
 
     # If an existing record is found, update
     if existing_russian:
-        existing_russian.ru_meaning = x['ru_meaning']
-        existing_russian.ru_meaning_lit = x['ru_meaning_lit']
-        existing_russian.ru_notes = x['ru_notes']
+        existing_russian.ru_meaning = x["ru_meaning"]
+        existing_russian.ru_meaning_lit = x["ru_meaning_lit"]
+        existing_russian.ru_notes = x["ru_notes"]
         return existing_russian
     else:
         # If the id doesn't exist in the table, create a new Russian object
         return Russian(
             id=id,
-            ru_meaning=x['ru_meaning'],
-            ru_meaning_lit=x['ru_meaning_lit'],
-            ru_notes=x['ru_notes'],
+            ru_meaning=x["ru_meaning"],
+            ru_meaning_lit=x["ru_meaning_lit"],
+            ru_notes=x["ru_notes"],
         )
 
 
@@ -120,8 +121,8 @@ def add_dps_sbs(dpspth, db_session: Session):
     console.print("[bold green]processing dps sbs")
 
     rows = []
-    with open(dpspth.dps_csv_path, 'r') as f:
-        reader = csv.DictReader(f, delimiter='\t')
+    with open(dpspth.dps_csv_path, "r") as f:
+        reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             for key, value in row.items():
                 row[key] = value.replace("<br/>", "\n")
@@ -131,8 +132,9 @@ def add_dps_sbs(dpspth, db_session: Session):
     unmatched_ids: List[str] = []  # Store unmatched IDs
 
     for r in rows:
-        id_search = db_session.query(DpdHeadword.id).filter(
-            DpdHeadword.id == r["id"]).first()
+        id_search = (
+            db_session.query(DpdHeadword.id).filter(DpdHeadword.id == r["id"]).first()
+        )
 
         if id_search is not None:
             id = id_search[0]
@@ -156,7 +158,6 @@ def add_dps_sbs(dpspth, db_session: Session):
 
 
 def _csv_row_to_sbs(x: Dict[str, str], id, __db_session__) -> SBS:
-
     return SBS(
         id=id,
         sbs_class_anki=x["sbs_class_anki"],

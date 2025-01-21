@@ -10,16 +10,17 @@ from db.models import DpdHeadword
 
 
 def make_meaning_combo(i: DpdHeadword) -> str:
-	"""Compile meaning_1 and literal meaning, or return meaning_2."""
-	if i.meaning_1:
-		meaning: str = i.meaning_1
-		if i.meaning_lit:
-			meaning += f"; lit. {i.meaning_lit}"
-		return meaning
-	elif i.meaning_2:
-		return i.meaning_2
-	else:
-		return ""
+    """Compile meaning_1 and literal meaning, or return meaning_2."""
+    if i.meaning_1:
+        meaning: str = i.meaning_1
+        if i.meaning_lit:
+            meaning += f"; lit. {i.meaning_lit}"
+        return meaning
+    elif i.meaning_2:
+        return i.meaning_2
+    else:
+        return ""
+
 
 def make_meaning_combo_html(i: DpdHeadword) -> str:
     """Compile html of meaning_1 and literal meaning, or return meaning_2.
@@ -42,7 +43,7 @@ def make_meaning_combo_html(i: DpdHeadword) -> str:
 
 def make_grammar_line(i: DpdHeadword) -> str:
     """Compile grammar line"""
-    
+
     grammar = i.grammar
     if i.neg:
         grammar += f", {i.neg}"
@@ -53,12 +54,12 @@ def make_grammar_line(i: DpdHeadword) -> str:
     if i.plus_case:
         grammar += f" ({i.plus_case})"
     return grammar
-     
+
 
 def summarize_construction(i: DpdHeadword) -> str:
     """Create a summary of a word's construction,
     excluding brackets and phonetic changes."""
-    
+
     if "<b>" in i.construction:
         i.construction = i.construction.replace("<b>", "").replace("</b>", "")
 
@@ -85,9 +86,8 @@ def summarize_construction(i: DpdHeadword) -> str:
         # remove brackets
         construction = construction.replace("(", "").replace(")", "")
         # remove [insertions]
-        construction = re.sub(
-            r"^\[.*\] \+| \[.*\] \+| \+ \[.*\]$", "", construction)
-        
+        construction = re.sub(r"^\[.*\] \+| \[.*\] \+| \+ \[.*\]$", "", construction)
+
         if not i.root_base:
             if construction:
                 return construction
@@ -104,16 +104,14 @@ def summarize_construction(i: DpdHeadword) -> str:
             base_construction = re.sub("(.+)( > .+?$)", "\\1", base_clean)
             # remove phonetic changes
             base_construction = re.sub(" >.*", "", base_construction)
-            
+
             if i.pos != "fut":
                 # replace base with root + sign
                 root_plus_sign = f"{i.root_clean} + {i.root_sign}"
-                construction = re.sub(
-                    base, root_plus_sign, construction)
+                construction = re.sub(base, root_plus_sign, construction)
             else:
                 # reaplce base with base construction
-                construction = re.sub(
-                    base, base_construction, construction)
+                construction = re.sub(base, base_construction, construction)
             return construction
 
 
@@ -142,7 +140,7 @@ def degree_of_completion(i: DpdHeadword, html=True):
                 return """<span class="gray">✔</span>"""
             else:
                 return "✔"
-                 
+
         else:
             if html:
                 return """<span class="gray">◑</span>"""
@@ -159,11 +157,9 @@ def rus_degree_of_completion(i: DpdHeadword, html=True):
     """Return html styled symbol of a word data degree of completion with white for those having ru_meaning."""
     if i.ru:
         if i.ru.ru_meaning:
-            result = degree_of_completion(i, html).replace(' class="gray"', '')
+            result = degree_of_completion(i, html).replace(' class="gray"', "")
             return result
         else:
             return degree_of_completion(i, html)
     else:
         return degree_of_completion(i, html)
-
-

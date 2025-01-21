@@ -13,7 +13,7 @@ from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, Russian, SBS
 from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths  
+from dps.tools.paths_dps import DPSPaths
 
 from sqlalchemy import and_, or_, null, not_
 
@@ -29,16 +29,19 @@ def saving():
 
     # Fetch the ids and roots for DpdHeadword table
     # word_records = db_session.query(DpdHeadword.id, DpdHeadword.root_key).filter(DpdHeadword.source_1 == "MN 107").all()
-    word_records = db_session.query(DpdHeadword.id).outerjoin(
-    SBS, DpdHeadword.id == SBS.id
-        ).filter(
-                or_(
-                    SBS.sbs_example_1 != "",
-                    SBS.sbs_example_2 != "",
-                    SBS.sbs_example_3 != "",
-                    SBS.sbs_example_4 != "",
-                )
-        ).all()
+    word_records = (
+        db_session.query(DpdHeadword.id)
+        .outerjoin(SBS, DpdHeadword.id == SBS.id)
+        .filter(
+            or_(
+                SBS.sbs_example_1 != "",
+                SBS.sbs_example_2 != "",
+                SBS.sbs_example_3 != "",
+                SBS.sbs_example_4 != "",
+            )
+        )
+        .all()
+    )
 
     #  Get the count of word_records
     word_count = len(word_records)
@@ -60,23 +63,25 @@ def saving_paliwords(pth: ProjectPaths, db_session: Session, ids_to_saving):
     console.print("[bold green]writing DpdHeadword table")
     db = db_session.query(DpdHeadword).filter(DpdHeadword.id.in_(ids_to_saving)).all()
 
-
-    file_path = os.path.join(pth.temp_dir, 'dpd_headwords.tsv')
-    with open(file_path, 'w', newline='') as tsvfile:
-        exclude_columns = [
-            "created_at", "updated_at"]
+    file_path = os.path.join(pth.temp_dir, "dpd_headwords.tsv")
+    with open(file_path, "w", newline="") as tsvfile:
+        exclude_columns = ["created_at", "updated_at"]
         csvwriter = csv.writer(
-            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
+            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
+        )
         column_names = [
-            column.name for column in DpdHeadword.__mapper__.columns
-            if column.name not in exclude_columns]
+            column.name
+            for column in DpdHeadword.__mapper__.columns
+            if column.name not in exclude_columns
+        ]
         csvwriter.writerow(column_names)
 
         for i in db:
             row = [
                 getattr(i, column.name)
                 for column in DpdHeadword.__mapper__.columns
-                if column.name not in exclude_columns]
+                if column.name not in exclude_columns
+            ]
             csvwriter.writerow(row)
 
 
@@ -85,24 +90,25 @@ def saving_paliroots(pth: ProjectPaths, db_session: Session, roots_to_saving):
     console.print("[bold green]writing DpdRoot table")
     db = db_session.query(DpdRoot).filter(DpdRoot.root.in_(roots_to_saving)).all()
 
-
-    file_path = os.path.join(pth.temp_dir, 'dpd_roots.tsv')
-    with open(file_path, 'w', newline='') as tsvfile:
-        exclude_columns = [
-            "created_at", "updated_at",
-            "root_info", "root_matrix"]
+    file_path = os.path.join(pth.temp_dir, "dpd_roots.tsv")
+    with open(file_path, "w", newline="") as tsvfile:
+        exclude_columns = ["created_at", "updated_at", "root_info", "root_matrix"]
         csvwriter = csv.writer(
-            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
+            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
+        )
         column_names = [
-            column.name for column in DpdRoot.__mapper__.columns
-            if column.name not in exclude_columns]
+            column.name
+            for column in DpdRoot.__mapper__.columns
+            if column.name not in exclude_columns
+        ]
         csvwriter.writerow(column_names)
 
         for i in db:
             row = [
                 getattr(i, column.name)
                 for column in DpdRoot.__mapper__.columns
-                if column.name not in exclude_columns]
+                if column.name not in exclude_columns
+            ]
             csvwriter.writerow(row)
 
 
@@ -111,19 +117,16 @@ def saving_russian(pth: ProjectPaths, db_session: Session, ids_to_saving):
     console.print("[bold green]writing Russian table")
     db = db_session.query(Russian).filter(Russian.id.in_(ids_to_saving)).all()
 
-
-    file_path = os.path.join(pth.temp_dir, 'russian.tsv')
-    with open(file_path, 'w', newline='') as tsvfile:
+    file_path = os.path.join(pth.temp_dir, "russian.tsv")
+    with open(file_path, "w", newline="") as tsvfile:
         csvwriter = csv.writer(
-            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
-        column_names = [
-            column.name for column in Russian.__mapper__.columns]
+            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
+        )
+        column_names = [column.name for column in Russian.__mapper__.columns]
         csvwriter.writerow(column_names)
 
         for i in db:
-            row = [
-                getattr(i, column.name)
-                for column in Russian.__mapper__.columns]
+            row = [getattr(i, column.name) for column in Russian.__mapper__.columns]
             csvwriter.writerow(row)
 
 
@@ -134,18 +137,15 @@ def saving_sbs(dpspth: DPSPaths, db_session: Session, ids_to_saving):
 
     # file_path = os.path.join(pth.temp_dir, 'sbs.tsv')
     file_path = dpspth.sbs_archive
-    with open(file_path, 'w', newline='') as tsvfile:
-
+    with open(file_path, "w", newline="") as tsvfile:
         csvwriter = csv.writer(
-            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL)
-        column_names = [
-            column.name for column in SBS.__mapper__.columns]
+            tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
+        )
+        column_names = [column.name for column in SBS.__mapper__.columns]
         csvwriter.writerow(column_names)
 
         for i in db:
-            row = [
-                getattr(i, column.name)
-                for column in SBS.__mapper__.columns]
+            row = [getattr(i, column.name) for column in SBS.__mapper__.columns]
             csvwriter.writerow(row)
 
 

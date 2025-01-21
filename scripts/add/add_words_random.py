@@ -16,7 +16,6 @@ from tools.printer import p_title
 
 
 def main():
-
     """Compile a list of words that are
     - without meaning_1
     - without example_1"""
@@ -36,11 +35,11 @@ def main():
             no_meaning.append(i.id)
         if not i.example_1:
             no_example.append(i.id)
-    
+
     all_missing.extend(no_example)
     all_missing.extend(no_meaning)
     print(len(set(all_missing)))
-    
+
     user_input = ""
     while user_input != "x":
         random_number = randrange(len(all_missing))

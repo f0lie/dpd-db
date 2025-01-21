@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """Distribute sbs examples according to Anki deck"""
+
 from rich import print
 import re
 
@@ -14,11 +15,13 @@ from dps.tools.sbs_table_functions import list_of_discourses
 
 pth = ProjectPaths()
 db_session = get_db_session(pth.dpd_db_path)
-db = db_session.query(DpdHeadword) \
-    .options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru)) \
-    .outerjoin(Russian, DpdHeadword.id == Russian.id) \
-    .outerjoin(SBS, DpdHeadword.id == SBS.id) \
-        .all()
+db = (
+    db_session.query(DpdHeadword)
+    .options(joinedload(DpdHeadword.sbs), joinedload(DpdHeadword.ru))
+    .outerjoin(Russian, DpdHeadword.id == Russian.id)
+    .outerjoin(SBS, DpdHeadword.id == SBS.id)
+    .all()
+)
 
 
 def dhp():
@@ -36,7 +39,6 @@ def dhp():
         #                 print(f"{i.id} {sbs_value}")
         # ! not working!  only if meaning_1
         if not i.sbs:
-
             # Fetch the existing SBS object from the database
             existing_sbs = db_session.query(SBS).get(i.id)
 
@@ -48,7 +50,7 @@ def dhp():
                     if existing_sbs:
                         print(f"{i.id}")
                         # db_session.commit()
-                        for field_prefix in ['source', 'sutta', 'example']:
+                        for field_prefix in ["source", "sutta", "example"]:
                             value = getattr(i, f"{field_prefix}_{idx}")
                             setattr(existing_sbs, f"dhp_{field_prefix}", value)
                             print(f"{i.id} {value}")
@@ -74,7 +76,6 @@ def pali_class():
 
                         print(f"{i.id} {i.sbs.class_source}")
 
-
         # Commit after processing all records
         # db_session.commit()
         print("All changes committed.")
@@ -90,21 +91,25 @@ def pat():
                         sbs_source_value = getattr(i.sbs, f"sbs_source_{idx}")
                         if sbs_source_value and re.search(r"VIN PAT", sbs_source_value):
                             # Copy values to pat fields
-                            for field_prefix in ['source', 'sutta', 'example']:
+                            for field_prefix in ["source", "sutta", "example"]:
                                 sbs_value = getattr(i.sbs, f"sbs_{field_prefix}_{idx}")
                                 # setattr(i.sbs, f"pat_{field_prefix}", sbs_value)
                                 # print(f"{i.id} {sbs_value}")
                     for idx in range(1, 3):
                         source_value = getattr(i, f"source_{idx}")
-                        if source_value and re.search(r"VIN PAT", source_value) and not re.search(r"VIN PAT PK", source_value) and i.meaning_1:
+                        if (
+                            source_value
+                            and re.search(r"VIN PAT", source_value)
+                            and not re.search(r"VIN PAT PK", source_value)
+                            and i.meaning_1
+                        ):
                             # Copy values to discourses fields
-                            for field_prefix in ['source', 'sutta', 'example']:
+                            for field_prefix in ["source", "sutta", "example"]:
                                 value = getattr(i, f"{field_prefix}_{idx}")
                                 setattr(i.sbs, f"pat_{field_prefix}", value)
                                 print(f"{i.id} {value}")
                             break
 
-                    
                 # else:
                 #     for idx in range(1, 3):
                 #         source_value = getattr(i, f"source_{idx}")
@@ -122,7 +127,7 @@ def pat():
                 #             # print(f"Updated category for {i.id} to {category}")
                 #             if not i.ru:
                 #                 print(f"no ru {i.id}")
-                            
+
                 #             break
 
             # else:
@@ -144,7 +149,7 @@ def pat():
             #             print(f"Added category for {i.id} to 'pat_'")
             #             if not i.ru:
             #                 print(f"no ru {i.id}")
-                        
+
             #             # db_session.commit()
             #             break  # Stop checking other discourses if one is found
 
@@ -163,7 +168,7 @@ def vib():
                         sbs_source_value = getattr(i.sbs, f"sbs_source_{idx}")
                         if sbs_source_value and re.search(r"VIN1", sbs_source_value):
                             # Copy values to pat fields
-                            for field_prefix in ['source', 'sutta', 'example']:
+                            for field_prefix in ["source", "sutta", "example"]:
                                 sbs_value = getattr(i.sbs, f"sbs_{field_prefix}_{idx}")
                                 setattr(i.sbs, f"vib_{field_prefix}", sbs_value)
                                 print(f"{i.id} {sbs_value}")
@@ -225,7 +230,7 @@ def discor():
             #                 print(f"no ru {i.id}")
 
             #             count += 1
-                        
+
             #             db_session.commit()
             #             break  # Stop checking other discourses if one is found
 
@@ -233,15 +238,22 @@ def discor():
                 # Iterate over each source field
                 for idx in range(1, 3):
                     source_value = getattr(i, f"source_{idx}")
-                    if source_value and any(discourse in source_value for discourse in list_of_discourses) and i.meaning_1:
+                    if (
+                        source_value
+                        and any(
+                            discourse in source_value
+                            for discourse in list_of_discourses
+                        )
+                        and i.meaning_1
+                    ):
                         # Copy values to discourses fields
-                        for field_prefix in ['source', 'sutta', 'example']:
+                        for field_prefix in ["source", "sutta", "example"]:
                             value = getattr(i, f"{field_prefix}_{idx}")
                             setattr(i.sbs, f"discourses_{field_prefix}", value)
 
                         # Change sbs_category to the lower letter version of the source
                         # Extract the part before the first full stop or use the whole if no full stop
-                        category = source_value.split('.')[0].lower() + "_"
+                        category = source_value.split(".")[0].lower() + "_"
                         i.sbs.sbs_category = category
 
                         print(f"Updated category for {i.id} to {category}")
@@ -249,7 +261,7 @@ def discor():
                             print(f"no ru {i.id}")
 
                         count += 1
-                        
+
                         break  # Stop checking other discourses if one is found
 
             # if i.sbs and not i.sbs.discourses_source:
@@ -273,7 +285,7 @@ def discor():
             #                 print(f"no ru {i.id}")
 
             #             count += 1
-                        
+
             #             break  # Stop checking other discourses if one is found
 
         # Commit after processing all records

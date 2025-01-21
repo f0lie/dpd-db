@@ -20,7 +20,6 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-
     # SQL query to update sbs_chapter_flag based on sbs_chapter_{i} columns
     update_query = text("""
         UPDATE sbs

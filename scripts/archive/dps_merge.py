@@ -71,9 +71,7 @@ def main():
             break
 
         dict = {}
-        with open(
-            dpspth.dps_merge_dir.joinpath(
-                    column).with_suffix(".csv")) as f:
+        with open(dpspth.dps_merge_dir.joinpath(column).with_suffix(".csv")) as f:
             reader = csv.DictReader(f, delimiter=",")
             for row in reader:
                 dict[int(row["id"])] = row[column]
@@ -87,9 +85,9 @@ def main():
             column_value_old = getattr(i, column)
 
             if (
-                i.id in dict and
-                i.id not in exceptions_dict[column] and
-                not column_value_old
+                i.id in dict
+                and i.id not in exceptions_dict[column]
+                and not column_value_old
             ):
                 column_value_new = dict[i.id].replace("<br/>", "\n")
                 if column_value_old != column_value_new:

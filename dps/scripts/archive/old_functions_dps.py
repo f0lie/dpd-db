@@ -8,7 +8,6 @@ from gui.functions_db_dps import read_ids_from_tsv
 from gui.functions_db_dps import remove_duplicates
 
 
-
 #! maybe remove?
 def update_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
     # Fetch the matching words
@@ -27,12 +26,14 @@ def update_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
 
         attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
 
-        all_examples_present = all([
-            getattr(word.sbs, 'sbs_example_1', None),
-            getattr(word.sbs, 'sbs_example_2', None),
-            getattr(word.sbs, 'sbs_example_3', None),
-            getattr(word.sbs, 'sbs_example_4', None)
-        ])
+        all_examples_present = all(
+            [
+                getattr(word.sbs, "sbs_example_1", None),
+                getattr(word.sbs, "sbs_example_2", None),
+                getattr(word.sbs, "sbs_example_3", None),
+                getattr(word.sbs, "sbs_example_4", None),
+            ]
+        )
 
         print(f"Checking word ID: {word_id}")
         print(f"all_examples_present: {all_examples_present}")
@@ -63,12 +64,14 @@ def print_words_value(dpspth, db_session, WHAT_TO_UPDATE, SOURCE):
 
         attr_value = getattr(word.sbs, WHAT_TO_UPDATE, None)
 
-        all_examples_present = all([
-            getattr(word.sbs, 'sbs_example_1', None),
-            getattr(word.sbs, 'sbs_example_2', None),
-            getattr(word.sbs, 'sbs_example_3', None),
-            getattr(word.sbs, 'sbs_example_4', None)
-        ])
+        all_examples_present = all(
+            [
+                getattr(word.sbs, "sbs_example_1", None),
+                getattr(word.sbs, "sbs_example_2", None),
+                getattr(word.sbs, "sbs_example_3", None),
+                getattr(word.sbs, "sbs_example_4", None),
+            ]
+        )
         if all_examples_present and not attr_value:
             setattr(word.sbs, WHAT_TO_UPDATE, SOURCE)
             print(f"{word.id} - {WHAT_TO_UPDATE} with {SOURCE}", flush=True)

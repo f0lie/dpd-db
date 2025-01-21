@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """ADd abbreviations to db."""
+
 from rich import print
 
 from db.db_helpers import get_db_session
@@ -44,11 +45,11 @@ def add_abbreviations(db_session: Session, csv_path: Path):
 
 def _csv_row_to_abbrev(x: Dict[str, str]) -> Abbreviations:
     return Abbreviations(
-        abbrev=x['abbrev'],
-        meaning=x['meaning'],
-        pali=x['pāli'],
-        example=x['example'],
-        explanation=x['explanation'],
+        abbrev=x["abbrev"],
+        meaning=x["meaning"],
+        pali=x["pāli"],
+        example=x["example"],
+        explanation=x["explanation"],
     )
 
 

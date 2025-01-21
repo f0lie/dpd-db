@@ -27,18 +27,18 @@ from tools.uposatha_day import uposatha_today
 from exporter.goldendict.helpers import TODAY
 
 
-class ProgData():
+class ProgData:
     def __init__(self) -> None:
         self.pth = ProjectPaths()
         self.db_session: Session = get_db_session(self.pth.dpd_db_path)
         self.dpd_db = self.make_dpd_db()
-        
+
         self.all_headwords_clean: set[str]
 
         self.tpr_data_list: list[dict[str, str]]
         self.deconstructor_data_list: list[dict[str, str]]
         self.i2h_data_list: list[dict[str, str]]
-        
+
         self.tpr_df: pd.DataFrame
         self.i2h_df: pd.DataFrame
         self.deconstructor_df: pd.DataFrame
@@ -47,23 +47,23 @@ class ProgData():
             self.user_deva = True
         else:
             self.user_deva = False
-    
+
     def make_dpd_db(self):
         dpd_db = self.db_session.query(DpdHeadword).all()
         dpd_db = sorted(dpd_db, key=lambda x: pali_sort_key(x.lemma_1))
         return dpd_db
 
-def main():
 
+def main():
     tic()
-    
+
     p_title("generate tpr data")
 
     if not config_test("exporter", "make_tpr", "yes"):
         p_green_title("disabled in config.ini")
         toc()
         return
-        
+
     g = ProgData()
 
     if g.pth.tpr_release_path.exists():
@@ -78,7 +78,7 @@ def main():
         tpr_updater(g)
         copy_zip_to_tpr_downloads(g)
         toc()
-    
+
     else:
         p_red("[red]tpr_downloads directory does not exist")
         p_red("it's not essential to create the dictionary")
@@ -91,10 +91,10 @@ def generate_tpr_data(g: ProgData):
     dpd_definition_templ = Template(filename=str(g.pth.dpd_definition_templ_path))
 
     for counter, i in enumerate(g.dpd_db):
-
         # headword
         html_string = render_dpd_definition_templ(
-            g.pth, i, dpd_definition_templ, None, None)
+            g.pth, i, dpd_definition_templ, None, None
+        )
         html_string = html_string.replace("\n", "").replace("    ", "")
         html_string = re.sub("""<span class\\='g.+span>""", "", html_string)
 
@@ -102,19 +102,18 @@ def generate_tpr_data(g: ProgData):
         if not i.meaning_1:
             html_string = re.sub(
                 r"<div class='content'><p>",
-                fr'<div><p><b>• {i.lemma_1}</b>: ',
-                html_string)
+                rf"<div><p><b>• {i.lemma_1}</b>: ",
+                html_string,
+            )
 
         # has meaning in context
         else:
             html_string = re.sub(
                 r"<div class='content'><p>",
-                fr'<div><details><summary><b>{i.lemma_1}</b>: ',
-                html_string)
-            html_string = re.sub(
-                r'</p></div>',
-                r'</summary>',
-                html_string)
+                rf"<div><details><summary><b>{i.lemma_1}</b>: ",
+                html_string,
+            )
+            html_string = re.sub(r"</p></div>", r"</summary>", html_string)
 
             # grammar
             html_string += """<table><tr><th valign="top">Pāḷi</th>"""
@@ -167,12 +166,10 @@ def generate_tpr_data(g: ProgData):
                 html_string += """<tr><th valign="top">Phonetic</th>"""
                 html_string += f"""<td>{phonetic}</td></tr>"""
 
-            if i.compound_type and re.findall(
-                    r"\d", i.compound_type) == []:
-                comp_constr_br = re.sub(
-                    "\n", "<br>", i.compound_construction)
+            if i.compound_type and re.findall(r"\d", i.compound_type) == []:
+                comp_constr_br = re.sub("\n", "<br>", i.compound_construction)
                 html_string += """<tr><th valign="top">Compound</th>"""
-                html_string += f"""<td>{ i.compound_type} """
+                html_string += f"""<td>{i.compound_type} """
                 html_string += f"""({comp_constr_br})</td></tr>"""
 
             if i.antonym:
@@ -187,9 +184,8 @@ def generate_tpr_data(g: ProgData):
                 html_string += """<tr><th valign="top">Variant</th>"""
                 html_string += f"""<td>{i.variant}</td></tr>"""
 
-            if  (i.commentary and i.commentary != "-"):
-                commentary_no_formatting = re.sub(
-                    "\n", "<br>", i.commentary)
+            if i.commentary and i.commentary != "-":
+                commentary_no_formatting = re.sub("\n", "<br>", i.commentary)
                 html_string += """<tr><th valign="top">Commentary</th>"""
                 html_string += f"""<td>{commentary_no_formatting}</td></tr>"""
 
@@ -219,8 +215,7 @@ def generate_tpr_data(g: ProgData):
 
             if i.root_key:
                 if i.rt.sanskrit_root:
-                    sk_root_meaning = re.sub(
-                        "'", "", i.rt.sanskrit_root_meaning)
+                    sk_root_meaning = re.sub("'", "", i.rt.sanskrit_root_meaning)
                     html_string += """<tr><th valign="top">Sanskrit Root</th>"""
                     html_string += f"""<td>{i.rt.sanskrit_root} {i.rt.sanskrit_root_class} ({sk_root_meaning})</td></tr>"""
 
@@ -230,11 +225,14 @@ def generate_tpr_data(g: ProgData):
 
         html_string = re.sub("'", "’", html_string)
 
-        tpr_data_list += [{
-            "id": i.id,
-            "word": i.lemma_1,
-            "definition": f"<p>{html_string}</p>",
-            "book_id": 11}]
+        tpr_data_list += [
+            {
+                "id": i.id,
+                "word": i.lemma_1,
+                "definition": f"<p>{html_string}</p>",
+                "book_id": 11,
+            }
+        ]
     p_yes(dpd_length)
 
     # add roots
@@ -246,7 +244,6 @@ def generate_tpr_data(g: ProgData):
     new_root = True
 
     for counter, r in enumerate(roots_db):
-
         if new_root:
             html_string += "<div><p>"
 
@@ -264,11 +261,14 @@ def generate_tpr_data(g: ProgData):
         else:
             html_string += """</p></div>"""
 
-            tpr_data_list += [{
-                "id": 0,
-                "word": r.root_clean,
-                "definition": f"{html_string}",
-                "book_id": 11}]
+            tpr_data_list += [
+                {
+                    "id": 0,
+                    "word": r.root_clean,
+                    "definition": f"{html_string}",
+                    "book_id": 11,
+                }
+            ]
 
             html_string = ""
             new_root = True
@@ -281,22 +281,22 @@ def generate_deconstructor_data(g: ProgData):
     """Compile deconstructor data."""
     p_green("compiling deconstructor data")
 
-    deconstructor_db = g.db_session.query(Lookup) \
-        .filter(Lookup.deconstructor != "") \
-        .all()
+    deconstructor_db = (
+        g.db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
+    )
     deconstructor_db = sorted(
-        deconstructor_db, key=lambda x: pali_sort_key(x.lookup_key))
+        deconstructor_db, key=lambda x: pali_sort_key(x.lookup_key)
+    )
     deconstructor_data_list = []
 
     for counter, i in enumerate(deconstructor_db):
-
         if i.lookup_key not in g.all_headwords_clean:
-            deconstruction = ",".join(i.deconstructor_unpack).strip() # remove stray \r
+            deconstruction = ",".join(i.deconstructor_unpack).strip()  # remove stray \r
 
-            deconstructor_data_list += [{
-                "word": i.lookup_key,
-                "breakup": deconstruction}]
-    
+            deconstructor_data_list += [
+                {"word": i.lookup_key, "breakup": deconstruction}
+            ]
+
     g.deconstructor_data_list = deconstructor_data_list
     p_yes(counter)
 
@@ -304,41 +304,28 @@ def generate_deconstructor_data(g: ProgData):
 def add_variants(g):
     """Add variant readings to deconstructor data"""
     p_green("compiling variants")
-    
-    variants_db = g.db_session \
-        .query(Lookup) \
-        .filter(Lookup.variant != "") \
-        .all()
-    variants_db = sorted(
-        variants_db, key=lambda x: pali_sort_key(x.lookup_key))
+
+    variants_db = g.db_session.query(Lookup).filter(Lookup.variant != "").all()
+    variants_db = sorted(variants_db, key=lambda x: pali_sort_key(x.lookup_key))
 
     for i in variants_db:
         variant = f"variant reading of <i>{i.variants_unpack[0]}</i>"
-        g.deconstructor_data_list += [{
-            "word": i.lookup_key,
-            "breakup": variant}]
-    
+        g.deconstructor_data_list += [{"word": i.lookup_key, "breakup": variant}]
+
     p_yes(len(variants_db))
 
 
 def add_spelling_mistakes(g):
     """Add spelling mistakes to deconstructor data"""
     p_green("compiling spelling mistakes")
-    
 
-    spelling_db = g.db_session \
-        .query(Lookup) \
-        .filter(Lookup.spelling != "") \
-        .all()
-    spelling_db = sorted(
-        spelling_db, key=lambda x: pali_sort_key(x.lookup_key))
+    spelling_db = g.db_session.query(Lookup).filter(Lookup.spelling != "").all()
+    spelling_db = sorted(spelling_db, key=lambda x: pali_sort_key(x.lookup_key))
 
     for i in spelling_db:
         spelling = f"incorrect spelling of <i>{i.spelling_unpack[0]}</i>"
-        g.deconstructor_data_list += [{
-            "word": i.lookup_key,
-            "breakup": spelling}]
-    
+        g.deconstructor_data_list += [{"word": i.lookup_key, "breakup": spelling}]
+
     p_yes(len(spelling_db))
 
 
@@ -355,7 +342,6 @@ def add_roots_to_i2h(g):
     roots_db = g.db_session.query(DpdRoot).all()
 
     for r in roots_db:
-
         # add clean roots
         if r.root_clean not in i2h_dict:
             i2h_dict[r.root_clean] = [r.root_clean]
@@ -366,16 +352,11 @@ def add_roots_to_i2h(g):
 
     i2h_data_list = []
     for inflection, headwords in i2h_dict.items():
-            headwords = ",".join(headwords)
-            i2h_data_list.append(
-                {
-                    "inflection": inflection,
-                    "headwords": headwords
-                })
-    
+        headwords = ",".join(headwords)
+        i2h_data_list.append({"inflection": inflection, "headwords": headwords})
+
     g.i2h_data_list = i2h_data_list
     p_yes(len(roots_db))
-
 
 
 def write_tsvs(g: ProgData):
@@ -424,26 +405,26 @@ def copy_to_sqlite_db(g: ProgData):
                     "has_compound_family" INTEGER DEFAULT 0,
                     "has_word_family" INTEGER DEFAULT 0,
                     "has_freq" INTEGER DEFAULT 0);
-                """)
-            
+                """
+            )
 
-            tpr_df.to_sql('dpd', conn, if_exists='append', index=False)
+            tpr_df.to_sql("dpd", conn, if_exists="append", index=False)
 
             # inflection_to_headwords
             c.execute("DROP TABLE if exists dpd_inflections_to_headwords")
             c.execute(
-                "CREATE TABLE dpd_inflections_to_headwords (inflection, headwords)")
+                "CREATE TABLE dpd_inflections_to_headwords (inflection, headwords)"
+            )
             i2h_df.to_sql(
-                'dpd_inflections_to_headwords',
-                conn, if_exists='append', index=False)
+                "dpd_inflections_to_headwords", conn, if_exists="append", index=False
+            )
 
             # dpd_word_split
             c.execute("DROP TABLE if exists dpd_word_split")
-            c.execute(
-                "CREATE TABLE dpd_word_split (word, breakup)")
+            c.execute("CREATE TABLE dpd_word_split (word, breakup)")
             deconstructor_df.to_sql(
-                'dpd_word_split',
-                conn, if_exists='append', index=False)
+                "dpd_word_split", conn, if_exists="append", index=False
+            )
             p_yes("OK")
 
             conn.close()
@@ -473,7 +454,7 @@ def tpr_updater(g: ProgData):
     for row in range(len(g.i2h_df)):
         inflection = g.i2h_df.iloc[row, 0]
         headword = g.i2h_df.iloc[row, 1]
-        headword = headword.replace("'", "''")  #type:ignore
+        headword = headword.replace("'", "''")  # type:ignore
         sql_string += f"""INSERT INTO "dpd_inflections_to_headwords" \
 ("inflection", "headwords") VALUES ('{inflection}', '{headword}');\n"""
 
@@ -481,7 +462,7 @@ def tpr_updater(g: ProgData):
         id = g.tpr_df.iloc[row, 0]
         word = g.tpr_df.iloc[row, 1]
         definition = g.tpr_df.iloc[row, 2]
-        definition = definition.replace("'", "''") #type:ignore
+        definition = definition.replace("'", "''")  # type:ignore
         book_id = g.tpr_df.iloc[row, 3]
         sql_string += f"""INSERT INTO "dpd" ("id", "word", "definition", "book_id")\
  VALUES ({id}, '{word}', '{definition}', {book_id});\n"""
@@ -491,7 +472,7 @@ def tpr_updater(g: ProgData):
         breakup = g.deconstructor_df.iloc[row, 1]
         sql_string += f"""INSERT INTO "dpd_word_split" ("word", "breakup")\
  VALUES ('{word}', '{breakup}');\n"""
-    
+
     sql_string += "COMMIT;\n"
 
     with open(g.pth.tpr_sql_file_path, "w") as f:
@@ -526,16 +507,15 @@ def copy_zip_to_tpr_downloads(g: ProgData):
         file_name = "dpd.sql"
 
         def _zip_it_up(file_path, file_name, output_file):
-            with ZipFile(output_file, 'w', ZIP_DEFLATED) as zipfile:
+            with ZipFile(output_file, "w", ZIP_DEFLATED) as zipfile:
                 zipfile.write(file_path, file_name)
 
         def _file_size(output_file):
             filestat = os.stat(output_file)
-            filesize = f"{filestat.st_size/1000/1000:.1f}"
+            filesize = f"{filestat.st_size / 1000 / 1000:.1f}"
             return filesize
 
         if version == "release":
-
             output_file = g.pth.tpr_release_path
             _zip_it_up(file_path, file_name, output_file)
             filesize = _file_size(output_file)
@@ -547,13 +527,12 @@ def copy_zip_to_tpr_downloads(g: ProgData):
                 "category": "Dictionaries",
                 "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd.zip",
                 "filename": "dpd.sql",
-                "size": f"{filesize} MB"
+                "size": f"{filesize} MB",
             }
 
             download_list[7] = dpd_info
 
         if version == "beta":
-
             output_file = g.pth.tpr_beta_path
             _zip_it_up(file_path, file_name, output_file)
             filesize = _file_size(output_file)
@@ -565,13 +544,12 @@ def copy_zip_to_tpr_downloads(g: ProgData):
                 "category": "Other Beta",
                 "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/dpd_beta.zip",
                 "filename": "dpd.sql",
-                "size": f"{filesize} MB"
+                "size": f"{filesize} MB",
             }
 
             download_list[27] = dpd_beta_info
 
         if version == "deva":
-
             output_file = g.pth.tpr_devamitta_path
             _zip_it_up(file_path, file_name, output_file)
             filesize = _file_size(output_file)
@@ -583,17 +561,16 @@ def copy_zip_to_tpr_downloads(g: ProgData):
                 "category": "Other Beta",
                 "url": "https://github.com/bksubhuti/tpr_downloads/raw/master/release_zips/devamitta.zip",
                 "filename": "dpd.sql",
-                "size": f"{filesize} MB"
+                "size": f"{filesize} MB",
             }
 
             download_list[28] = devamitta_info
 
         with open(g.pth.tpr_download_list_path, "w") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
-    
+
     p_yes(version)
 
 
 if __name__ == "__main__":
     main()
-

@@ -8,7 +8,6 @@ Transliterate all inflections into Sinhala, Devanagari and Thai.
 Save into database.
 """
 
-
 import json
 import pickle
 
@@ -58,7 +57,7 @@ def _parse_batch(
         test2 = i.lemma_1 in changed_headwords
 
         if test1 or test2 or regenerate_all:
-            inflections: list = i.inflections_list_all # include api ca eva iti
+            inflections: list = i.inflections_list_all  # include api ca eva iti
             inflections_index_dict[counter] = i.lemma_1
             inflections_for_json_dict[i.lemma_1] = {"inflections": inflections}
 
@@ -203,7 +202,7 @@ def main():
 
     tic()
     p_title("transliterating inflections")
-    
+
     p_green("regenerate all")
 
     # check config

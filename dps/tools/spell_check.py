@@ -11,11 +11,11 @@ from tools.tokenizer import split_words_keep_dash
 
 class SpellCheck:
     def __init__(self, serialized_dict_path):
-        self.ru_spell = SpellChecker(language='ru')
+        self.ru_spell = SpellChecker(language="ru")
         self.load_custom_dictionary(serialized_dict_path)
 
     def load_custom_dictionary(self, path):
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, "r", encoding="utf-8") as f:
             custom_words = set(f.read().splitlines())
         self.custom_words = custom_words
         self.ru_spell.word_frequency.load_words(custom_words)
@@ -29,7 +29,9 @@ class SpellCheck:
             print(f"offline ru_misspelled {ru_misspelled}")
 
         # Check custom dictionary only for misspelled words
-        truly_misspelled = [word for word in ru_misspelled if word not in self.custom_words]
+        truly_misspelled = [
+            word for word in ru_misspelled if word not in self.custom_words
+        ]
 
         if truly_misspelled:
             # For the truly misspelled words, obtain suggestions from the local spellchecker
@@ -48,7 +50,9 @@ class SpellCheck:
             correction_text = ", ".join(suggestions)
 
             # Wrap the correction_text and join it into a multiline string
-            wrapped_correction = "\n".join(textwrap.wrap(correction_text, width=30))  # Assuming width of 30 characters
+            wrapped_correction = "\n".join(
+                textwrap.wrap(correction_text, width=30)
+            )  # Assuming width of 30 characters
             return wrapped_correction
 
         else:

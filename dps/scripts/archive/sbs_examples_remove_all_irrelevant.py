@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """Remove all sbs rows which not relevant for sbs study tools"""
+
 from rich import print
 
 from db.db_helpers import get_db_session
@@ -20,12 +21,14 @@ def main():
         for i in db:
             if i.sbs:
                 # Check for the absence of specified fields
-                should_delete = not any([
-                    i.sbs.sbs_class_anki,
-                    i.sbs.sbs_patimokkha,
-                    i.sbs.sbs_index,
-                    i.sbs.sbs_category,
-                ])
+                should_delete = not any(
+                    [
+                        i.sbs.sbs_class_anki,
+                        i.sbs.sbs_patimokkha,
+                        i.sbs.sbs_index,
+                        i.sbs.sbs_category,
+                    ]
+                )
 
                 if should_delete:
                     # Delete the related sbs entry
@@ -36,11 +39,6 @@ def main():
         db_session.commit()
         print("Deletion of entries completed.")
 
+
 if __name__ == "__main__":
     main()
-
-
-
-
-
-

@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 
-"""If today is an uposatha day, update the config.ini 
+"""If today is an uposatha day, update the config.ini
 for creating a release."""
-
 
 from tools.configger import config_update
 from tools.tic_toc import tic, toc
 from tools.uposatha_day import uposatha_today
 from tools.printer import p_title, p_green_title, p_green, p_yes
 
+
 def uposatha_day_configger():
     tic()
     p_title("uposatha day config")
-    
+
     if uposatha_today():
         p_green("updating config.ini")
 
@@ -27,7 +27,7 @@ def uposatha_day_configger():
         config_update("dictionary", "show_sbs_data", "no")
         config_update("dictionary", "show_ru_data", "no")
         config_update("dictionary", "data_limit", "0")
-        
+
         config_update("exporter", "make_grammar", "yes")
         config_update("exporter", "make_deconstructor", "yes")
         config_update("exporter", "make_ebook", "yes")

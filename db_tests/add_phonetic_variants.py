@@ -10,7 +10,7 @@ from tools.paths import ProjectPaths
 from tools.meaning_construction import clean_construction
 
 
-class PhoneticVariant():
+class PhoneticVariant:
     def __init__(self, i: DpdHeadword, dict):
         self.lemma_1 = i.lemma_1
         self.lemma_clean = i.lemma_clean
@@ -21,7 +21,7 @@ class PhoneticVariant():
         self.key = f"{self.construction_clean}, {self.pos}"
 
 
-class DictEntry():
+class DictEntry:
     def __init__(self, var: PhoneticVariant) -> None:
         """Initialize the dict_entry."""
         self.key = f"{var.construction_clean}, {var.pos}"
@@ -36,7 +36,7 @@ class DictEntry():
 
 def dict_entry_update(dict, var: PhoneticVariant) -> dict:
     """Initalize or update the dict_entry."""
-    
+
     if not dict.get(var.key):
         dict[var.key] = DictEntry(var)
         return dict
@@ -58,12 +58,16 @@ def dict_entry_printer(counter, i: DictEntry) -> None:
     print(f"{'headwords':<40}{i.headwords} {i.headwords_count}")
     print(f"{'headwords_clean':<40}{i.headwords_clean} {i.headwords_clean_count}")
     for var in i.variants:
-        print(f"{var.lemma_1:<40}[cyan]{var.pos:<10}[green]{var.meaning[:49]:<50}[white]{var.construction}")
+        print(
+            f"{var.lemma_1:<40}[cyan]{var.pos:<10}[green]{var.meaning[:49]:<50}[white]{var.construction}"
+        )
     print()
 
 
 def printer(item) -> None:
-    print(f"{item.lemma_1:<40}[cyan]{item.pos:<10}[green]{item.meaning[:49]:<50}[white]{item.construction}")
+    print(
+        f"{item.lemma_1:<40}[cyan]{item.pos:<10}[green]{item.meaning[:49]:<50}[white]{item.construction}"
+    )
 
 
 def main():

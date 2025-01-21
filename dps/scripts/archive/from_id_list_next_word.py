@@ -23,15 +23,19 @@ WHAT_TO_UPDATE = "sbs_category"  # Change this as required
 
 
 def read_ids_from_tsv(file_path):
-    with open(file_path, mode='r', encoding='utf-8-sig') as tsv_file:
-        tsv_reader = csv.reader(tsv_file, delimiter='\t')
+    with open(file_path, mode="r", encoding="utf-8-sig") as tsv_file:
+        tsv_reader = csv.reader(tsv_file, delimiter="\t")
         next(tsv_reader)  # Skip header row
-        return [int(row[0]) for row in tsv_reader]  # Extracting IDs only from the first column
+        return [
+            int(row[0]) for row in tsv_reader
+        ]  # Extracting IDs only from the first column
 
 
 def remove_duplicates(ordered_ids):
     seen = set()
-    ordered_ids_no_duplicates = [x for x in ordered_ids if not (x in seen or seen.add(x))]
+    ordered_ids_no_duplicates = [
+        x for x in ordered_ids if not (x in seen or seen.add(x))
+    ]
     return ordered_ids_no_duplicates
 
 
@@ -51,9 +55,9 @@ def display_and_update_word(db_session, word, matching_words_count, input_value)
     pyperclip.copy(word.lemma_1)
 
     if NEED_TO_UPDATE and hasattr(word.sbs, WHAT_TO_UPDATE):
-            setattr(word.sbs, WHAT_TO_UPDATE, input_value)
-            db_session.commit()
-            print(f"[green] {WHAT_TO_UPDATE} changed to '' {input_value} ''")
+        setattr(word.sbs, WHAT_TO_UPDATE, input_value)
+        db_session.commit()
+        print(f"[green] {WHAT_TO_UPDATE} changed to '' {input_value} ''")
 
     x = input()
     if x == "x":
@@ -74,7 +78,9 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     matching_word_generator = fetch_matching_words_from_db(db_session, ordered_ids)
-    matching_words_count = sum(1 for _ in fetch_matching_words_from_db(db_session, ordered_ids))
+    matching_words_count = sum(
+        1 for _ in fetch_matching_words_from_db(db_session, ordered_ids)
+    )
 
     if matching_words_count == 0:
         console.print("[bold red]No words match the criteria.[/red]")
@@ -85,10 +91,14 @@ def main():
     # Only ask for input_value if updates are needed
     input_value = ""
     if NEED_TO_UPDATE:
-        input_value = input("Enter the source (e.g. sn56 sn22 sn35 sn12 sn47 sn43): ").strip()
+        input_value = input(
+            "Enter the source (e.g. sn56 sn22 sn35 sn12 sn47 sn43): "
+        ).strip()
 
     for word in matching_word_generator:
-        if not display_and_update_word(db_session, word, matching_words_count, input_value):
+        if not display_and_update_word(
+            db_session, word, matching_words_count, input_value
+        ):
             break
         matching_words_count -= 1
 

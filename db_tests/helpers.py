@@ -3,20 +3,35 @@
 import json
 
 
-class InternalTestRow():
+class InternalTestRow:
     def __init__(
-        self, test_name,
-        search_column_1, search_sign_1, search_string_1,
-        search_column_2, search_sign_2, search_string_2,
-        search_column_3, search_sign_3, search_string_3,
-        search_column_4, search_sign_4, search_string_4,
-        search_column_5, search_sign_5, search_string_5,
-        search_column_6, search_sign_6, search_string_6,
-        error_column, exceptions, iterations,
-        display_1, display_2,
-        display_3
+        self,
+        test_name,
+        search_column_1,
+        search_sign_1,
+        search_string_1,
+        search_column_2,
+        search_sign_2,
+        search_string_2,
+        search_column_3,
+        search_sign_3,
+        search_string_3,
+        search_column_4,
+        search_sign_4,
+        search_string_4,
+        search_column_5,
+        search_sign_5,
+        search_string_5,
+        search_column_6,
+        search_sign_6,
+        search_string_6,
+        error_column,
+        exceptions,
+        iterations,
+        display_1,
+        display_2,
+        display_3,
     ):
-
         self.test_name = test_name
         self.search_column_1 = search_column_1
         self.search_sign_1 = search_sign_1

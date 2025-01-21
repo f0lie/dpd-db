@@ -33,15 +33,16 @@ def main():
             i.subhead,
             i.bold,
             i.bold_end,
-            i.commentary)
-        
+            i.commentary,
+        )
+
         add_to_db.append(bd)
 
         if count % 50000 == 0:
             print(f"{count:>8} / {len(bold_definitions):<8}{i.bold}")
-    
+
     print("[green]adding to db", end=" ")
-    db_session.execute(BoldDefinition.__table__.delete()) # type: ignore
+    db_session.execute(BoldDefinition.__table__.delete())  # type: ignore
     db_session.add_all(add_to_db)
     db_session.commit()
     db_session.close()

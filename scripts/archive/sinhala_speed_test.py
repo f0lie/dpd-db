@@ -29,12 +29,17 @@ def test_relationship():
     print(len(dict))
     toc()
 
+
 def test_outerjoin():
     tic()
     p_green_title("outerjoin")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    db = db_session.query(DpdHeadword).outerjoin(Sinhala, DpdHeadword.id == Sinhala.id).all()
+    db = (
+        db_session.query(DpdHeadword)
+        .outerjoin(Sinhala, DpdHeadword.id == Sinhala.id)
+        .all()
+    )
     dict = {}
     for counter, i in enumerate(db):
         dict[i.lemma_si] = i.si.meaning_si

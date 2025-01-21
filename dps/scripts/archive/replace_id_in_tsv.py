@@ -12,16 +12,17 @@ dpspth = DPSPaths()
 
 dps_ru_path = os.path.join(dpspth.dps_backup_dir, "russian.tsv")
 dps_sbs_path = os.path.join(dpspth.dps_backup_dir, "sbs.tsv")
-json_path = 'id_dict.json'
+json_path = "id_dict.json"
+
 
 def replace_ids_in_file(json_path, tsv_path):
     # Load the ID mapping from the JSON file
-    with open(json_path, 'r') as json_file:
+    with open(json_path, "r") as json_file:
         id_mapping = json.load(json_file)
 
     # Read the TSV file and replace the IDs
-    with open(tsv_path, 'r') as tsv_file:
-        reader = csv.reader(tsv_file, delimiter='\t')
+    with open(tsv_path, "r") as tsv_file:
+        reader = csv.reader(tsv_file, delimiter="\t")
         headers = next(reader)  # Read the header row
         rows = list(reader)
 
@@ -35,8 +36,10 @@ def replace_ids_in_file(json_path, tsv_path):
             row[0] = new_id
 
     # Write the updated rows back to the same TSV file with the required formatting
-    with open(tsv_path, 'w', newline='') as tsv_file:
-        writer = csv.writer(tsv_file, delimiter='\t', quotechar='"', quoting=csv.QUOTE_ALL)
+    with open(tsv_path, "w", newline="") as tsv_file:
+        writer = csv.writer(
+            tsv_file, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
+        )
         writer.writerow(headers)  # Write the header row
         writer.writerows(rows)  # Write the data rows
 

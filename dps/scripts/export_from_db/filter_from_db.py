@@ -2,12 +2,10 @@
 
 """filtering words from db and print them"""
 
-
-
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Russian, SBS
 from tools.paths import ProjectPaths
-from dps.tools.paths_dps import DPSPaths    
+from dps.tools.paths_dps import DPSPaths
 
 from sqlalchemy import and_, or_, null, not_
 
@@ -18,24 +16,73 @@ db_session = get_db_session(pth.dpd_db_path)
 
 
 def filtering_words():
-
     commentary_list = [
-            "VINa", "VINt", "DNa", "MNa", "SNa", "SNt", "ANa", 
-            "KHPa", "KPa", "DHPa", "UDa", "ITIa", "SNPa", "VVa", "VVt",
-            "PVa", "THa", "THIa", "APAa", "APIa", "BVa", "CPa", "JAa",
-            "NIDD1", "NIDD2", "PMa", "NPa", "NPt", "PTP",
-            "DSa", "PPa", "VIBHa", "VIBHt", "ADHa", "ADHt",
-            "KVa", "VMVt", "VSa", "PYt", "SDt", "SPV", "VAt", "VBt",
-            "VISM", "VISMa",
-            "PRS", "SDM", "SPM",
-            "bālāvatāra", "kaccāyana", "saddanīti", "padarūpasiddhi",
-            "buddhavandana", "Thai", "Sri Lanka", "Trad", "PAT PK", "MJG"
-            ]
+        "VINa",
+        "VINt",
+        "DNa",
+        "MNa",
+        "SNa",
+        "SNt",
+        "ANa",
+        "KHPa",
+        "KPa",
+        "DHPa",
+        "UDa",
+        "ITIa",
+        "SNPa",
+        "VVa",
+        "VVt",
+        "PVa",
+        "THa",
+        "THIa",
+        "APAa",
+        "APIa",
+        "BVa",
+        "CPa",
+        "JAa",
+        "NIDD1",
+        "NIDD2",
+        "PMa",
+        "NPa",
+        "NPt",
+        "PTP",
+        "DSa",
+        "PPa",
+        "VIBHa",
+        "VIBHt",
+        "ADHa",
+        "ADHt",
+        "KVa",
+        "VMVt",
+        "VSa",
+        "PYt",
+        "SDt",
+        "SPV",
+        "VAt",
+        "VBt",
+        "VISM",
+        "VISMa",
+        "PRS",
+        "SDM",
+        "SPM",
+        "bālāvatāra",
+        "kaccāyana",
+        "saddanīti",
+        "padarūpasiddhi",
+        "buddhavandana",
+        "Thai",
+        "Sri Lanka",
+        "Trad",
+        "PAT PK",
+        "MJG",
+    ]
 
-    conditions = [DpdHeadword.source_1.like(f"%{comment}%") for comment in commentary_list]
+    conditions = [
+        DpdHeadword.source_1.like(f"%{comment}%") for comment in commentary_list
+    ]
     combined_condition = or_(*conditions)
 
-    row_count =  0
+    row_count = 0
 
     #! for filling those which does not have Russian table and fill the conditions
 
@@ -101,47 +148,48 @@ def filtering_words():
     #         )
     #     ).order_by(DpdHeadword.ebt_count.desc()).limit(10000).all()
 
-
     #! for filling those which from sbs_category but does not have corresponding source
     attribute = "mn107"
     variable = attribute.upper()
 
-    db = db_session.query(DpdHeadword).outerjoin(
-        SBS, DpdHeadword.id == SBS.id
-    ).filter(
-        and_(
-            SBS.sbs_category.like(f"%{attribute}%"),
-            not_(
-                or_(
-                    SBS.sbs_source_1.like(f"%{variable}%"),
-                    SBS.sbs_source_2.like(f"%{variable}%"),
-                    SBS.sbs_source_3.like(f"%{variable}%"),
-                    SBS.sbs_source_4.like(f"%{variable}%")
-                )
-            ),
+    db = (
+        db_session.query(DpdHeadword)
+        .outerjoin(SBS, DpdHeadword.id == SBS.id)
+        .filter(
+            and_(
+                SBS.sbs_category.like(f"%{attribute}%"),
+                not_(
+                    or_(
+                        SBS.sbs_source_1.like(f"%{variable}%"),
+                        SBS.sbs_source_2.like(f"%{variable}%"),
+                        SBS.sbs_source_3.like(f"%{variable}%"),
+                        SBS.sbs_source_4.like(f"%{variable}%"),
+                    )
+                ),
+            )
         )
-    ).all()
+        .all()
+    )
 
     # Print the db
     print("Details of filtered words")
     for word in db:
         print(f"{word.id}, {word.lemma_1}, {word.ebt_count}")
-        row_count +=  1
+        row_count += 1
 
     print(f"Total rows that fit the filter criteria: {row_count}")
 
 
-
-
 def filter_and_save_txt(source_value):
     # filtering words with sbs_patimokkha and comp
-    db = db_session.query(DpdHeadword).outerjoin(
-    SBS, DpdHeadword.id == SBS.id
-        ).filter(
+    db = (
+        db_session.query(DpdHeadword)
+        .outerjoin(SBS, DpdHeadword.id == SBS.id)
+        .filter(
             and_(
                 SBS.sbs_patimokkha == "vib",
                 DpdHeadword.compound_type != "",
-                DpdHeadword.grammar.like('%, comp%'),
+                DpdHeadword.grammar.like("%, comp%"),
                 or_(
                     SBS.sbs_source_1 == source_value,
                     SBS.sbs_source_2 == source_value,
@@ -149,8 +197,9 @@ def filter_and_save_txt(source_value):
                     SBS.sbs_source_4 == source_value,
                 ),
             ),
-            
-        ).all()
+        )
+        .all()
+    )
 
     # Print the db
     # row_count =  0
@@ -170,7 +219,9 @@ def filter_and_save_txt(source_value):
 
     # remove all symbols "+" from construction
     constructions = [construction.replace("+", "") for construction in constructions]
-    constructions = [construction.replace("na > a", "") for construction in constructions]
+    constructions = [
+        construction.replace("na > a", "") for construction in constructions
+    ]
     constructions = [construction.replace(">", "") for construction in constructions]
     constructions = [construction.replace("[", "") for construction in constructions]
     constructions = [construction.replace("]", "") for construction in constructions]
@@ -195,14 +246,11 @@ def filter_and_save_txt(source_value):
         for original_construction, lemma_1 in zip(original_constructions, lemma_1s):
             file.write(f"{original_construction}\t{lemma_1}\n")
 
-
     print("filtered constructions saved to temp_dir")
 
 
 if __name__ == "__main__":
-
     print("filtering words for some conditions")
 
     # filtering_words()
     filter_and_save_txt("VIN1.2.10")
-

@@ -19,6 +19,7 @@ pth = ProjectPaths()
 sinhala_dir = pth.bjt_sinhala_dir
 roman_dir = pth.bjt_roman_json_dir
 
+
 def transliterate_json():
     tic()
     p_title("transliterating tipitaka.lk json files")
@@ -28,15 +29,15 @@ def transliterate_json():
             p_counter(counter, 285, file)
             in_path = sinhala_dir.joinpath(file)
             out_path = roman_dir.joinpath(file)
-            
+
             with open(in_path) as f:
                 sinhala = f.read()
-            
+
             roman = translit_si_to_ro(sinhala)
-            
+
             with open(out_path, "w") as f:
                 f.write(roman)
-    
+
     toc()
 
 
@@ -75,18 +76,18 @@ def test_file_names():
 
 
 def make_index():
-    """Make an index of 
+    """Make an index of
     ```
     {collection: {"book_id": 12, "filenames": [ ... ]}}
     ```
     """
-    
+
     p_title("making index")
     pth = ProjectPaths()
     file_names = get_file_names()
     json_dicts = get_bjt_json(file_names)
     index_dict = {"mula": {}, "atta": {}}
-    
+
     for jd in json_dicts:
         file_name = jd["filename"]
         book_id = jd["bookId"]
@@ -127,14 +128,13 @@ def save_books():
         for json_dict in json_dicts:
             bjt_text += process_single_bjt_file(
                 json_dict,
-                convert_bold_tags = False,
-                footnotes_inline = False,
-                show_page_numbers = True,
-                show_metadata = True)
+                convert_bold_tags=False,
+                footnotes_inline=False,
+                show_page_numbers=True,
+                show_metadata=True,
+            )
 
-        file_path = file_dir \
-            .joinpath(book) \
-            .with_suffix(".txt") 
+        file_path = file_dir.joinpath(book).with_suffix(".txt")
         with open(file_path, "w") as f:
             f.write(bjt_text)
     toc()
@@ -142,7 +142,7 @@ def save_books():
 
 def save_text_files() -> None:
     "Save all BJT json to text files"
-    
+
     tic()
     p_title("saving BJT to text files")
 
@@ -165,4 +165,3 @@ if __name__ == "__main__":
     transliterate_json()
     save_books()
     save_text_files()
-    

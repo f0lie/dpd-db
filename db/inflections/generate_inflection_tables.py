@@ -18,26 +18,27 @@ from tools.paths import ProjectPaths
 from tools.printer import p_title, p_green, p_red, p_yes, p_green_title
 
 
-class GlobalVars():
+class GlobalVars:
     """Globally used variables."""
 
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     dpd_db = db_session.query(DpdHeadword).all()
-    
+
     inflection_templates_db = tables = db_session.query(InflectionTemplates).all()
     inflection_patterns: list[str] = [t.pattern for t in inflection_templates_db]
 
-    wrong_pattern_db = db_session.query(DpdHeadword) \
-        .filter(DpdHeadword.pattern.notin_(inflection_patterns)) \
-        .filter(DpdHeadword.pattern != "") \
+    wrong_pattern_db = (
+        db_session.query(DpdHeadword)
+        .filter(DpdHeadword.pattern.notin_(inflection_patterns))
+        .filter(DpdHeadword.pattern != "")
         .all()
+    )
 
-    changed_templates_db: DbInfo = db_session \
-        .query(DbInfo) \
-        .filter_by(key="changed_templates_list") \
-        .first()
-    
+    changed_templates_db: DbInfo = (
+        db_session.query(DbInfo).filter_by(key="changed_templates_list").first()
+    )
+
     changed_templates = changed_templates_db.value_unpack
     changed_headwords: list = []
     updated_counter = 0
@@ -47,9 +48,8 @@ class GlobalVars():
         all_tipitaka_words: set = pickle.load(f)
 
     # regenerate all
-    if (
-        config_test("regenerate", "inflections", "yes")
-        or config_test("regenerate", "db_rebuild", "yes")
+    if config_test("regenerate", "inflections", "yes") or config_test(
+        "regenerate", "db_rebuild", "yes"
     ):
         regenerate_all: bool = True
     else:
@@ -93,7 +93,7 @@ def test_missing_pattern(g: GlobalVars) -> None:
 
 def test_wrong_pattern(g: GlobalVars) -> None:
     """Test if pattern exists in inflection templates."""
-    
+
     p_green("testing for wrong patterns")
     for i in g.wrong_pattern_db:
         p_red(f"{i.lemma_1} {i.pos} has the wrong pattern.")
@@ -118,8 +118,7 @@ def test_changes_in_stem_pattern(g: GlobalVars) -> None:
 
     new_dict: dict[str, dict] = {}
     for i in g.dpd_db:
-        new_dict[i.lemma_1] = {
-            "stem": i.stem, "pattern": i.pattern}
+        new_dict[i.lemma_1] = {"stem": i.stem, "pattern": i.pattern}
 
     for headword, value in new_dict.items():
         if value != old_dict.get(headword, None):
@@ -130,7 +129,9 @@ def test_changes_in_stem_pattern(g: GlobalVars) -> None:
         headword_stem_pattern_dict: dict[str, dict] = {}
         for i in g.dpd_db:
             headword_stem_pattern_dict[i.lemma_1] = {
-                "stem": i.stem, "pattern": i.pattern}
+                "stem": i.stem,
+                "pattern": i.pattern,
+            }
 
         with open(g.pth.headword_stem_pattern_dict_path, "wb") as f:
             pickle.dump(headword_stem_pattern_dict, f)
@@ -146,7 +147,7 @@ def test_missing_inflection_list_html(g: GlobalVars) -> None:
         if not i.inflections:
             p_red(f"\t{i.lemma_1}")
             g.changed_headwords.append(i.lemma_1)
-    
+
 
 def generate_inflection_table(g: GlobalVars):
     """Generate the inflection table based on stem + pattern and template"""
@@ -260,26 +261,25 @@ def process_inflection(g: GlobalVars):
 
             if "!" in i.stem:
                 # in this case the headword itself is inflected
-                # add the html table and clean headword 
+                # add the html table and clean headword
                 i.inflections = i.lemma_clean
                 i.inflections_html = g.inflections_html
-            
+
             else:
                 # in this case it's a normal headword
                 # add the html table and inflections list
-                i.inflections = ",".join(g.inflections_list)                
+                i.inflections = ",".join(g.inflections_list)
                 i.inflections_html = g.inflections_html
-        
+
         else:
             # in this case it's an indeclinable
             # don't add the html table, only the clean headword
             i.inflections = i.lemma_clean
-        
+
         g.updated_counter += 1
 
 
 def main():
-    
     tic()
     p_title("generate inflection lists and html tables")
     g = GlobalVars()
@@ -288,7 +288,7 @@ def main():
         run_tests(g)
     else:
         test_wrong_pattern(g)
-    
+
     p_green("generating html tables and lists")
     for g.i in g.dpd_db:
         process_inflection(g)

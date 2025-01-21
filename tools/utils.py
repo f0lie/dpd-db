@@ -1,5 +1,6 @@
 from typing import List, TypedDict
 
+
 class RenderedSizes(TypedDict):
     dpd_header: int
     dpd_summary: int
@@ -35,42 +36,39 @@ class RenderedSizes(TypedDict):
 
     help: int
 
+
 def default_rendered_sizes() -> RenderedSizes:
     return RenderedSizes(
-        dpd_header = 0,
-        dpd_summary = 0,
-        dpd_button_box = 0,
-        dpd_grammar = 0,
-        dpd_example = 0,
-        sbs_example = 0,
-        dpd_inflection_table = 0,
-        dpd_family_root = 0,
-        dpd_family_word = 0,
-        dpd_family_compound = 0,
-        dpd_family_idiom = 0,
-        dpd_family_sets = 0,
-        dpd_frequency = 0,
-        dpd_feedback = 0,
-        dpd_synonyms = 0,
-
-        root_definition = 0,
-        root_buttons = 0,
-        root_info = 0,
-        root_matrix = 0,
-        root_families = 0,
-        root_synonyms = 0,
-
-        variant_readings = 0,
-        variant_synonyms = 0,
-
-        spelling_mistakes = 0,
-        spelling_synonyms = 0,
-
-        epd_header = 0,
-        epd = 0,
-
-        help = 0,
+        dpd_header=0,
+        dpd_summary=0,
+        dpd_button_box=0,
+        dpd_grammar=0,
+        dpd_example=0,
+        sbs_example=0,
+        dpd_inflection_table=0,
+        dpd_family_root=0,
+        dpd_family_word=0,
+        dpd_family_compound=0,
+        dpd_family_idiom=0,
+        dpd_family_sets=0,
+        dpd_frequency=0,
+        dpd_feedback=0,
+        dpd_synonyms=0,
+        root_definition=0,
+        root_buttons=0,
+        root_info=0,
+        root_matrix=0,
+        root_families=0,
+        root_synonyms=0,
+        variant_readings=0,
+        variant_synonyms=0,
+        spelling_mistakes=0,
+        spelling_synonyms=0,
+        epd_header=0,
+        epd=0,
+        help=0,
     )
+
 
 def sum_rendered_sizes(sizes: List[RenderedSizes]) -> RenderedSizes:
     res = default_rendered_sizes()
@@ -78,6 +76,7 @@ def sum_rendered_sizes(sizes: List[RenderedSizes]) -> RenderedSizes:
         for k, v in i.items():
             res[k] += v
     return res
+
 
 def list_into_batches(input_list: List, num_batches: int) -> List[List]:
     """Splits a list into a number of lists.
@@ -92,7 +91,9 @@ def list_into_batches(input_list: List, num_batches: int) -> List[List]:
     if batch_size == 0:
         return [input_list]
 
-    return [input_list[i:i + batch_size] for i in range(0, len(input_list), batch_size)]
+    return [
+        input_list[i : i + batch_size] for i in range(0, len(input_list), batch_size)
+    ]
 
 
 def squash_whitespaces(string: str) -> str:
@@ -102,4 +103,4 @@ def squash_whitespaces(string: str) -> str:
     result = []
     for i in string.split("\n"):
         result.append(i.strip())
-    return ''.join(result)
+    return "".join(result)

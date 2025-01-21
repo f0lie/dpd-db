@@ -19,7 +19,7 @@ from tools.tsv_read_write import read_tsv
 from tools.update_test_add import update_test_add
 
 
-class ProgData():
+class ProgData:
     pth: ProjectPaths = ProjectPaths()
     variants_dict: DefaultDict[str, set[str]]
     spellings_dict: DefaultDict[str, set[str]]
@@ -30,7 +30,7 @@ class ProgData():
 def load_variant_dict(pd):
     """Turn the variant_readings.tsv into a dictionary"""
     print(f"[green]{'loading variants tsv':<30}", end="")
-    
+
     variants_tsv = read_tsv(pd.pth.variant_readings_path)
     variants_dict = defaultdict(set)
     for variant, main in variants_tsv[1:]:
@@ -40,14 +40,12 @@ def load_variant_dict(pd):
 
 
 def add_variants(pd: ProgData):
-
     update_set, test_set, add_set = update_test_add(pd.lookup_table, pd.variants_dict)
 
-    lookup_table_update = pd.db_session \
-        .query(Lookup) \
-        .filter(Lookup.lookup_key.in_(update_set)) \
-        .all()
-    
+    lookup_table_update = (
+        pd.db_session.query(Lookup).filter(Lookup.lookup_key.in_(update_set)).all()
+    )
+
     print(f"[green]{'update_set':<30}", end="")
 
     # update test
@@ -56,14 +54,14 @@ def add_variants(pd: ProgData):
             if i.lookup_key in update_set:
                 sorted_variant = pali_list_sorter(pd.variants_dict[i.lookup_key])
                 i.variants_pack(sorted_variant)
-            
+
             # test_set
             elif i.lookup_key in test_set:
                 if is_another_value(i, "variant"):
                     i.variant = ""
                 else:
-                    pd.db_session.delete(i)    
-    
+                    pd.db_session.delete(i)
+
     print(f"{len(update_set):>10,}")
 
     # add
@@ -86,7 +84,7 @@ def add_variants(pd: ProgData):
 def load_spelling_dict(pd: ProgData):
     """Turn the spelling_mistakes.tsv into a dictionary"""
     print(f"[green]{'loading spelling tsv':<30}", end="")
-    
+
     spellings_tsv = read_tsv(pd.pth.spelling_mistakes_path)
     spellings_dict = defaultdict(set)
     for spelling, correction in spellings_tsv[1:]:
@@ -96,14 +94,12 @@ def load_spelling_dict(pd: ProgData):
 
 
 def add_spellings(pd: ProgData):
-
     update_set, test_set, add_set = update_test_add(pd.lookup_table, pd.spellings_dict)
 
-    lookup_table_update_test = pd.db_session \
-        .query(Lookup) \
-        .filter(Lookup.lookup_key.in_(update_set)) \
-        .all()
-    
+    lookup_table_update_test = (
+        pd.db_session.query(Lookup).filter(Lookup.lookup_key.in_(update_set)).all()
+    )
+
     print(f"[green]{'update_set':<30}", end="")
 
     # update test add
@@ -112,14 +108,14 @@ def add_spellings(pd: ProgData):
             if i.lookup_key in update_set:
                 sorted_spelling = pali_list_sorter(pd.spellings_dict[i.lookup_key])
                 i.spelling_pack(sorted_spelling)
-            
+
             # test_set
             elif i.lookup_key in test_set:
                 if is_another_value(i, "spelling"):
                     i.spelling = ""
                 else:
-                    pd.db_session.delete(i)    
-    
+                    pd.db_session.delete(i)
+
     print(f"{len(update_set):>10,}")
 
     # add
@@ -150,7 +146,7 @@ def main():
     pd.db_session.commit()
     pd.db_session.close()
     toc()
-    
+
 
 if __name__ == "__main__":
     main()

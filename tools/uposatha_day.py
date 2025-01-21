@@ -28,7 +28,6 @@ def uposatha_today():
         date(2023, 10, 29),
         date(2023, 11, 27),
         date(2023, 12, 27),
-        
         date(2024, 1, 26),
         date(2024, 2, 24),
         date(2024, 3, 24),
@@ -41,7 +40,6 @@ def uposatha_today():
         date(2024, 10, 17),
         date(2024, 11, 15),
         date(2024, 12, 15),
-        
         date(2025, 1, 13),
         date(2025, 2, 12),
         date(2025, 3, 14),
@@ -60,7 +58,7 @@ def uposatha_today():
         for i in range(len(uposathas) - 1):
             diff = uposathas[i + 1] - uposathas[i]
             print(
-                f"The difference between {uposathas[i]} and {uposathas[i+1]} is {diff.days} days."
+                f"The difference between {uposathas[i]} and {uposathas[i + 1]} is {diff.days} days."
             )
 
     # print_diff()

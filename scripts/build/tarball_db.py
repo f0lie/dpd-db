@@ -23,7 +23,7 @@ def create_tarball_bz2(pth: ProjectPaths):
 
     # get size
     tar_size = os.path.getsize(tarball_name)
-    tar_size_mb = tar_size /  1024 /  1024
+    tar_size_mb = tar_size / 1024 / 1024
     print(f"[green]{'tarball size':<20}{tar_size_mb:.3f} MB")
 
     # move to share folder
@@ -39,7 +39,7 @@ def main():
     else:
         print("[green]diabled in config.ini")
     toc()
-    
+
 
 if __name__ == "__main__":
     main()

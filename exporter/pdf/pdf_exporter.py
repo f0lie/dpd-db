@@ -3,13 +3,21 @@
 """Export DPD to PDF using Typst and Jinja templates."""
 
 import re
+
 # import subprocess
 import typst
 
 from jinja2 import Environment, FileSystemLoader
 
 from db.db_helpers import get_db_session
-from db.models import DpdHeadword, FamilyCompound, FamilyIdiom, FamilyRoot, FamilyWord, Lookup
+from db.models import (
+    DpdHeadword,
+    FamilyCompound,
+    FamilyIdiom,
+    FamilyRoot,
+    FamilyWord,
+    Lookup,
+)
 from tools.configger import config_test
 from tools.date_and_time import year_month_day_dash
 from tools.pali_sort_key import pali_sort_key
@@ -21,7 +29,8 @@ from tools.zip_up import zip_up_file
 
 debug = False
 
-class GlobalVars():
+
+class GlobalVars:
     # database
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
@@ -30,12 +39,12 @@ class GlobalVars():
     typst_data: list[str] = []
     used_letters_single: list[str] = []
 
-    #jinja env
+    # jinja env
     env = Environment(
-        loader=FileSystemLoader("exporter/pdf/templates"), 
+        loader=FileSystemLoader("exporter/pdf/templates"),
         autoescape=True,
         block_start_string="////",
-        block_end_string="\\\\\\\\"
+        block_end_string="\\\\\\\\",
     )
 
     # templates
@@ -76,12 +85,14 @@ def make_abbreviations(g: GlobalVars):
     abbreviations_tsv = read_tsv_dot_dict(g.pth.abbreviations_tsv_path)
     abbreviations_data = []
     for i in abbreviations_tsv:
-        # leave out book names which have a double capital JA 
+        # leave out book names which have a double capital JA
         if not re.findall(r"[A-Z][A-z]", i.abbrev):
             abbreviations_data.append(i)
 
     g.typst_data.append("#heading(level: 1)[Abbreviations]\n")
-    g.typst_data.append("#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 0.65em)\n")
+    g.typst_data.append(
+        "#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 0.65em)\n"
+    )
     g.typst_data.append(g.abbreviations_templ.render(data=abbreviations_data))
     p_yes(len(abbreviations_data))
 
@@ -98,18 +109,19 @@ def make_pali_to_english(g: GlobalVars):
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#set page(columns: 1)\n")
     g.typst_data.append("#heading(level: 1)[Pāḷi to English Dictionary]\n")
-    g.typst_data.append("#set par(first-line-indent: 0pt, hanging-indent: 1em, spacing: 0.65em)\n")
+    g.typst_data.append(
+        "#set par(first-line-indent: 0pt, hanging-indent: 1em, spacing: 0.65em)\n"
+    )
 
     for counter, i in enumerate(dpd_db):
-
         first_letter = i.lemma_1[0]
         if first_letter not in g.used_letters_single:
             first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
             g.typst_data.append(first_letter_render)
             g.used_letters_single.append(first_letter)
-        
+
         g.typst_data.append(g.headword_templ.render(i=i, date=g.date))
-    
+
     p_yes(len(dpd_db))
 
 
@@ -122,16 +134,19 @@ def make_english_to_pali(g: GlobalVars):
         epd_db = g.db_session.query(Lookup).filter(Lookup.epd != "").all()
     epd_db = sorted(epd_db, key=lambda x: x.lookup_key.casefold())
 
-
     g.used_letters_single = []
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#heading(level: 1)[English to Pāḷi Dictionary]\n")
-    g.typst_data.append("#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 0.65em)\n")
+    g.typst_data.append(
+        "#set par(first-line-indent: 0pt, hanging-indent: 0em, spacing: 0.65em)\n"
+    )
 
     problem_characters = [" ", "'", "(", "*", "-", ".", "?", "√"]
 
     for counter, i in enumerate(epd_db):
-        first_letter = i.lookup_key[0].casefold() # consider "A" and "a" as the same letter
+        first_letter = i.lookup_key[
+            0
+        ].casefold()  # consider "A" and "a" as the same letter
 
         if (
             first_letter in problem_characters
@@ -139,14 +154,14 @@ def make_english_to_pali(g: GlobalVars):
             or re.findall("^[A-Z][A-Z]", i.lookup_key)
         ):
             continue
-        
+
         if first_letter not in g.used_letters_single:
             first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
             g.typst_data.append(first_letter_render)
             g.used_letters_single.append(first_letter)
-        
+
         g.typst_data.append(g.epd_templ.render(i=i, date=g.date))
-    
+
     p_yes(len(epd_db))
 
 
@@ -157,24 +172,28 @@ def make_root_families(g: GlobalVars):
         root_fam_db = g.db_session.query(FamilyRoot).limit(100).all()
     else:
         root_fam_db = g.db_session.query(FamilyRoot).all()
-    root_fam_db = sorted(root_fam_db, key=lambda x: (pali_sort_key(x.root_key), pali_sort_key(x.root_family)))
+    root_fam_db = sorted(
+        root_fam_db,
+        key=lambda x: (pali_sort_key(x.root_key), pali_sort_key(x.root_family)),
+    )
 
     g.used_letters_single = []
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#heading(level: 1)[Root Families]\n")
 
     for counter, i in enumerate(root_fam_db):
-
         if i.root_key.startswith("√"):
             first_letter = i.root_key[1]
 
             if first_letter not in g.used_letters_single:
-                first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
+                first_letter_render = g.first_letter_templ.render(
+                    first_letter=first_letter
+                )
                 g.typst_data.append(first_letter_render)
                 g.used_letters_single.append(first_letter)
 
         g.typst_data.append(g.root_fam_templ.render(i=i, date=g.date))
-    
+
     p_yes(len(root_fam_db))
 
 
@@ -187,21 +206,20 @@ def make_word_families(g: GlobalVars):
         word_fam_db = g.db_session.query(FamilyWord).all()
     word_fam_db = sorted(word_fam_db, key=lambda x: pali_sort_key(x.word_family))
 
-
     g.used_letters_single = []
     g.typst_data.append("#pagebreak()\n")
     g.typst_data.append("#heading(level: 1)[Word Families]\n")
 
     for counter, i in enumerate(word_fam_db):
         first_letter = i.word_family[0]
- 
+
         if first_letter not in g.used_letters_single:
             first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
             g.typst_data.append(first_letter_render)
             g.used_letters_single.append(first_letter)
-        
+
         g.typst_data.append(g.word_fam_templ.render(i=i, date=g.date))
-    
+
     p_yes(len(word_fam_db))
 
 
@@ -212,7 +230,9 @@ def make_compound_families(g: GlobalVars):
         compound_fam_db = g.db_session.query(FamilyCompound).limit(100).all()
     else:
         compound_fam_db = g.db_session.query(FamilyCompound).all()
-    compound_fam_db = sorted(compound_fam_db, key=lambda x: pali_sort_key(x.compound_family))
+    compound_fam_db = sorted(
+        compound_fam_db, key=lambda x: pali_sort_key(x.compound_family)
+    )
 
     g.used_letters_single = []
     g.typst_data.append("#pagebreak()\n")
@@ -220,14 +240,14 @@ def make_compound_families(g: GlobalVars):
 
     for counter, i in enumerate(compound_fam_db):
         first_letter = i.compound_family[0]
- 
+
         if first_letter not in g.used_letters_single:
             first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
             g.typst_data.append(first_letter_render)
             g.used_letters_single.append(first_letter)
-        
+
         g.typst_data.append(g.compound_fam_templ.render(i=i, date=g.date))
-    
+
     p_yes(len(compound_fam_db))
 
 
@@ -246,14 +266,14 @@ def make_idiom_families(g: GlobalVars):
 
     for counter, i in enumerate(idioms_fam_db):
         first_letter = i.idiom[0]
- 
+
         if first_letter not in g.used_letters_single:
             first_letter_render = g.first_letter_templ.render(first_letter=first_letter)
             g.typst_data.append(first_letter_render)
             g.used_letters_single.append(first_letter)
-        
+
         g.typst_data.append(g.idiom_fam_templ.render(i=i, date=g.date))
-    
+
     p_yes(len(idioms_fam_db))
 
 
@@ -267,7 +287,7 @@ def make_bibliography(g: GlobalVars):
     g.typst_data.append("#heading(level: 1)[Bibliography]\n")
     g.typst_data.append("An incomplete list of references works")
     g.typst_data.append(g.bibliography_templ.render(data=bibliography_data))
-    
+
     p_yes(len(bibliography_data))
 
 
@@ -277,13 +297,14 @@ def make_thanks(g: GlobalVars):
     thanks_tsv = read_tsv_dot_dict(g.pth.thanks_tsv_path)
     thanks_data = []
     for i in thanks_tsv:
-        # underlines <i> > __ 
+        # underlines <i> > __
         i.what = i.what.replace("<i>", "_").replace("</i>", "_")
         # links
-        i.what = i.what \
-            .replace('<a href=”', '#link("') \
-            .replace('”>', '")[') \
-            .replace('</a>', ']')
+        i.what = (
+            i.what.replace("<a href=”", '#link("')
+            .replace("”>", '")[')
+            .replace("</a>", "]")
+        )
         thanks_data.append(i)
 
     g.used_letters_single = []
@@ -299,7 +320,6 @@ def clean_up_typst_data(g: GlobalVars):
 
     cleaned_data = []
     for i in g.typst_data:
-
         # remove double blank lines
         cleaned_string = re.sub(r"^$\n\n", "\n", i, flags=re.MULTILINE)
 
@@ -311,15 +331,15 @@ def clean_up_typst_data(g: GlobalVars):
 
         cleaned_data.append(cleaned_string)
 
-    g.typst_data = cleaned_data 
+    g.typst_data = cleaned_data
     p_yes("ok")
 
 
-def save_typist_file(g: GlobalVars):  
+def save_typist_file(g: GlobalVars):
     p_green("saving typst data")
 
     with open(g.pth.typst_lite_data_path, "w") as f:
-            f.write("".join(g.typst_data))
+        f.write("".join(g.typst_data))
     p_yes("ok")
 
 
@@ -327,9 +347,10 @@ def export_to_pdf(g: GlobalVars):
     p_green("rendering pdf")
 
     try:
+        typst.compile(
+            str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_pdf_path)
+        )
 
-        typst.compile(str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_pdf_path))
-        
         # subprocess.run(
         #     [
         #         "typst",
@@ -362,7 +383,7 @@ def main():
         p_green_title("disabled in config.ini")
         toc()
         return
-    
+
     g = GlobalVars()
     make_layout(g)
     make_front_matter(g)

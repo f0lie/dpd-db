@@ -10,14 +10,14 @@ from db.variants.variants_exporter import save_json, export_to_goldendict_mdict
 
 from tools.paths import ProjectPaths
 from tools.printer import p_title
-from tools .tic_toc import tic, toc
+from tools.tic_toc import tic, toc
+
 
 def main():
-
     tic()
     p_title("variants dict")
-    
-    variants_dict: VariantsDict = {}  
+
+    variants_dict: VariantsDict = {}
     pth: ProjectPaths = ProjectPaths()
 
     variants_dict = process_cst(variants_dict, pth)
@@ -30,6 +30,6 @@ def main():
 
     toc()
 
+
 if __name__ == "__main__":
     main()
-

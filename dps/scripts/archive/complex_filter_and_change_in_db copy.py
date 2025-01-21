@@ -14,13 +14,16 @@ console = Console()
     Commit the changes to the database.
 """
 
+
 def get_words_with_see():
     """
     Returns all words with 'see ' in their notes.
     """
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    words = db_session.query(DpdHeadword).filter(DpdHeadword.notes.contains("see ")).all()
+    words = (
+        db_session.query(DpdHeadword).filter(DpdHeadword.notes.contains("see ")).all()
+    )
     return words, db_session
 
 
@@ -32,7 +35,9 @@ def print_complex_see_entries():
     for word in words_to_check:
         if word.notes is None:
             continue
-        if not re.match(r"see ([\w\s,§]+)$", word.notes) and not re.search(r"see .*?(in|<i>|\(MW\)|DPPN|SCPN)", word.notes):
+        if not re.match(r"see ([\w\s,§]+)$", word.notes) and not re.search(
+            r"see .*?(in|<i>|\(MW\)|DPPN|SCPN)", word.notes
+        ):
             print(f'id {word.id} has notes: "{word.notes}".')
         elif re.search(r"(discuss|definit|suggest)", word.notes):
             print(f'id {word.id} has notes: "{word.notes}".')
@@ -48,10 +53,12 @@ def update_ru_notes():
     for word in words_to_update:
         if word.notes is None:
             continue
-        if (re.match(r"see ([\w\s,§]+)$", word.notes) or re.search(r"see .*?(in|<i>|\(MW\)|DPPN|SCPN)", word.notes)) and not re.search(r"(discuss|definit|suggest)", word.notes):
-
+        if (
+            re.match(r"see ([\w\s,§]+)$", word.notes)
+            or re.search(r"see .*?(in|<i>|\(MW\)|DPPN|SCPN)", word.notes)
+        ) and not re.search(r"(discuss|definit|suggest)", word.notes):
             after_see = word.notes.split("see ", 1)[1]  # Extract the part after "see "
-            
+
             if word.ru:
                 word.ru.ru_notes = f"см. {after_see}"
 
@@ -63,7 +70,7 @@ def update_ru_notes():
 
     console.print("[bold green]What has to be done has been done!")
 
+
 ### !To use the functions:
 # print_complex_see_entries()
 # update_ru_notes()
-

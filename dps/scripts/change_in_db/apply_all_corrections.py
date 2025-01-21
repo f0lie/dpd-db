@@ -21,15 +21,17 @@ def load_corrections_tsv():
 
 
 def apply_all_suggestions():
-
     corrections_list = load_corrections_tsv()
 
     added_lines_count = 0
 
     for correction in corrections_list:
         if not correction.approved:
-            db = db_session.query(DpdHeadword).filter(
-                correction.id == DpdHeadword.id).first()
+            db = (
+                db_session.query(DpdHeadword)
+                .filter(correction.id == DpdHeadword.id)
+                .first()
+            )
             if db:
                 id = correction.id
                 field1 = correction.field1
@@ -51,7 +53,7 @@ def apply_all_suggestions():
                     setattr(db, field3, value3)
                     added_lines_count += 1
                     print(f"{added_lines_count} {id}: {field3} with {value3}")
-                
+
                 db_session.commit()
             else:
                 print(f"Entry with ID {correction.id} not found.")

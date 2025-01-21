@@ -29,7 +29,7 @@ def main():
             dukkha_counter += 1
     print(f"total sukha: {sukha_counter}")
     print(f"total dukkha: {dukkha_counter}")
-    
+
     p_green_title("testing sukh")
     counter = 0
     for i in db:
@@ -46,7 +46,7 @@ def main():
             if choice == "e":
                 tried.append(i.lemma_1)
                 write_tried(pth, tried)
-    
+
     p_green_title("testing dukkh")
     counter = 0
     for i in db:
@@ -62,7 +62,7 @@ def main():
             choice = input()
             if choice == "e":
                 tried.append(i.lemma_1)
-                write_tried(pth, tried)        
+                write_tried(pth, tried)
 
 
 def test_sukh(i, tried):

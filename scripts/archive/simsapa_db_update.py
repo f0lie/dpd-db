@@ -10,6 +10,7 @@ from tools.paths import ProjectPaths
 from tools.tic_toc import tic, toc
 from tools.configger import config_read, config_test
 
+
 def main():
     tic()
     print("[bright_yellow]updating simsapa db")

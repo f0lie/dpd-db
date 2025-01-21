@@ -22,7 +22,7 @@ from dps.tools.ai_related import get_openai_client
 from dps.tools.ai_related import generate_messages_for_meaning
 from dps.tools.ai_related import generate_messages_for_notes
 
-from dps.tools.paths_dps import DPSPaths    
+from dps.tools.paths_dps import DPSPaths
 
 from sqlalchemy import and_, or_, null
 from sqlalchemy import func
@@ -36,20 +36,24 @@ date = year_month_day_hour_minute_dash()
 
 # model="gpt-4o"
 # model="gpt-4o-mini"
-model="gpt-4o-2024-08-06"
-hight_model="gpt-4o-2024-08-06"
+model = "gpt-4o-2024-08-06"
+hight_model = "gpt-4o-2024-08-06"
 
 
 def remove_irrelevant(limit: int):
-
     # Query the database to fetch words that meet the conditions
-    db = db_session.query(DpdHeadword).join(Russian).filter(
-        and_(
-            Russian.ru_meaning_raw != '',
-            Russian.ru_meaning == '',
-            DpdHeadword.meaning_1 == ''
+    db = (
+        db_session.query(DpdHeadword)
+        .join(Russian)
+        .filter(
+            and_(
+                Russian.ru_meaning_raw != "",
+                Russian.ru_meaning == "",
+                DpdHeadword.meaning_1 == "",
+            )
         )
-    ).all()
+        .all()
+    )
 
     total_row_count = len(db)
 
@@ -65,12 +69,11 @@ def remove_irrelevant(limit: int):
     db_session.commit()
 
 
-
 def filter_words_for_translation(mode, limit: int) -> List[DpdHeadword]:
     """Filter words that need translation."""
 
     # commentary_list = [
-    #         "VINa", "VINt", "DNa", "MNa", "SNa", "SNt", "ANa", 
+    #         "VINa", "VINt", "DNa", "MNa", "SNa", "SNt", "ANa",
     #         "KHPa", "KPa", "DHPa", "UDa", "ITIa", "SNPa", "VVa", "VVt",
     #         "PVa", "THa", "THIa", "APAa", "APIa", "BVa", "CPa", "JAa",
     #         "NIDD1", "NIDD2", "PMa", "NPa", "NPt", "PTP",
@@ -88,21 +91,24 @@ def filter_words_for_translation(mode, limit: int) -> List[DpdHeadword]:
     if mode == "meaning":
         #! for filling those which does not have Russian table and fill the conditions
 
-        db = db_session.query(DpdHeadword).outerjoin(
-        Russian, DpdHeadword.id == Russian.id
-            ).filter(
+        db = (
+            db_session.query(DpdHeadword)
+            .outerjoin(Russian, DpdHeadword.id == Russian.id)
+            .filter(
                 and_(
-                    DpdHeadword.meaning_1 != '',
+                    DpdHeadword.meaning_1 != "",
                     # DpdHeadword.example_1 != '',
                     # ~combined_condition,
                     or_(
                         Russian.ru_meaning.is_(None),
                         Russian.ru_meaning_raw.is_(None),
-                        Russian.id.is_(null())
-                    )
-
+                        Russian.id.is_(null()),
+                    ),
                 )
-            ).order_by(DpdHeadword.ebt_count.desc()).all()
+            )
+            .order_by(DpdHeadword.ebt_count.desc())
+            .all()
+        )
 
         #! for filling empty rows in Russian table
 
@@ -122,7 +128,6 @@ def filter_words_for_translation(mode, limit: int) -> List[DpdHeadword]:
         # exclude_ids = exclude_ids_tsv | exclude_ids_json
         # print(f"excluded words {len(exclude_ids)}")
 
-
         # # Add the conditions to the query
         # db = db_session.query(DpdHeadword).outerjoin(
         #     Russian, DpdHeadword.id == Russian.id
@@ -141,28 +146,29 @@ def filter_words_for_translation(mode, limit: int) -> List[DpdHeadword]:
         db = db[:limit]
 
     if mode == "note":
-
         #! for filling notes those which has Russian table and does not have ru_notes
-        db = db_session.query(DpdHeadword).outerjoin(
-        Russian, DpdHeadword.id == Russian.id
-            ).options(
-                joinedload(DpdHeadword.ru)
-            ).filter(
+        db = (
+            db_session.query(DpdHeadword)
+            .outerjoin(Russian, DpdHeadword.id == Russian.id)
+            .options(joinedload(DpdHeadword.ru))
+            .filter(
                 and_(
                     # DpdHeadword.meaning_1 != '',
                     # DpdHeadword.example_1 != '',
-                    DpdHeadword.notes != '',
-                    Russian.ru_notes == ''
+                    DpdHeadword.notes != "",
+                    Russian.ru_notes == "",
                 ),
                 or_(
-                        Russian.ru_meaning != '',
-                        Russian.ru_meaning_raw != '',
-                    )
-            ).order_by(DpdHeadword.ebt_count.desc()).all()
+                    Russian.ru_meaning != "",
+                    Russian.ru_meaning_raw != "",
+                ),
+            )
+            .order_by(DpdHeadword.ebt_count.desc())
+            .all()
+        )
 
         total_row_count = len(db)
         db = db[:limit]
-
 
     print(f"Rows filtered for the proccess: {len(db)} / {total_row_count}")
 
@@ -178,7 +184,9 @@ def create_translation_prompt(word: DpdHeadword, mode) -> Dict:
     grammar = replace_abbreviations(word.grammar)
 
     if mode == "meaning":
-        messages = generate_messages_for_meaning(word.lemma_1, grammar, meaning, example, translation_example)
+        messages = generate_messages_for_meaning(
+            word.lemma_1, grammar, meaning, example, translation_example
+        )
     if mode == "note":
         messages = generate_messages_for_notes(word.lemma_1, grammar, word.notes)
 
@@ -186,10 +194,7 @@ def create_translation_prompt(word: DpdHeadword, mode) -> Dict:
         "custom_id": f"request-{word.id}",
         "method": "POST",
         "url": "/v1/chat/completions",
-        "body": {
-            "model": model,
-            "messages": messages
-        }
+        "body": {"model": model, "messages": messages},
     }
 
 
@@ -199,7 +204,9 @@ def translate(lemma_1, grammar, pos, meaning, sentence, notes, mode):
     grammar = replace_abbreviations(grammar)
 
     if mode == "meaning":
-        messages = generate_messages_for_meaning(lemma_1, grammar, meaning, sentence, translation_example)
+        messages = generate_messages_for_meaning(
+            lemma_1, grammar, meaning, sentence, translation_example
+        )
 
     elif mode == "note":
         messages = generate_messages_for_notes(lemma_1, grammar, notes)
@@ -226,10 +233,10 @@ def translate(lemma_1, grammar, pos, meaning, sentence, notes, mode):
 
 def save_prompts_to_json(prompts: List[Dict], filename):
     """Save prompts to a JSON file for Batch API use."""
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         for prompt in prompts:
             json.dump(prompt, f, ensure_ascii=False)
-            f.write('\n')  # Add newline between JSON objects
+            f.write("\n")  # Add newline between JSON objects
     print(f"prompts saved to {filename}")
 
 
@@ -244,19 +251,20 @@ def make_json(mode, limit: int):
 def translation_generate(mode, limit: int):
     words = filter_words_for_translation(mode, limit)
     for word in words:
-        
         ru_meaning_raw = translate(
-            word.lemma_1, 
-            word.grammar, 
-            word.pos, 
-            make_meaning_combo(word), 
+            word.lemma_1,
+            word.grammar,
+            word.pos,
+            make_meaning_combo(word),
             word.example_1 or "",
             word.notes or "",
-            mode
+            mode,
         )
         if ru_meaning_raw:
             if mode == "meaning":
-                existing_russian = db_session.query(Russian).filter(Russian.id == word.id).first()
+                existing_russian = (
+                    db_session.query(Russian).filter(Russian.id == word.id).first()
+                )
                 if not existing_russian:
                     new_russian = Russian(id=word.id, ru_meaning_raw=ru_meaning_raw)
                     db_session.add(new_russian)
@@ -267,9 +275,11 @@ def translation_generate(mode, limit: int):
 
                 print(f"{word.id}, {word.ebt_count} {word.lemma_1} {ru_meaning_raw}")
 
-                with open(f'{dpspth.ai_translated_dir}/{model}.tsv', 'a', encoding='utf-8') as file:
+                with open(
+                    f"{dpspth.ai_translated_dir}/{model}.tsv", "a", encoding="utf-8"
+                ) as file:
                     file.write(f"{word.id}\t{word.lemma_1}\t{ru_meaning_raw}\n")
-            
+
             if mode == "note":
                 word.ru.ru_notes = ru_meaning_raw
 
@@ -282,7 +292,7 @@ def read_exclude_ids_from_tsv(file_path) -> set[str]:
     exclude_ids = set()
     with open(file_path, "r", encoding="utf-8") as file:
         for line in file:
-            id = line.split('\t')[0]
+            id = line.split("\t")[0]
             exclude_ids.add(id)
     return exclude_ids
 
@@ -300,16 +310,15 @@ def read_exclude_ids_from_json(dir_path, mode: str = "meaning") -> set[str]:
                     # Decode each JSON object
                     data = json.loads(line)
                     # Extract the ID
-                    id = data.get('id', '')
+                    id = data.get("id", "")
                     exclude_ids.add(id)
                 except json.JSONDecodeError as e:
                     print(f"Error decoding line: {e}, Line: {line}")
-    
+
     return exclude_ids
 
 
 if __name__ == "__main__":
-
     print("Translationg with the help of AI")
 
     limit: int = 1
@@ -323,4 +332,3 @@ if __name__ == "__main__":
     # make_json("meaning", limit)
 
     # make_json("note", limit)
-

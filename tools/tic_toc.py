@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 from rich import print
 
-line = "-"*40
+line = "-" * 40
 
 
 def tic():
@@ -16,7 +16,7 @@ def tic():
 def toc() -> None:
     "Stop the clock and print a line and elapsed time."
     tocx = datetime.now()
-    tictoc = (tocx - ticx)
+    tictoc = tocx - ticx
     print(f"[cyan]{line}")
     print(f"[cyan]{tictoc}")
     print()
@@ -44,5 +44,3 @@ def today() -> str:
     now = datetime.now()
     today = now.strftime("%d")
     return today
-
-

@@ -10,7 +10,6 @@ from dps.tools.paths_dps import DPSPaths
 from sqlalchemy.orm import joinedload
 
 
-
 pth: ProjectPaths = ProjectPaths()
 dpspth = DPSPaths()
 
@@ -22,7 +21,7 @@ def update_sbs_chants_in_db(dpspth, db_session, dpd_word):
     for number in range(1, 5):
         chant_field = f"sbs_chant_pali_{number}"
         chant = getattr(dpd_word, chant_field, None)
-        
+
         if chant:
             result = fetch_sbs_index(dpspth, chant)
             if result is not None:
@@ -46,9 +45,14 @@ def update_sbs_chants_in_db(dpspth, db_session, dpd_word):
                 # handle the case when the chant is not found
                 error_message = f"chant is not found for {i.sbs.id}"
                 print(error_message)
-    
 
-results = db_session.query(DpdHeadword).options(joinedload(DpdHeadword.sbs)).filter(DpdHeadword.sbs).all()
+
+results = (
+    db_session.query(DpdHeadword)
+    .options(joinedload(DpdHeadword.sbs))
+    .filter(DpdHeadword.sbs)
+    .all()
+)
 for i in results:
     if i.sbs:
         i: DpdHeadword
@@ -56,4 +60,3 @@ for i in results:
 
 # db_session.commit()
 # db_session.close()
-

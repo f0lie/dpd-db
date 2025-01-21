@@ -15,7 +15,7 @@ def zip_goldendict(pth: ProjectPaths):
     """Zip up the three dirs for goldendict"""
     p_green("zipping goldendict")
     bip()
-    
+
     if (
         pth.dpd_goldendict_dir.exists()
         and pth.grammar_dict_goldendict_dir.exists()
@@ -24,11 +24,14 @@ def zip_goldendict(pth: ProjectPaths):
         input_dirs = [
             (pth.dpd_goldendict_dir, "dpd"),
             (pth.grammar_dict_goldendict_dir, "dpd-grammar"),
-            (pth.deconstructor_goldendict_dir, "dpd-deconstructor")]
+            (pth.deconstructor_goldendict_dir, "dpd-deconstructor"),
+        ]
 
         output_zip_file = pth.dpd_goldendict_zip_path
 
-        with ZipFile(output_zip_file, "w", compression=ZIP_DEFLATED, compresslevel=5) as output_zip:
+        with ZipFile(
+            output_zip_file, "w", compression=ZIP_DEFLATED, compresslevel=5
+        ) as output_zip:
             for input_dir, dir_name in input_dirs:
                 for root, dirs, files in os.walk(input_dir):
                     for file in files:
@@ -57,7 +60,7 @@ def zip_mdict(pth: ProjectPaths):
         pth.deconstructor_mdx_path,
         pth.deconstructor_mdd_path,
         pth.grammar_dict_mdx_path,
-        pth.grammar_dict_mdd_path
+        pth.grammar_dict_mdd_path,
     ]
 
     for file in mdict_files:
@@ -65,13 +68,11 @@ def zip_mdict(pth: ProjectPaths):
             p_no("error")
             p_red("mdict file found")
             return
-    
+
     output_mdict_zip = pth.dpd_mdict_zip_path
 
     with ZipFile(
-        output_mdict_zip, "w",
-        compression=ZIP_DEFLATED,
-        compresslevel=5
+        output_mdict_zip, "w", compression=ZIP_DEFLATED, compresslevel=5
     ) as mdict_zip:
         for mdict_file in mdict_files:
             file_content = mdict_file.read_bytes()

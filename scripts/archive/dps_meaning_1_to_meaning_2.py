@@ -17,13 +17,11 @@ def main():
     dpd_db = db_session.query(DpdHeadword).all()
 
     dict = {}
-    with open(
-        dpspth.dps_merge_dir.joinpath(
-                "meaning_1").with_suffix(".csv")) as f:
+    with open(dpspth.dps_merge_dir.joinpath("meaning_1").with_suffix(".csv")) as f:
         reader = csv.DictReader(f, delimiter=",")
         for r in reader:
             text_string = f"{r['meaning_1']}"
-            if r['meaning_lit']:
+            if r["meaning_lit"]:
                 text_string += f"; lit. {r['meaning_lit']}"
                 # print(f"[green]{r['lemma_1']:<30} [blue]{text_string}")
             dict[int(r["id"])] = text_string
@@ -31,7 +29,6 @@ def main():
     print(len(dict))
     changed = 0
     for __counter__, i in enumerate(dpd_db):
-
         if i.id in dict:
             i.meaning_1 = ""
             i.meaning_2 = dict[i.id]

@@ -2,7 +2,6 @@
 
 """Save all tables to dps/backup folder."""
 
-
 from rich.console import Console
 
 import os
@@ -12,10 +11,14 @@ from tools.tic_toc import tic, toc
 from tools.paths import ProjectPaths
 from dps.tools.paths_dps import DPSPaths
 
-from scripts.backup.backup_dpd_headwords_and_roots import backup_dpd_headwords, backup_dpd_roots
+from scripts.backup.backup_dpd_headwords_and_roots import (
+    backup_dpd_headwords,
+    backup_dpd_roots,
+)
 from scripts.backup.backup_ru_sbs import backup_russian, backup_sbs, backup_ru_roots
 
 console = Console()
+
 
 def backup_all_tables_dps():
     tic()
@@ -23,7 +26,7 @@ def backup_all_tables_dps():
     pth = ProjectPaths()
     dpspth = DPSPaths()
     db_session = get_db_session(pth.dpd_db_path)
-    
+
     dps_headwords_path = os.path.join(dpspth.dps_backup_dir, "dpd_headwords.tsv")
     dps_roots_path = os.path.join(dpspth.dps_backup_dir, "dpd_roots.tsv")
     dps_ru_roots_path = os.path.join(dpspth.dps_backup_dir, "ru_roots.tsv")
@@ -42,4 +45,3 @@ def backup_all_tables_dps():
 
 if __name__ == "__main__":
     backup_all_tables_dps()
-

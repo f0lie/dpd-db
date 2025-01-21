@@ -13,7 +13,9 @@ console = Console()
 
 def main():
     console.print("[bold bright_yellow]adding missing words based on conditions")
-    source_to_check = input("[blue]Please enter the source string to check (e.g., VIN 1.1.1): ")
+    source_to_check = input(
+        "[blue]Please enter the source string to check (e.g., VIN 1.1.1): "
+    )
 
     console.print("[bold green]press x to exit")
 
@@ -30,15 +32,16 @@ def main():
         ):
             words_set.update([i.lemma_1])
             counter += 1
-    
+
     done = 0
     for word in words_set:
-        print(f"{counter-done}. {word}", end=" ")
+        print(f"{counter - done}. {word}", end=" ")
         pyperclip.copy(word)
         done += 1
         x = input()
         if x == "x":
             break
+
 
 if __name__ == "__main__":
     main()

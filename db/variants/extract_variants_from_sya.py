@@ -1,6 +1,5 @@
 """Extract variants readings from Syāmaraṭṭḥa (Thai) texts."""
 
-
 import re
 
 from icecream import ic
@@ -20,24 +19,21 @@ global successes
 successes: int = 0
 
 
-def process_sya(
-        variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
-    
+def process_sya(variants_dict: VariantsDict, pth: ProjectPaths) -> VariantsDict:
     p_green_title("extracting variants from SYA texts")
-    
+
     file_list: list[Path] = get_sya_file_list(pth)
-    
+
     for counter, file_name in enumerate(file_list):
-        
         if counter % 20 == 0:
             p_counter(counter, len(file_list), file_name.name)
-        
+
         book = file_name.stem.lower().replace("_", " ").strip()
         text = get_sya_text(file_name)
         variants_dict = extract_sya_variants(book, text, variants_dict)
-    
-    error_rate = (errors/successes)*100
-    p_red(f"extracted:  {successes-errors} / {successes}")
+
+    error_rate = (errors / successes) * 100
+    p_red(f"extracted:  {successes - errors} / {successes}")
     p_red(f"error rate: {error_rate:.2}%")
 
     return variants_dict
@@ -55,20 +51,20 @@ def get_sya_file_list(pth: ProjectPaths) -> list[Path]:
 def get_sya_text(file_name: Path) -> str:
     with open(file_name, "r", encoding="UTF-8") as f:
         text = f.read()
-        
+
         # remove new lines
         text = text.replace("\n", " ")
-        
+
         # remove page numbers < PTS. Vin III , 87 >
         text = re.sub(r"<.+?>", "", text)
 
         # remove multiple space
         text = re.sub(" +", " ", text)
-        
+
         return text
 
 
-def get_page_number(i:int, page: str) -> int:
+def get_page_number(i: int, page: str) -> int:
     """Find the page number."""
 
     match = re.search(r"\[page (\d+)\]", page)
@@ -79,17 +75,14 @@ def get_page_number(i:int, page: str) -> int:
 
 
 def extract_sya_variants(
-        book: str,
-        text: str,
-        variants_dict: VariantsDict
+    book: str, text: str, variants_dict: VariantsDict
 ) -> VariantsDict:
-    """"Extract variants from a SYA text file."""
+    """ "Extract variants from a SYA text file."""
 
     # split on [page xyz]
     pages = re.split(r"(?=\[page \d+\])", text)
 
     for i, page in enumerate(pages):
-
         page_num: int = get_page_number(i, page)
         page_vars = get_variants_in_page(page)
         footnote_vars = get_variants_in_footnotes(page)
@@ -140,7 +133,7 @@ def extract_sya_variants(
 def get_variants_in_page(text: str) -> dict[str, str]:
     """Find variants in the page"""
 
-    # word followed by space digit dash 
+    # word followed by space digit dash
     # buddhā 1- bhagavanto ahesuṁ sāvake 2- cetasā
 
     page_vars: dict[str, str] = {}
@@ -158,7 +151,7 @@ def get_variants_in_page(text: str) -> dict[str, str]:
     return page_vars
 
 
-def clean_variant(text:str) -> str:
+def clean_variant(text: str) -> str:
     """remove -------"""
     return re.sub("-{3,}", "", text).strip()
 
@@ -179,7 +172,6 @@ def get_variants_in_footnotes(page: str) -> dict[str, str]:
         # split on 0+ dot behind / 1 or more spaces / number ahead
         footnotes = re.split(r"(?<=\.)* +(?=\d)", footnote_str)
         for footnote in footnotes:
-
             # footnote contains a triple range e.g.
             # 3-4-5 yamidha sañjotibhūtā sañjotibhūto sañjotibhūtanti likhiyati
             if re.findall(r"\d+-\d+-\d+", footnote):
@@ -190,14 +182,14 @@ def get_variants_in_footnotes(page: str) -> dict[str, str]:
                     if start and end:
                         variant = re.sub(r"(\d+)-(\d+)", "", footnote)
                         variant = clean_variant(variant)
-                        for i in range(int(start), int(end)+1):
+                        for i in range(int(start), int(end) + 1):
                             footnote_vars[str(i)] = variant
                             if debug:
                                 ic(str(i), variant)
                                 print()
 
             # footnote contains a number range e.g.
-            # 1-3 Yu. Ma. arahattaṁ. 
+            # 1-3 Yu. Ma. arahattaṁ.
             if re.findall(r"\d+-\d+", footnote):
                 pattern = r"(\d+)-(\d+)"
                 match = re.findall(pattern, footnote)
@@ -206,7 +198,7 @@ def get_variants_in_footnotes(page: str) -> dict[str, str]:
                     if start and end:
                         variant = re.sub(r"(\d+)-(\d+)", "", footnote)
                         variant = clean_variant(variant)
-                        for i in range(int(start), int(end)+1):
+                        for i in range(int(start), int(end) + 1):
                             footnote_vars[str(i)] = variant
                             if debug:
                                 ic(str(i), variant)
@@ -220,11 +212,11 @@ def get_variants_in_footnotes(page: str) -> dict[str, str]:
                     number, variant = match
                     variant = clean_variant(variant)
                     footnote_vars[number] = variant
-    
+
     return footnote_vars
 
 
-# TODO issues 
+# TODO issues
 # -* in text and footnotes
 # missing footnotes in text
-# 
+#

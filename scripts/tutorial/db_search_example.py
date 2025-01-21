@@ -15,13 +15,15 @@ db_session = get_db_session(pth.dpd_db_path)
 
 # this is how to search a table using a basic filter for
 # pos == "adj" and words starts with "abh"
-search_results = db_session.query(DpdHeadword).filter(
-    DpdHeadword.pos == "adj", DpdHeadword.lemma_1.startswith("a")).all()
+search_results = (
+    db_session.query(DpdHeadword)
+    .filter(DpdHeadword.pos == "adj", DpdHeadword.lemma_1.startswith("a"))
+    .all()
+)
 # take note the results are returned as a [list] of DpdHeadword class instances
 
 # then loop through the list of results
 for i in search_results:
-
     # now you can access any table column by dot notation
     print(f"{'PALI:':<15}{i.lemma_1}")
     # :<15 means 'left justify the text by 15 characters'
@@ -40,7 +42,8 @@ for i in search_results:
 
         # now you can access the root table using i.rt.root column names
         print(
-            f"{'ROOT':<15}{i.rt.root_clean} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})")
+            f"{'ROOT':<15}{i.rt.root_clean} {i.rt.root_group} {i.root_sign} ({i.rt.root_meaning})"
+        )
 
     # this imports the inflections list which is stored as csv list
     inflections = i.inflections_list

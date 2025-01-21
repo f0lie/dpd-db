@@ -2,7 +2,6 @@
 
 
 def make_tab_dps_tests(sg):
-
     LOGIC = [
         "equals",
         "does not equal",
@@ -11,27 +10,24 @@ def make_tab_dps_tests(sg):
         "does not contain",
         "does not contain word",
         "is empty",
-        "is not empty"]
+        "is not empty",
+    ]
 
     tab_dps_tests = [
         [
             sg.Text(
-                "DPS TEST TAB", size=(15, 1), justification="right", text_color="yellow"),
+                "DPS TEST TAB", size=(15, 1), justification="right", text_color="yellow"
+            ),
         ],
         [
             sg.Text("", size=(15, 1)),
-            sg.Button(
-                "Run Tests", key="dps_test_db_internal"),
-            sg.Button(
-                "Stop Tests", key="dps_test_stop"),
-            sg.Button(
-                "Edit Tests", key="dps_test_edit"),
+            sg.Button("Run Tests", key="dps_test_db_internal"),
+            sg.Button("Stop Tests", key="dps_test_stop"),
+            sg.Button("Edit Tests", key="dps_test_edit"),
         ],
         [
-            sg.Text(
-                "0", size=(15, 1), key="dps_test_number", justification="right"),
-            sg.Input(
-                "", key="dps_test_name", size=(41, 1), text_color="white"),
+            sg.Text("0", size=(15, 1), key="dps_test_number", justification="right"),
+            sg.Input("", key="dps_test_name", size=(41, 1), text_color="white"),
             sg.Input("", key="dps_test_iterations", size=(5, 1)),
         ],
         [
@@ -79,8 +75,7 @@ def make_tab_dps_tests(sg):
         [
             sg.Text("error col msg", size=(15, 1), justification="right"),
             sg.Input("", key="dps_test_error_column", size=(20, 1)),
-            sg.Combo(
-                [], key="dps_test_exceptions", size=(20, 1), auto_size_text=False),
+            sg.Combo([], key="dps_test_exceptions", size=(20, 1), auto_size_text=False),
         ],
         [
             sg.Text("", size=(15, 1)),
@@ -91,33 +86,41 @@ def make_tab_dps_tests(sg):
         [
             sg.Text("", size=(15, 1), justification="right"),
             sg.Text("displaying", pad=0),
-            sg.Text(
-                "0", key="dps_test_results_redux", text_color="white"),
+            sg.Text("0", key="dps_test_results_redux", text_color="white"),
             sg.Text("of", pad=0),
-            sg.Text(
-                "0", key="dps_test_results_total", text_color="white"),
-            sg.Text("results")
+            sg.Text("0", key="dps_test_results_total", text_color="white"),
+            sg.Text("results"),
         ],
         [
             sg.Text("results", size=(6, 11), justification="left"),
             sg.Table(
-                [[]], headings=["1", "2", "3"], key="dps_test_results",
-                size=(70, 11), justification="left", enable_events=True,
-                auto_size_columns=False, col_widths=[20, 20, 30])
+                [[]],
+                headings=["1", "2", "3"],
+                key="dps_test_results",
+                size=(70, 11),
+                justification="left",
+                enable_events=True,
+                auto_size_columns=False,
+                col_widths=[20, 20, 30],
+            ),
         ],
         [
             sg.Text("except:", size=(6, 1), justification="left"),
             sg.Combo(
-                [], key="dps_test_add_exception",
-                size=(30, 1), auto_size_text=False),
+                [], key="dps_test_add_exception", size=(30, 1), auto_size_text=False
+            ),
             sg.Button("Add", key="dps_test_add_exception_button", size=(5, 1)),
             sg.Input("", key="dps_test_db_query", size=(19, 1)),
             sg.Button("Db Query", key="dps_test_db_query_copy"),
-            sg.Button("Save list", key="dps_test_save_list", tooltip="save current list of words in dps_test_1.tsv",),
+            sg.Button(
+                "Save list",
+                key="dps_test_save_list",
+                tooltip="save current list of words in dps_test_1.tsv",
+            ),
         ],
         [
             sg.Text("", size=(44, 1)),
-            sg.Button("Next", key="dps_test_next", size=(18, 1))
+            sg.Button("Next", key="dps_test_next", size=(18, 1)),
         ],
     ]
 

@@ -29,8 +29,10 @@ def export_to_pdf(g: GlobalVars):
     p_green("rendering abbreviations pdf")
 
     try:
-
-        typst.compile(str(g.pth.typst_lite_data_path), output=str(g.pth.typst_lite_abbreviations_path))
+        typst.compile(
+            str(g.pth.typst_lite_data_path),
+            output=str(g.pth.typst_lite_abbreviations_path),
+        )
 
         p_yes("ok")
     except Exception as e:
@@ -40,7 +42,7 @@ def export_to_pdf(g: GlobalVars):
 def main():
     tic()
     p_title("export abbreviations to pdf with typst")
-    
+
     g = GlobalVars()
     make_layout(g)
     make_abbreviations(g)

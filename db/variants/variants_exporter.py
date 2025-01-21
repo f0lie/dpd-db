@@ -1,4 +1,4 @@
-""""Saving and Exporting modules."""
+""" "Saving and Exporting modules."""
 
 import json
 import re
@@ -28,7 +28,7 @@ def make_synonyms(synonyms_list: list[str], variant: str) -> list[str]:
     if len(words) == 1:
         if variant_clean not in synonyms_list:
             synonyms_list.append(variant_clean)
-    
+
     return synonyms_list
 
 
@@ -41,32 +41,32 @@ def make_synonyms_bjt(synonyms_list: list[str], variant: str) -> list[str]:
     if len(words) == 1:
         if variant_clean not in synonyms_list:
             synonyms_list.append(variant_clean)
-    
+
     return synonyms_list
 
 
-def export_to_goldendict_mdict(
-        variants_dict: VariantsDict, pth: ProjectPaths) -> None:
+def export_to_goldendict_mdict(variants_dict: VariantsDict, pth: ProjectPaths) -> None:
     """Convert dict to HTML and export to GoldenDict, MDict"""
 
     dict_data: list[DictEntry] = []
-    
+
     with open(pth.variants_header_path) as f:
-        header = f.read() 
-    
+        header = f.read()
+
     for word, data in variants_dict.items():
-        
         html_list: list[str] = []
         html_list.append(header)
         html_list.append("<body>")
         html_list.append("<div class='variants'>")
         html_list.append("<table class='variants'>")
-        html_list.append("<tr><th>source</th><th>book</th><th>variant & corpus</th></tr>")
+        html_list.append(
+            "<tr><th>source</th><th>book</th><th>variant & corpus</th></tr>"
+        )
         html_list.append("<td colspan='100%'><hr class='variants'></td>")
 
         synonyms_list: list[str] = []
 
-        # add various niggahita to synonyms 
+        # add various niggahita to synonyms
         if "ṃ" in word or "ṁ" in word:
             synonyms_list = add_niggahitas([word])
         old_corpus = ""
@@ -74,21 +74,23 @@ def export_to_goldendict_mdict(
         for corpus, data2 in data.items():
             if old_corpus and old_corpus != corpus:
                 html_list.append("<td colspan='100%'><hr class='variants'></td>")
-            
+
             for book, variants in data2.items():
                 for variant in variants:
                     if corpus == "MST" or corpus == "CST":
                         synonyms_list = make_synonyms(synonyms_list, variant)
                     if corpus == "BJT":
                         synonyms_list = make_synonyms_bjt(synonyms_list, variant)
-                    
+
                     # add various niggahitas to synonyms
                     synonyms_list = add_niggahitas(synonyms_list)
-                    
-                    html_list.append(f"<tr><td>{corpus}</td><td>{book}</td><td>{variant}</td></tr>")
+
+                    html_list.append(
+                        f"<tr><td>{corpus}</td><td>{book}</td><td>{variant}</td></tr>"
+                    )
             html_list.append("")
             old_corpus = corpus
-        
+
         html_list.append("</table>")
         html_list.append("</div>")
         html_list.append("</body>")
@@ -96,10 +98,7 @@ def export_to_goldendict_mdict(
         html: str = "\n".join(html_list)
 
         dict_entry = DictEntry(
-            word=word,
-            definition_html=html,
-            definition_plain="",
-            synonyms=synonyms_list
+            word=word, definition_html=html, definition_plain="", synonyms=synonyms_list
         )
         dict_data.append(dict_entry)
 
@@ -109,7 +108,7 @@ def export_to_goldendict_mdict(
         description="Variant readings as found in CST texts.",
         website="wwww.dpdict.net",
         source_lang="pi",
-        target_lang="pi"
+        target_lang="pi",
     )
 
     dict_vars = DictVariables(
@@ -122,14 +121,9 @@ def export_to_goldendict_mdict(
     )
 
     export_to_goldendict_with_pyglossary(
-        dict_info, 
-        dict_vars,
-        dict_data, 
-    )
-
-    export_to_mdict(
         dict_info,
         dict_vars,
-        dict_data
+        dict_data,
     )
 
+    export_to_mdict(dict_info, dict_vars, dict_data)

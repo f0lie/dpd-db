@@ -14,7 +14,7 @@ from tools.uposatha_day import uposatha_today, write_uposatha_count, read_uposat
 from tools.printer import p_title, p_green, p_green_title, p_yes
 
 
-class GlobalVars():
+class GlobalVars:
     def __init__(self) -> None:
         p_green("preparing data")
 
@@ -22,14 +22,16 @@ class GlobalVars():
         self.db_session = get_db_session(self.pth.dpd_db_path)
         self.dpd_db = self.db_session.query(DpdHeadword).all()
         self.roots_db = self.db_session.query(DpdRoot).all()
-        self.deconstructor_db = self.db_session.query(Lookup) \
-            .filter(Lookup.deconstructor != "") \
-            .all()
-        
+        self.deconstructor_db = (
+            self.db_session.query(Lookup).filter(Lookup.deconstructor != "").all()
+        )
+
         self.last_id = read_uposatha_count()
-        self.new_words_db = self.db_session.query(DpdHeadword) \
-            .filter(DpdHeadword.id > self.last_id) \
+        self.new_words_db = (
+            self.db_session.query(DpdHeadword)
+            .filter(DpdHeadword.id > self.last_id)
             .all()
+        )
 
         self.root_families: dict[str, int]
         self.line_1: str
@@ -40,7 +42,7 @@ class GlobalVars():
         self.line_6: str
         self.line_7: str
         self.summary: str
-        
+
         p_yes("ok")
 
 
@@ -118,12 +120,12 @@ def deconstructor_size(g: GlobalVars):
     total_deconstructions = len(g.deconstructor_db)
     line3 = f"- {total_deconstructions:_} deconstructed compounds"
     line3 = line3.replace("_", " ")
-    
+
     g.line_3 = line3
 
 
 def inflection_size(g: GlobalVars):
-    """"Summarize inflections."""
+    """ "Summarize inflections."""
 
     total_inflections = 0
     all_inflection_set = set()
@@ -141,7 +143,7 @@ def inflection_size(g: GlobalVars):
 
 def root_data(g: GlobalVars):
     """Summarize dpd_roots table"""
-    
+
     columns = DpdRoot.__table__.columns
     column_names = [c.name for c in columns]
     exceptions = ["root_info", "root_matrix", "created_at", "updated_at"]
@@ -170,7 +172,7 @@ def new_words(g: GlobalVars):
         # comma on all words except the last
         if nw != new_words[-1]:
             new_words_string += f"{nw}, "
-        else: 
+        else:
             new_words_string += f"{nw} "
     new_words_string += f"[{len(new_words)}]"
 
@@ -216,10 +218,10 @@ def main():
         root_data(g)
         new_words(g)
         make_summary_string(g)
-        
+
         with open(g.pth.summary_md_path, "w") as f:
             f.write(g.summary)
-        
+
         p_yes("ok")
 
         if uposatha_today():
@@ -227,10 +229,11 @@ def main():
             last_id = g.dpd_db[-1].id
             write_uposatha_count(last_id)
             p_yes(last_id)
-        
+
         toc()
 
         print(g.summary)
+
 
 if __name__ == "__main__":
     main()

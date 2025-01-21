@@ -197,7 +197,7 @@ def main():
             sort_maha(g)
             if g.process:
                 process_maha(g)
-    
+
     commit_to_db(g)
     toc()
 

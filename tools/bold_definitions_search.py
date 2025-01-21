@@ -19,22 +19,33 @@ def search_bold_definitions(db_session, search1, search2):
         search1 = search1.replace("\\", "")
     if search2.endswith("\\"):
         search2 = search2.replace("\\", "")
-    
-    search_results = db_session \
-        .query(BoldDefinition) \
-        .filter(BoldDefinition.bold.regexp_match(search1)) \
-        .filter(BoldDefinition.commentary.regexp_match(search2)) \
+
+    search_results = (
+        db_session.query(BoldDefinition)
+        .filter(BoldDefinition.bold.regexp_match(search1))
+        .filter(BoldDefinition.commentary.regexp_match(search2))
         .all()
-    
+    )
+
     print(f"{len(search_results)} results found")
     return search_results
 
-   
+
 def test_regex(search1, search2) -> bool:
     print("test regex ", end="")
     # regex_characters = re.escape("+*|./[]()$^")
     regex_characters = [
-        "\\+", "\\*", "\\|", "\\.", "\\[", "\\]", "\\(", "\\)", "\\$", "\\^"]
+        "\\+",
+        "\\*",
+        "\\|",
+        "\\.",
+        "\\[",
+        "\\]",
+        "\\(",
+        "\\)",
+        "\\$",
+        "\\^",
+    ]
     regex_str = "|".join(regex_characters)
 
     if re.findall(regex_str, search1):
@@ -54,10 +65,7 @@ def regex_search(db, search1, search2) -> list[BoldDefinition]:
     search_results = []
     for i in db:
         try:
-            if (
-                re.findall(search1, i.bold)
-                and re.findall(search2, i.commentary)
-            ):
+            if re.findall(search1, i.bold) and re.findall(search2, i.commentary):
                 search_results.append(i)
         except re.error as e:
             print(f"[red]{e}")
@@ -80,4 +88,3 @@ if __name__ == "__main__":
     search1 = input("enter search1: ")
     search2 = input("enter search2: ")
     search_results = search_bold_definitions(db_session, search1, search2)
-

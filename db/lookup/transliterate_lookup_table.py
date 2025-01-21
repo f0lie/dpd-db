@@ -6,7 +6,6 @@ Either regenerate from scratch OR update missing entries.
 Save into database.
 """
 
-
 import json
 
 from aksharamukha import transliterate
@@ -20,7 +19,7 @@ from multiprocessing import Process, Manager
 from db.db_helpers import get_db_session
 from db.models import Lookup
 
-from tools.lookup_is_another_value import is_another_value 
+from tools.lookup_is_another_value import is_another_value
 from tools.configger import config_test, config_update
 from tools.printer import p_green, p_red, p_title, p_yes
 from tools.sinhala_tools import translit_ro_to_si
@@ -44,11 +43,10 @@ def _parse_batch(
 
     lookup_to_transliterate_string: str = ""
     translit_index_dict: Dict[int, str] = dict()
-    lookup_for_json_dict: dict[str, dict[str, list[str]]]= dict()
+    lookup_for_json_dict: dict[str, dict[str, list[str]]] = dict()
     counter: int = 0
 
     for counter, i in enumerate(batch):
-
         if (
             not i.sinhala
             or regenerate_all
@@ -195,7 +193,7 @@ def main():
         regenerate_all: bool = False
 
     p_yes(str(regenerate_all))
-    
+
     p_green("processing batches")
 
     num_logical_cores = psutil.cpu_count()
@@ -226,7 +224,6 @@ def main():
     results_translit_dict: List[Dict[str, WordInflections]] = list(results_list)
 
     translit_dict: Dict[str, WordInflections] = dict()
-    
 
     for i in results_translit_dict:
         for k, v in i.items():
@@ -240,12 +237,9 @@ def main():
     translit_counter = 0
     for i in lookup_db:
         if i.lookup_key in translit_dict:
-            i.sinhala_pack(
-                list(translit_dict[i.lookup_key]["sinhala"]))
-            i.devanagari_pack(
-                list(translit_dict[i.lookup_key]["devanagari"]))
-            i.thai_pack(
-                list(translit_dict[i.lookup_key]["thai"]))
+            i.sinhala_pack(list(translit_dict[i.lookup_key]["sinhala"]))
+            i.devanagari_pack(list(translit_dict[i.lookup_key]["devanagari"]))
+            i.thai_pack(list(translit_dict[i.lookup_key]["thai"]))
             translit_counter += 1
 
     db_session.commit()

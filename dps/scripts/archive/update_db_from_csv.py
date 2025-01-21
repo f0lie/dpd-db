@@ -1,6 +1,5 @@
 """A tutoiral and template to update the database using a external csv. copy from https://github.com/digitalpalidictionary/dpd-db/blob/main/scripts/update_db_from_some_csv.py"""
 
-
 from rich.console import Console
 
 from db.db_helpers import get_db_session
@@ -33,13 +32,13 @@ input("press enter to continue: ")
 
 # iterate through the csv item by item
 for idx, i in enumerate(csv, start=1):  # start=1 will start the indexing from 1
-
     # find the column name you want to change, in this case "sbs.sbs_class"
     if i.sbs_class:
         # this find the dpd word which matches the id
         csv_id = i.id
-        db_entry = db_session.query(DpdHeadword).filter(
-            DpdHeadword.id == csv_id).first()
+        db_entry = (
+            db_session.query(DpdHeadword).filter(DpdHeadword.id == csv_id).first()
+        )
 
         if db_entry and db_entry.sbs:
             # this updates the db entry with the csv value

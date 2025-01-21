@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-""" 
+"""
 Filter all words with into csv and sort them by root frequence
-also filter all roots 
+also filter all roots
 """
 
 from db.models import DpdHeadword, DpdRoot
@@ -30,13 +30,13 @@ db_session = get_db_session(pth.dpd_db_path)
 
 def process_word_root(word):
     return {
-        'lemma': word.lemma_1,
-        'sanskrit': word.sanskrit,
-        'pos': word.pos,
-        'root_key': word.root_key,
-        'sk root': word.rt.sanskrit_root if word.root_key else "",
-        'family_root': word.family_root,
-        'meaning': make_meaning_combo(word),
+        "lemma": word.lemma_1,
+        "sanskrit": word.sanskrit,
+        "pos": word.pos,
+        "root_key": word.root_key,
+        "sk root": word.rt.sanskrit_root if word.root_key else "",
+        "family_root": word.family_root,
+        "meaning": make_meaning_combo(word),
     }
 
 
@@ -50,15 +50,25 @@ def save_words():
 
     filtered_words = sorted(
         dpd_db,
-        key=lambda word: (word.rt.root_count if word.rt else 0, word.root_key, word.family_root),
-        reverse=True
+        key=lambda word: (
+            word.rt.root_count if word.rt else 0,
+            word.root_key,
+            word.family_root,
+        ),
+        reverse=True,
     )
 
-    with open(dpspth.total_words_path, 'w', newline='') as csvfile:
+    with open(dpspth.total_words_path, "w", newline="") as csvfile:
         fieldnames = [
-            'lemma', 'sanskrit', 'pos', 'root_key', 'sk root', 'family_root', 'meaning'
+            "lemma",
+            "sanskrit",
+            "pos",
+            "root_key",
+            "sk root",
+            "family_root",
+            "meaning",
         ]
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
         writer.writeheader()
 
         with ThreadPoolExecutor() as executor:
@@ -73,9 +83,9 @@ def save_words():
 
 def process_root(rt):
     return {
-        'root': rt.root,
-        'sanskrit': rt.sanskrit_root,
-        'count': rt.root_count,
+        "root": rt.root,
+        "sanskrit": rt.sanskrit_root,
+        "count": rt.root_count,
     }
 
 
@@ -87,17 +97,11 @@ def save_roots():
 
     print(f"Total rows that fit the filter criteria: {len(dpd_db)}")
 
-    filtered_words = sorted(
-        dpd_db,
-        key=lambda rt: (rt.root_count),
-        reverse=True
-    )
+    filtered_words = sorted(dpd_db, key=lambda rt: (rt.root_count), reverse=True)
 
-    with open(dpspth.total_roots_path, 'w', newline='') as csvfile:
-        fieldnames = [
-            'root', 'sanskrit', 'count'
-        ]
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter='\t')
+    with open(dpspth.total_roots_path, "w", newline="") as csvfile:
+        fieldnames = ["root", "sanskrit", "count"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
         writer.writeheader()
 
         with ThreadPoolExecutor() as executor:
@@ -108,7 +112,6 @@ def save_roots():
     db_session.close()
     print(f"[green]saved into {dpspth.total_roots_path}")
     toc()
-
 
 
 # Call the function

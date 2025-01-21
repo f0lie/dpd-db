@@ -5,7 +5,7 @@
 import csv
 import os
 
-from dps.tools.paths_dps import DPSPaths    
+from dps.tools.paths_dps import DPSPaths
 
 dpspth = DPSPaths()
 
@@ -14,8 +14,8 @@ def process_tsv(input_file, output_file):
     seen_words = set()
     output_rows = []
 
-    with open(input_file, 'r') as file:
-        reader = csv.reader(file, delimiter='\t')
+    with open(input_file, "r") as file:
+        reader = csv.reader(file, delimiter="\t")
         for row in reader:
             word = row[0]
             second_col = row[1] if len(row) > 1 else ""
@@ -30,8 +30,8 @@ def process_tsv(input_file, output_file):
                     output_rows.append(row)
 
     # Write output to a new TSV file
-    with open(output_file, 'w', newline='') as file:
-        writer = csv.writer(file, delimiter='\t')
+    with open(output_file, "w", newline="") as file:
+        writer = csv.writer(file, delimiter="\t")
         writer.writerows(output_rows)
 
 

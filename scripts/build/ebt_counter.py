@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-Calculate the number of occurrences of a word's inflections 
+Calculate the number of occurrences of a word's inflections
 in early texts and add to db.
 EBT books are VIN1, VIN2, DN, MN, SN, AN and KN1
 """
@@ -14,8 +14,8 @@ from tools.printer import p_green, p_title, p_yes
 from tools.tic_toc import tic, toc
 from tools.pali_text_files import ebts
 
-def main():
 
+def main():
     tic()
     p_title("calculating frequency in ebts")
     p_green("setting up")
@@ -25,7 +25,7 @@ def main():
 
     with open(pth.cst_file_freq) as f:
         cst_file_freq_dict = json.load(f)
-    
+
     db = db_session.query(DpdHeadword).all()
 
     ebt_files = [ebt_file.replace(".txt", ".xml") for ebt_file in ebts]
@@ -51,4 +51,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

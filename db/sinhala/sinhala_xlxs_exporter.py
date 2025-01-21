@@ -22,41 +22,29 @@ def main():
     db = db_session.query(DpdHeadword).all()
     db_length = len(db)
 
-    column_names = [
-        "id",
-        "lemma_si",
-        "pos_si",
-        "en_meaning",
-        "meaning_si",
-        "checked" 
-    ]
+    column_names = ["id", "lemma_si", "pos_si", "en_meaning", "meaning_si", "checked"]
 
     si_data: list[tuple] = []
 
     p_green_title("making data tuples")
     for count, i in enumerate(db):
         if i.si:
-            si_data.append((
-                i.id,
-                i.lemma_si,
-                i.pos_si,
-                i.meaning_combo,
-                i.si.meaning_si,
-                i.si.checked
-            ))
+            si_data.append(
+                (
+                    i.id,
+                    i.lemma_si,
+                    i.pos_si,
+                    i.meaning_combo,
+                    i.si.meaning_si,
+                    i.si.checked,
+                )
+            )
         else:
-            si_data.append((
-                i.id,
-                i.lemma_si,
-                i.pos_si,
-                i.meaning_combo,
-                "",
-                "✘"
-            ))
+            si_data.append((i.id, i.lemma_si, i.pos_si, i.meaning_combo, "", "✘"))
 
         if count % 5000 == 0:
             p_counter(count, db_length, i.lemma_1)
-        
+
     p_green("making pandas df")
     df = pd.DataFrame(si_data, columns=column_names)
     p_yes(len(df))
@@ -66,6 +54,7 @@ def main():
     p_yes("ok")
 
     toc()
+
 
 if __name__ == "__main__":
     main()

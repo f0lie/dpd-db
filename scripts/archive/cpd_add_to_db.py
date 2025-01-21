@@ -15,6 +15,7 @@ from tools.tsv_read_write import read_tsv_dot_dict
 
 class dotdict(dict):
     """dot.notation access to dictionary attributes"""
+
     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
@@ -28,8 +29,16 @@ db_session = get_db_session(pth.dpd_db_path)
 def main():
     print("[yellow]testing cpd data")
 
-    (headwords, headwords_clean, pos, roots, root_fam,
-        word_fam, infl_pattern, dpd_length) = get_db_lists()
+    (
+        headwords,
+        headwords_clean,
+        pos,
+        roots,
+        root_fam,
+        word_fam,
+        infl_pattern,
+        dpd_length,
+    ) = get_db_lists()
     cpd: List[Dict[str, str]] = read_tsv_dot_dict(cpd_path)
     test_1(cpd, headwords)
     test_2(cpd, pos)
@@ -59,7 +68,16 @@ def get_db_lists():
 
     inflection_temp = db_session.query(InflectionTemplates).all()
     infl_pattern = [i.pattern for i in inflection_temp]
-    return headwords, headwords_clean, pos, roots, root_fam, word_fam, infl_pattern, dpd_length
+    return (
+        headwords,
+        headwords_clean,
+        pos,
+        roots,
+        root_fam,
+        word_fam,
+        infl_pattern,
+        dpd_length,
+    )
 
 
 def regex_results(list):
@@ -254,7 +272,6 @@ def test_12(cpd, headwords_clean):
     print(f"{len(test_12):,}")
 
 
-
 def add_grammar(cpd):
     """Add pos and comp to grammar."""
     for i in cpd:
@@ -270,17 +287,13 @@ def add_grammar(cpd):
 
 
 def add_to_db(cpd, dpd_length):
-    print(
-        f"[cyan]{'have you spellchecked? (YES/NO)':<40}", end="")
+    print(f"[cyan]{'have you spellchecked? (YES/NO)':<40}", end="")
     yes_no = input("")
     if yes_no != "YES":
         return
-    print(
-        f"[cyan]{'add words to db? (YES/NO)':<40}",
-        end="")
+    print(f"[cyan]{'add words to db? (YES/NO)':<40}", end="")
     yes_no = input("")
     if yes_no == "YES":
-
         add_to_db = []
 
         for counter, i in enumerate(cpd):
@@ -327,8 +340,8 @@ def add_to_db(cpd, dpd_length):
 
 
 def write_csv(cpd, cpd_path):
-    with open(cpd_path, 'w', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=cpd[0].keys(), delimiter='\t')
+    with open(cpd_path, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=cpd[0].keys(), delimiter="\t")
         writer.writeheader()
         for i in cpd:
             if not i.stem:

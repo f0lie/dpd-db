@@ -23,11 +23,10 @@ def main():
     replace: str = "rudh"
 
     for i in db:
-        if re.findall(fr"\b{find}\b", str(i.family_word)):
+        if re.findall(rf"\b{find}\b", str(i.family_word)):
             print(f"[green]{i.lemma_1}")
             print(f"[green]{i.family_word}")
-            i.family_word = re.sub(
-                fr"\b{find}\b", replace, str(i.family_word))
+            i.family_word = re.sub(rf"\b{find}\b", replace, str(i.family_word))
             print(f"[blue]{i.family_word}")
             print()
 

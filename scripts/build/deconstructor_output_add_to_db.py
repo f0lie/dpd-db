@@ -9,7 +9,6 @@ Used for the GitHub action which cannot currently handle the deconstructor progr
 or for local use.
 """
 
-
 import json
 from db.db_helpers import get_db_session
 from db.models import Lookup
@@ -23,7 +22,6 @@ from tools.configger import config_test
 
 
 def main():
-    
     tic()
     p_title("adding deconstructor output to lookup db")
 
@@ -31,17 +29,17 @@ def main():
         p_green_title("disabled in config.ini")
         toc()
         return
-    
+
     p_green("setting up data")
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
     lookup_db: list[Lookup] = db_session.query(Lookup).all()
-    
+
     # top_five_dict contains the top five most likely splits
-    # from the deconstruction process 
+    # from the deconstruction process
     with open(pth.deconstructor_output_json) as f:
         top_five_dict = json.load(f)
-    
+
     p_yes("ok")
 
     update_set, test_set, add_set = update_test_add(lookup_db, top_five_dict)
@@ -60,7 +58,7 @@ def main():
                 update_count += 1
             else:
                 db_session.delete(i)
-                update_count += 1 
+                update_count += 1
     db_session.commit()
     p_yes(update_count)
 

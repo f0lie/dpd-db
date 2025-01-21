@@ -23,7 +23,7 @@ def main():
         "niddara",
         "niddarathaṃ",
         "niddasa",
-        "sududdasa"
+        "sududdasa",
     ]
 
     for counter, i in enumerate(db):

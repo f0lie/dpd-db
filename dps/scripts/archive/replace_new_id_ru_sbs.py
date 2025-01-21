@@ -16,7 +16,9 @@ pth = ProjectPaths()
 
 def main():
     tic()
-    print("[bright_yellow]replacing id in ru and sbs backup files according to additions.csv")
+    print(
+        "[bright_yellow]replacing id in ru and sbs backup files according to additions.csv"
+    )
 
     pth = ProjectPaths()
     dpspth = DPSPaths()
@@ -24,19 +26,16 @@ def main():
     if pth.dpd_db_path.exists():
         pth.dpd_db_path.unlink()
 
-    for p in [
-        pth.russian_path,
-        pth.sbs_path
-    ]:
+    for p in [pth.russian_path, pth.sbs_path]:
         if not p.exists():
             print(f"[bright_red]TSV backup file does not exist: {p}")
             sys.exit(1)
 
-    additions_file_path = os.path.join(pth.temp_dir, 'additions.tsv')
+    additions_file_path = os.path.join(pth.temp_dir, "additions.tsv")
 
     # Create a temporary file path within the temporary directory
-    output_file_path_ru = os.path.join(pth.temp_dir, 'ru_temp.tsv')
-    output_file_path_sbs = os.path.join(pth.temp_dir, 'sbs_temp.tsv')
+    output_file_path_ru = os.path.join(pth.temp_dir, "ru_temp.tsv")
+    output_file_path_sbs = os.path.join(pth.temp_dir, "sbs_temp.tsv")
 
     # Replace values and save the updated data
     replace_values_and_save(pth.russian_path, additions_file_path, output_file_path_ru)

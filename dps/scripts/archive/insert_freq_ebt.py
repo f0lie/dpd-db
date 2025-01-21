@@ -21,34 +21,52 @@ def read_dataframes(dps_full_path, freq_ebt_path):
 
 
 def process_dataframes(full_df, freq_df):
-    full_df['lemma_1_no_num'] = full_df['lemma_1'].apply(lambda x: x.split()[0])
-    merged_df = pd.merge(full_df, freq_df, left_on=['lemma_1_no_num', 'pos'], right_on=['pali', 'pos'], how='left')
-    merged_df.drop(['lemma_1_no_num', 'pali'], axis=1, inplace=True)
-    
-    merged_df['count'] = pd.to_numeric(merged_df['count'], errors='coerce', downcast='integer')
-    merged_df = merged_df.sort_values(by='count', ascending=False, na_position='last')
-    
-    cols = ['count', 'sbs_index'] + [col for col in merged_df.columns if col not in ['count', 'sbs_index']]
+    full_df["lemma_1_no_num"] = full_df["lemma_1"].apply(lambda x: x.split()[0])
+    merged_df = pd.merge(
+        full_df,
+        freq_df,
+        left_on=["lemma_1_no_num", "pos"],
+        right_on=["pali", "pos"],
+        how="left",
+    )
+    merged_df.drop(["lemma_1_no_num", "pali"], axis=1, inplace=True)
+
+    merged_df["count"] = pd.to_numeric(
+        merged_df["count"], errors="coerce", downcast="integer"
+    )
+    merged_df = merged_df.sort_values(by="count", ascending=False, na_position="last")
+
+    cols = ["count", "sbs_index"] + [
+        col for col in merged_df.columns if col not in ["count", "sbs_index"]
+    ]
     merged_df = merged_df[cols]
-    
-    merged_df['id'] = merged_df['id'].astype(int)
-    merged_df['count'].fillna(0, inplace=True)
-    merged_df['count'] = merged_df['count'].astype(int)
-    
+
+    merged_df["id"] = merged_df["id"].astype(int)
+    merged_df["count"].fillna(0, inplace=True)
+    merged_df["count"] = merged_df["count"].astype(int)
+
     merged_df.fillna("", inplace=True)
-    
+
     return merged_df
 
 
 def save_to_sqlite(merged_df, db_path):
     conn = sqlite3.connect(db_path)
-    merged_df.to_sql('_full_frequency', conn, if_exists='replace', index=False, dtype={'count': 'INTEGER', 'id': 'INTEGER', 'sbs_class_anki': 'INTEGER'})
+    merged_df.to_sql(
+        "_full_frequency",
+        conn,
+        if_exists="replace",
+        index=False,
+        dtype={"count": "INTEGER", "id": "INTEGER", "sbs_class_anki": "INTEGER"},
+    )
     conn.close()
 
 
 def main():
     tic()
-    console.print("[bold bright_yellow]adding frequency count into dpd_dps_full freq.db")
+    console.print(
+        "[bold bright_yellow]adding frequency count into dpd_dps_full freq.db"
+    )
 
     dpspth = DPSPaths()
 
@@ -64,6 +82,7 @@ def main():
     save_to_sqlite(merged_df, db_path)
 
     toc()
+
 
 if __name__ == "__main__":
     main()

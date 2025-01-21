@@ -16,7 +16,7 @@ from tools.tic_toc import tic, toc
 from tools.printer import p_title, p_green, p_yes
 
 
-class ProgData():
+class ProgData:
     pth = ProjectPaths()
     simsapa_db_path = config_read("simsapa", "db_path")
     simsapa_db: list[tuple[str, str, str]]
@@ -29,7 +29,7 @@ def extract_simsapa_db_data(g: ProgData):
     - 3. Dictionary of Pali Proper Names (DPPN)
     - 10. New Concise Pali - English Dictionary (NCPED)
     - 11. Pali Text Society Pali - English Dictionary (PTS)."""
-    
+
     p_green("querying simspa db")
 
     if g.simsapa_db_path:
@@ -39,7 +39,8 @@ def extract_simsapa_db_data(g: ProgData):
             """
             SELECT word, definition_html, synonyms
             FROM dict_words
-            WHERE dictionary_id IN (1, 3, 10, 11)""")
+            WHERE dictionary_id IN (1, 3, 10, 11)"""
+        )
         simsapa_db = c.fetchall()
 
         # sort by pali alphabetical
@@ -57,7 +58,7 @@ def make_data_list(g: ProgData):
     index = 0
     for index, data_tuple in enumerate(g.simsapa_db):
         headword, html, synonyms = data_tuple
-        
+
         if headword not in processed_headwords:
             processed_headwords.add(headword)
 
@@ -66,7 +67,7 @@ def make_data_list(g: ProgData):
                 synonyms_comp = set([synonyms])
             else:
                 synonyms_comp = set()
-            if index +1 < len(g.simsapa_db):
+            if index + 1 < len(g.simsapa_db):
                 next_index = index + 1
                 next_headword = g.simsapa_db[next_index][0]
             else:
@@ -90,16 +91,16 @@ def make_data_list(g: ProgData):
             # normalize niggahitas and add to synonyms
             html_comp = str(soup)
             html_comp = html_comp.replace("ṁ", "ṃ")
-            
+
             headword = headword.replace("ṁ", "ṃ")
             if "ṃ" in headword:
                 synonyms_comp.update(add_niggahitas([headword], all=False))
 
             dict_entry = DictEntry(
-                word = headword,
-                definition_html = html_comp,
-                definition_plain = "",
-                synonyms = list(synonyms_comp)
+                word=headword,
+                definition_html=html_comp,
+                definition_plain="",
+                synonyms=list(synonyms_comp),
             )
             dict_data.append(dict_entry)
 
@@ -109,40 +110,36 @@ def make_data_list(g: ProgData):
 
 def save_goldendict_and_mdict(g: ProgData):
     """Save as Goldendict"""
-    
+
     dict_info = DictInfo(
-        bookname = "Simsapa Combined Pali-English Dictionary",
-        author = "",
-        description = "<h3>Simsapa Combined Pali-English Dictionary</h3><p>Nyanatiloka's Buddhist Dictionary</p><p>Dictionary of Pali Proper Names (DPPN)</p><p>New Concise Pali - English Dictionary (NCPED)</p><p>Pali Text Society Pali - English Dictionary (PTS)</p><p>Reformatted for the <a href='https://github.com/simsapa/simsapa'>Simsapa Dhamma Reader.</a></p><p>Encoded by Bodhirasa 2024.</p>",
-        website = "https://simsapa.github.io/",
-        source_lang = "pa",
-        target_lang = "en",
+        bookname="Simsapa Combined Pali-English Dictionary",
+        author="",
+        description="<h3>Simsapa Combined Pali-English Dictionary</h3><p>Nyanatiloka's Buddhist Dictionary</p><p>Dictionary of Pali Proper Names (DPPN)</p><p>New Concise Pali - English Dictionary (NCPED)</p><p>Pali Text Society Pali - English Dictionary (PTS)</p><p>Reformatted for the <a href='https://github.com/simsapa/simsapa'>Simsapa Dhamma Reader.</a></p><p>Encoded by Bodhirasa 2024.</p>",
+        website="https://simsapa.github.io/",
+        source_lang="pa",
+        target_lang="en",
     )
-    
+
     dict_vars = DictVariables(
-        css_path = None,
-        js_paths = None,
-        gd_path = g.pth.simsapa_gd_path,
-        md_path = g.pth.simsapa_mdict_path,
-        dict_name= "simsapa",
-        icon_path = None,
-        zip_up = True,
-        delete_original = True
+        css_path=None,
+        js_paths=None,
+        gd_path=g.pth.simsapa_gd_path,
+        md_path=g.pth.simsapa_mdict_path,
+        dict_name="simsapa",
+        icon_path=None,
+        zip_up=True,
+        delete_original=True,
     )
 
     # save goldendict
     export_to_goldendict_with_pyglossary(
-        dict_info, 
+        dict_info,
         dict_vars,
         g.dict_data,
     )
 
     # save as mdict
-    export_to_mdict(
-        dict_info, 
-        dict_vars,
-        g.dict_data
-    )
+    export_to_mdict(dict_info, dict_vars, g.dict_data)
 
 
 def main():
@@ -154,6 +151,6 @@ def main():
     save_goldendict_and_mdict(g)
     toc()
 
+
 if __name__ == "__main__":
     main()
-
