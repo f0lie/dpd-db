@@ -22,7 +22,7 @@ class ProgData:
 
 def load_exceptions_list(g: ProgData):
     if g.pth.neg_compound_exceptions.exists():
-        with open(g.pth.neg_compound_exceptions) as f:
+        with open(g.pth.neg_compound_exceptions, encoding="utf-8") as f:
             g.exceptions_list = json.load(f)
     else:
         g.exceptions_list = []

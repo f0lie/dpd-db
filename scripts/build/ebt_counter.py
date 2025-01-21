@@ -23,7 +23,7 @@ def main():
     pth = ProjectPaths()
     db_session = get_db_session(pth.dpd_db_path)
 
-    with open(pth.cst_file_freq) as f:
+    with open(pth.cst_file_freq, encoding="utf-8") as f:
         cst_file_freq_dict = json.load(f)
 
     db = db_session.query(DpdHeadword).all()

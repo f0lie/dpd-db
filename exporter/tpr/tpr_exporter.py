@@ -488,7 +488,7 @@ def copy_zip_to_tpr_downloads(g: ProgData):
         p_red("https://github.com/bksubhuti/tpr_downloads")
         p_red("to /resources/ folder")
     else:
-        with open(g.pth.tpr_download_list_path) as f:
+        with open(g.pth.tpr_download_list_path, encoding="utf-8") as f:
             download_list = json.load(f)
 
         day = TODAY.day

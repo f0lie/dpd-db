@@ -127,7 +127,7 @@ class Pass2Data:
 
     def load_tried_dict(self):
         try:
-            with open(self.pth.pass2_checked_path, "r") as f:
+            with open(self.pth.pass2_checked_path, "r", encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
             return {self.book: dict()}

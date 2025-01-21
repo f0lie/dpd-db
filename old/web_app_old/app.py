@@ -38,7 +38,7 @@ db = SQLAlchemy(app)
 db_session = get_db_session(pth.dpd_db_path)
 roots_count_dict = make_roots_count_dict(db_session)
 
-with open(pth.buttons_js_path) as f:
+with open(pth.buttons_js_path, encoding="utf-8") as f:
     js = f.read()
 
 

@@ -30,7 +30,7 @@ def transliterate_json():
             in_path = sinhala_dir.joinpath(file)
             out_path = roman_dir.joinpath(file)
 
-            with open(in_path) as f:
+            with open(in_path, encoding="utf-8") as f:
                 sinhala = f.read()
 
             roman = translit_si_to_ro(sinhala)

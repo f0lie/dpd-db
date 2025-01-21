@@ -32,7 +32,7 @@ class GlobalVars:
 
     def load_exceptions_list(self):
         try:
-            with open(self.pth.maha_exceptions_list) as f:
+            with open(self.pth.maha_exceptions_list, encoding="utf-8") as f:
                 return json.load(f)
         except:
             return []

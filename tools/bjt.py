@@ -63,7 +63,7 @@ def get_bjt_json(bjt_file_names: list[str]) -> list[dict]:
 
     for file_name in bjt_file_names:
         file_path = roman_dir.joinpath(file_name)
-        with open(file_path) as f:
+        with open(file_path, encoding="utf-8") as f:
             json_dict: dict = json.load(f)
         json_dicts.append(json_dict)
 

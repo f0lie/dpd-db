@@ -36,13 +36,13 @@ db_session.close()
 templates = Jinja2Templates(directory="exporter/webapp/templates")
 templates_ru = Jinja2Templates(directory="exporter/webapp/ru_templates")
 
-with open("exporter/webapp/static/dpd.css") as f:
+with open("exporter/webapp/static/dpd.css", encoding="utf-8") as f:
     dpd_css = f.read()
 
-with open("exporter/webapp/static/dpd.js") as f:
+with open("exporter/webapp/static/dpd.js", encoding="utf-8") as f:
     dpd_js = f.read()
 
-with open("exporter/webapp/static/home_simple.css") as f:
+with open("exporter/webapp/static/home_simple.css", encoding="utf-8") as f:
     home_simple_css = f.read()
 
 

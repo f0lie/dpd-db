@@ -20,7 +20,7 @@ def main():
 
     dict_data: list[DictEntry] = []
 
-    with open(pth.bhs_source_path) as f:
+    with open(pth.bhs_source_path, encoding="utf-8") as f:
         soup = BeautifulSoup(f, "xml")
         h1s = soup.find_all("H1")
         for h1 in h1s:

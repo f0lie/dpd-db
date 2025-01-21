@@ -6,7 +6,7 @@ from os.path import basename
 csv_file = "../spreadsheets/dps-dpd-ex.csv"
 
 with (
-    open(csv_file) as f,
+    open(csv_file, encoding="utf-8") as f,
     open("../spreadsheets/to-merge/meaning_1.csv", "w", encoding="utf-8") as meaning_1,
     open("../spreadsheets/to-merge/meaning_lit.csv", "w", encoding="utf-8") as meaning_lit,
     open("../spreadsheets/to-merge/root_pali.csv", "w", encoding="utf-8") as root_pali,

@@ -46,7 +46,7 @@ def add_dps_russian(dpspth, db_session: Session):
     console.print("[bold green]processing dps russian")
 
     rows = []
-    with open(dpspth.dps_csv_path, "r") as f:
+    with open(dpspth.dps_csv_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             for key, value in row.items():
@@ -121,7 +121,7 @@ def add_dps_sbs(dpspth, db_session: Session):
     console.print("[bold green]processing dps sbs")
 
     rows = []
-    with open(dpspth.dps_csv_path, "r") as f:
+    with open(dpspth.dps_csv_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             for key, value in row.items():

@@ -41,7 +41,7 @@ def save_filtered_words():
     existing_ids = set()
     for file in os.listdir(dpspth.freqent_words_dir):
         if file.endswith(".csv"):
-            with open(os.path.join(dpspth.freqent_words_dir, file), "r") as csvfile:
+            with open(os.path.join(dpspth.freqent_words_dir, file), "r", encoding="utf-8") as csvfile:
                 reader = csv.DictReader(csvfile, delimiter="\t")
                 for row in reader:
                     existing_ids.add(row["id"])

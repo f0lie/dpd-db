@@ -40,7 +40,7 @@ class GlobalVars:
 
     def load_json(self) -> dict[int, str]:
         try:
-            with open(self.pth.digu_json_path) as f:
+            with open(self.pth.digu_json_path, encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError as e:
             print(e)

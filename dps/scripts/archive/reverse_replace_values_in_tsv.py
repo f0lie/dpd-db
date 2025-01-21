@@ -24,7 +24,7 @@ def reverse_replace_values_in_tsv():
     modified_rows = []
 
     # Read the replaced TSV and replace values to original
-    with open(dpspth.dps_internal_tests_replaced_path, newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_replaced_path, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         for row in reader:
             modified_row = {}
@@ -72,7 +72,7 @@ def replace_values_in_tsv():
     modified_rows = []
 
     # Read the TSV and replace values as required
-    with open(dpspth.dps_internal_tests_path, newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         for row in reader:
             modified_row = {}

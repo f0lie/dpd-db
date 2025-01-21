@@ -179,7 +179,7 @@ def main():
     family_idioms_values = get_family_idioms_values(db_session)
     sandhi_dict = make_sandhi_contraction_dict(db_session)
 
-    with open(pth.hyphenations_dict_path) as f:
+    with open(pth.hyphenations_dict_path, encoding="utf-8") as f:
         hyphenations_dict = json.load(f)
 
     lemma_clean_list: list = get_lemma_clean_list(db_session)

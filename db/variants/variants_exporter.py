@@ -50,7 +50,7 @@ def export_to_goldendict_mdict(variants_dict: VariantsDict, pth: ProjectPaths) -
 
     dict_data: list[DictEntry] = []
 
-    with open(pth.variants_header_path) as f:
+    with open(pth.variants_header_path, encoding="utf-8") as f:
         header = f.read()
 
     for word, data in variants_dict.items():

@@ -57,7 +57,7 @@ def main():
 def make_pali_word_table_data(db_session, pali_word_latest_tsv):
     """Read TSV and return DpdHeadword table data."""
     console.print("[bold green]creating DpdHeadword table data")
-    with open(pali_word_latest_tsv, "r", newline="") as tsvfile:
+    with open(pali_word_latest_tsv, "r", newline="", encoding="utf-8") as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
         for row in csvreader:
@@ -71,7 +71,7 @@ def make_pali_word_table_data(db_session, pali_word_latest_tsv):
 def make_pali_root_table_data(db_session, pali_root_latest_tsv):
     """Read TSV and return DpdRoot table data."""
     console.print("[bold green]creating DpdRoot table data")
-    with open(pali_root_latest_tsv, "r", newline="") as tsvfile:
+    with open(pali_root_latest_tsv, "r", newline="", encoding="utf-8") as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
         for row in csvreader:
@@ -90,7 +90,7 @@ def make_pali_root_table_data(db_session, pali_root_latest_tsv):
 def make_russian_table_data(db_session, russian_latest_tsv):
     """Read TSV and return Russian table data."""
     console.print("[bold green]creating Russian table data")
-    with open(russian_latest_tsv, "r", newline="") as tsvfile:
+    with open(russian_latest_tsv, "r", newline="", encoding="utf-8") as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
         for row in csvreader:
@@ -103,7 +103,7 @@ def make_russian_table_data(db_session, russian_latest_tsv):
 def make_sbs_table_data(db_session, sbs_latest_tsv):
     """Read TSV and return SBS table data."""
     console.print("[bold green]creating SBS table data")
-    with open(sbs_latest_tsv, "r", newline="") as tsvfile:
+    with open(sbs_latest_tsv, "r", newline="", encoding="utf-8") as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
         for row in csvreader:

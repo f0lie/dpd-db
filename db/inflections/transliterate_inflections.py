@@ -157,7 +157,7 @@ def _parse_batch(
 
     # print("[green]importing path nirvana inflections", end=" ")
 
-    with open(json_output_from_translit, "r") as f:
+    with open(json_output_from_translit, "r", encoding="utf-8") as f:
         new_inflections: Dict[str, WordInflections] = json.load(f)
         # print(f"{len(new_inflections)}")
 

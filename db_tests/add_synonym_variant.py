@@ -32,7 +32,7 @@ class ProgData:
     def load_exceptions(self):
         """Load exceptions json file."""
         try:
-            with open(self.pth.syn_var_exceptions_path) as f:
+            with open(self.pth.syn_var_exceptions_path, encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
             return []

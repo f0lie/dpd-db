@@ -185,7 +185,7 @@ def save_filtered_words():
             )
 
     # Read the existing CSV and count the number of rows
-    with open(dpspth.temp_csv_path, "r", newline="") as csvfile:
+    with open(dpspth.temp_csv_path, "r", newline="", encoding="utf-8") as csvfile:
         reader = csv.reader(csvfile, delimiter="\t")
         row_count = sum(1 for row in reader) - 1  # Subtract  1 to exclude the header
 

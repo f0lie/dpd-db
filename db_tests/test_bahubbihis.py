@@ -49,7 +49,7 @@ class ProgData:
 
     def load_bahubbhihi_dict(self):
         if self.pth.bahubbihi_dict_path.exists():
-            with open(self.pth.bahubbihi_dict_path, "r") as f:
+            with open(self.pth.bahubbihi_dict_path, "r", encoding="utf-8") as f:
                 bahubbihi_dict = json.load(f)
                 print("[green]loaded bahubbihi_dict json")
         else:

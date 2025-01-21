@@ -34,7 +34,7 @@ def individual_internal_tests(pth, sg, window, values, flags, username):
 
 
 def make_internal_tests_list(pth):
-    with open(pth.internal_tests_path, newline="") as csvfile:
+    with open(pth.internal_tests_path, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         internal_tests_list = [InternalTestRow(**row) for row in reader]
     return internal_tests_list

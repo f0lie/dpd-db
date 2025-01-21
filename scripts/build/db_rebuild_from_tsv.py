@@ -63,7 +63,7 @@ def make_pali_word_table_data(pth: ProjectPaths, db_session: Session):
 
     p_green("creating DpdHeadword table data")
     counter = 0
-    with open(pth.pali_word_path, "r", newline="") as tsvfile:
+    with open(pth.pali_word_path, "r", newline="", encoding="utf-8") as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
         for row in csvreader:
@@ -80,7 +80,7 @@ def make_pali_root_table_data(pth: ProjectPaths, db_session: Session):
     """Read TSV and return DpdRoot table data."""
     p_green("creating DpdRoot table data")
     counter = 0
-    with open(pth.pali_root_path, "r", newline="") as tsvfile:
+    with open(pth.pali_root_path, "r", newline="", encoding="utf-8") as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
         for row in csvreader:
@@ -104,7 +104,7 @@ def make_russian_table_data(pth: ProjectPaths, db_session: Session):
     """Read TSV and return Russian table data."""
     p_green("creating Russian table data")
     counter = 0
-    with open(pth.russian_path, "r", newline="") as tsvfile:
+    with open(pth.russian_path, "r", newline="", encoding="utf-8") as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
         for row in csvreader:
@@ -120,7 +120,7 @@ def make_sbs_table_data(pth: ProjectPaths, db_session: Session):
     """Read TSV and return SBS table data."""
     p_green("creating SBS table data")
     counter = 0
-    with open(pth.sbs_path, "r", newline="") as tsvfile:
+    with open(pth.sbs_path, "r", newline="", encoding="utf-8") as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
         for row in csvreader:
@@ -136,7 +136,7 @@ def make_ru_root_table_data(pth: ProjectPaths, db_session: Session):
     """Read TSV and return ru columns from DpdRoot."""
     p_green("filling ru in DpdRoot table")
     counter = 0
-    with open(pth.ru_root_path, "r", newline="") as tsvfile:
+    with open(pth.ru_root_path, "r", newline="", encoding="utf-8") as tsvfile:
         csvreader = csv.reader(tsvfile, delimiter="\t", quotechar='"')
         columns = next(csvreader)
         for row in csvreader:

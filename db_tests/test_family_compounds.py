@@ -63,7 +63,7 @@ def make_dict_of_sets(db):
 
 def load_exceptions():
     try:
-        with open("family_compound_exceptions") as f:
+        with open("family_compound_exceptions", encoding="utf-8") as f:
             exceptions = pickle.load(f)
     except FileNotFoundError:
         exceptions = set()

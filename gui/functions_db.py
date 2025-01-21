@@ -778,7 +778,7 @@ def make_words_to_add_list_generic(
 
 
 def make_sp_mistakes_list(pth):
-    with open(pth.spelling_mistakes_path) as f:
+    with open(pth.spelling_mistakes_path, encoding="utf-8") as f:
         reader = csv.reader(f, delimiter="\t")
         sp_mistakes_list = [row[0] for row in reader]
 
@@ -787,7 +787,7 @@ def make_sp_mistakes_list(pth):
 
 
 def make_variant_list(pth):
-    with open(pth.variant_readings_path) as f:
+    with open(pth.variant_readings_path, encoding="utf-8") as f:
         reader = csv.reader(f, delimiter="\t")
         variant_list = [row[0] for row in reader]
 
@@ -796,7 +796,7 @@ def make_variant_list(pth):
 
 
 def make_sandhi_ok_list(pth):
-    with open(pth.decon_checked) as f:
+    with open(pth.decon_checked, encoding="utf-8") as f:
         reader = csv.reader(f, delimiter="\t")
         sandhi_ok_list = [row[0] for row in reader]
 

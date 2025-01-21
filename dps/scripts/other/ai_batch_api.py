@@ -35,7 +35,7 @@ def upload_and_create_batch(file_name):
             print("File upload response:", batch_input_file)
 
             # Count the number of lines in the file
-            num_lines = sum(1 for line in open(file_path, "r"))
+            num_lines = sum(1 for line in open(file_path, "r", encoding="utf-8"))
 
             # Optionally, proceed to create a batch using the file ID
             # Customize the endpoint and other parameters as needed

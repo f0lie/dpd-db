@@ -35,7 +35,7 @@ def extract_peu_from_tpr_database():
 def extract_peu_from_data_dump():
     """Latest data from https://pm12e.pali.tools/dump"""
 
-    with open("other_dictionaries/code/peu/source/peu_dump_2024_02_16.js") as f:
+    with open("other_dictionaries/code/peu/source/peu_dump_2024_02_16.js", encoding="utf-8") as f:
         raw_data = f.read()
         raw_data = re.sub(r"[\x00-\x1F\x7F-\x9F]", "", raw_data)
         raw_data = raw_data.replace('"', "^^^")

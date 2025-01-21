@@ -54,7 +54,7 @@ def main():
             writer.writerow([_id])
 
     # Counting rows in the CSV file
-    with open(dpspth.id_temp_list_path, "r", newline="") as csvfile:
+    with open(dpspth.id_temp_list_path, "r", newline="", encoding="utf-8") as csvfile:
         row_count = sum(1 for row in csvfile)
 
     console.print(f"[bold green]IDs written to {dpspth.id_temp_list_path}")

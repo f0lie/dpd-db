@@ -62,7 +62,7 @@ class RootFamily:
 def import_tsv_to_dict(pth):
     """Read tvs to dict."""
     tsv_dict = {}
-    with open(pth.root_families_sanskrit_path, newline="") as csvfile:
+    with open(pth.root_families_sanskrit_path, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         for row in reader:
             try:

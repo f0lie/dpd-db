@@ -42,7 +42,7 @@ def make_version():
 
 
 def update_poetry_version(pth, version):
-    with open(pth.pyproject_path) as file:
+    with open(pth.pyproject_path, encoding="utf-8") as file:
         doc = file.read()
         t = tomlkit.parse(doc)
         t["tool"]["poetry"]["version"] = version  # type: ignore

@@ -138,7 +138,7 @@ def _parse_batch(
 
     # re-import path nirvana transliterations
 
-    with open(json_output_from_translit, "r") as f:
+    with open(json_output_from_translit, "r", encoding="utf-8") as f:
         new_translit: Dict[str, WordInflections] = json.load(f)
 
     for headword, values in new_translit.items():

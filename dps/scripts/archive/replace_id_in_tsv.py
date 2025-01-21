@@ -17,11 +17,11 @@ json_path = "id_dict.json"
 
 def replace_ids_in_file(json_path, tsv_path):
     # Load the ID mapping from the JSON file
-    with open(json_path, "r") as json_file:
+    with open(json_path, "r", encoding="utf-8") as json_file:
         id_mapping = json.load(json_file)
 
     # Read the TSV file and replace the IDs
-    with open(tsv_path, "r") as tsv_file:
+    with open(tsv_path, "r", encoding="utf-8") as tsv_file:
         reader = csv.reader(tsv_file, delimiter="\t")
         headers = next(reader)  # Read the header row
         rows = list(reader)

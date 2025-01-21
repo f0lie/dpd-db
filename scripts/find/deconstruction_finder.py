@@ -27,7 +27,7 @@ def find_deconstructions(find_me: str):
     found: list[str] = []
 
     p_green_title("parsing matches.tsv")
-    with open(file_path, "r") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         for line_number, line in enumerate(f):
             if line_number == 0:
                 found.append(line)

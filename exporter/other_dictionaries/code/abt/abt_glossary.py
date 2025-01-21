@@ -20,7 +20,7 @@ def main():
 
     source_file = "exporter/other_dictionaries/code/abt/CPED.csv"
 
-    with open(source_file, newline="") as csvfile:
+    with open(source_file, newline="", encoding="utf-8") as csvfile:
         csv_reader = csv.reader(csvfile, delimiter="|")
         for i in csv_reader:
             word = i[0].strip()

@@ -37,7 +37,7 @@ def main():
 
     # top_five_dict contains the top five most likely splits
     # from the deconstruction process
-    with open(pth.deconstructor_output_json) as f:
+    with open(pth.deconstructor_output_json, encoding="utf-8") as f:
         top_five_dict = json.load(f)
 
     p_yes("ok")

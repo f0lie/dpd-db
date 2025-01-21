@@ -13,7 +13,7 @@ db = db_session.query(DpdHeadword).all()
 
 old_dpd_csv_path = Path("../csvs/dpd-full.csv")
 
-with open(old_dpd_csv_path, newline="") as csvfile:
+with open(old_dpd_csv_path, newline="", encoding="utf-8") as csvfile:
     reader = csv.DictReader(csvfile, delimiter="\t")
     old_dpd = [row for row in reader]
 

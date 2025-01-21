@@ -21,10 +21,10 @@ def main():
 
     print("[green]processing data")
 
-    with open(pth.dpr_source_path) as file:
+    with open(pth.dpr_source_path, encoding="utf-8") as file:
         dpr_data = json.load(file)
 
-    with open(pth.dpr_css_path) as file:
+    with open(pth.dpr_css_path, encoding="utf-8") as file:
         dpr_css = file.read()
 
     dict_data: list[DictEntry] = []

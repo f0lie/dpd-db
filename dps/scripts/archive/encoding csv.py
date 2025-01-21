@@ -18,7 +18,7 @@ tic()
 original_file = dpspth.sbs_index_path
 new_file = dpspth.temp_csv_path
 
-with open(original_file, "r") as source_file:
+with open(original_file, "r", encoding="utf-8") as source_file:
     content = source_file.read()
 
 # Check if the CSV exists, and create a backup with a timestamp if it does

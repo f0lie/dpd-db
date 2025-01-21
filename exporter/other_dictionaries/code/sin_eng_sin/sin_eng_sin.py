@@ -21,7 +21,7 @@ def convert_tab_to_dict(g: GlobalVars):
     p_green("english - sinhala")
 
     # english_sinhala
-    with open(g.pth.eng_sin_source_path, "r") as f:
+    with open(g.pth.eng_sin_source_path, "r", encoding="utf-8") as f:
         lines = f.readlines()
         for line in lines:
             line = line.strip("\n")
@@ -42,7 +42,7 @@ def convert_tab_to_dict(g: GlobalVars):
     p_green("sinhala - english")
 
     # sinhala_english
-    with open(g.pth.sin_eng_source_path, "r") as f:
+    with open(g.pth.sin_eng_source_path, "r", encoding="utf-8") as f:
         lines = f.readlines()
         for line in lines:
             line = line.strip("\n")

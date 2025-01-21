@@ -121,7 +121,7 @@ def add_dpd_roots(db_session: Session, csv_path: Path):
     print("[green]processing pali roots")
 
     rows = []
-    with open(csv_path, "r") as f:
+    with open(csv_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             for key, value in row.items():
@@ -161,7 +161,7 @@ def add_dpd_headwords(db_session: Session, csv_path: Path):
     print("[green]processing pali words")
 
     rows = []
-    with open(csv_path, "r") as f:
+    with open(csv_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             for key, value in row.items():

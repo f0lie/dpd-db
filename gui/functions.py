@@ -140,7 +140,7 @@ def add_sandhi_rule(pth, window, values: dict) -> None:
         window["messages"].update("use an apostrophe in the example!", text_color="red")
 
     else:
-        with open(pth.sandhi_rules_path, "r") as f:
+        with open(pth.sandhi_rules_path, "r", encoding="utf-8") as f:
             reader = csv.reader(f, delimiter="\t")
 
             for row in reader:

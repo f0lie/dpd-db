@@ -14,7 +14,7 @@ def process_tsv(input_file, output_file):
     seen_words = set()
     output_rows = []
 
-    with open(input_file, "r") as file:
+    with open(input_file, "r", encoding="utf-8") as file:
         reader = csv.reader(file, delimiter="\t")
         for row in reader:
             word = row[0]

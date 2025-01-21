@@ -47,7 +47,7 @@ def make_cst_text_set(books) -> set:
         if book in cst_texts:
             for b in cst_texts[book]:
                 filepath = cst_texts_dir.joinpath(b)
-                with open(filepath) as f:
+                with open(filepath, encoding="utf-8") as f:
                     text_read = f.read()
                     text_clean = clean_machine(text_read)
                     text_set.update(text_clean.split())

@@ -32,7 +32,7 @@ class ProgData:
 
     def load_antonym_dict(self) -> dict:
         if self.pth.antonym_dict_path.exists():
-            with open(self.pth.antonym_dict_path) as file:
+            with open(self.pth.antonym_dict_path, encoding="utf-8") as file:
                 return json.load(file)
         else:
             print("[red]error opening antonym dict")

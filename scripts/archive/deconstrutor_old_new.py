@@ -20,7 +20,7 @@ def main():
         old_decon_set.add(i.lookup_key)
     print("decon_set:", len(old_decon_set))
 
-    with open("../deconstructor_go/output/matches.json") as f:
+    with open("../deconstructor_go/output/matches.json", encoding="utf-8") as f:
         new_decon = json.load(f)
         print("new_decon:", len(new_decon))
 

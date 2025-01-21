@@ -39,14 +39,14 @@ def request_dpd_server(q: str | int):
     base_url = "http://127.1.1.1:8080/"
     search_params = {"q": q}
     url = f"{base_url}?{urllib.parse.urlencode(search_params)}"
-    webbrowser.open(url)
+    webbrowser.open(url, encoding="utf-8")
 
 
 def request_bold_def_server(search_1: str, search_2: str, option: str):
     base_url = "http://127.1.1.2:8080/search"
     search_params = {"search_1": search_1, "search_2": search_2, "option": option}
     url = f"{base_url}?{urllib.parse.urlencode(search_params)}"
-    webbrowser.open(url)
+    webbrowser.open(url, encoding="utf-8")
 
 
 if __name__ == "__main__":

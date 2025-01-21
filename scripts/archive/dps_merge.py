@@ -71,7 +71,7 @@ def main():
             break
 
         dict = {}
-        with open(dpspth.dps_merge_dir.joinpath(column).with_suffix(".csv")) as f:
+        with open(dpspth.dps_merge_dir.joinpath(column).with_suffix(".csv"), encoding="utf-8") as f:
             reader = csv.DictReader(f, delimiter=",")
             for row in reader:
                 dict[int(row["id"])] = row[column]

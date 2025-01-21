@@ -28,7 +28,7 @@ class ProgData:
 
 def load_exceptions_dict(g: ProgData):
     if g.pth.idioms_exceptions_dict.exists():
-        with open(g.pth.idioms_exceptions_dict) as f:
+        with open(g.pth.idioms_exceptions_dict, encoding="utf-8") as f:
             g.exceptions_dict = json.load(f)
     else:
         g.exceptions_dict = {}

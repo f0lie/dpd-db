@@ -46,7 +46,7 @@ class GlobalVars:
 
     def load_hyphenations_dict(self):
         if self.pth.hyphenations_dict_path.exists():
-            with open(self.pth.hyphenations_dict_path) as file:
+            with open(self.pth.hyphenations_dict_path, encoding="utf-8") as file:
                 return json.load(file)
         else:
             return {}

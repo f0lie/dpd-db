@@ -85,7 +85,7 @@ def unite_csvs():
     # Read each CSV file into a list of dictionaries
     all_data = []
     for csv_file in csv_files:
-        with open(csv_file, "r", newline="") as f:
+        with open(csv_file, "r", newline="", encoding="utf-8") as f:
             reader = csv.reader(f)
             for row in reader:
                 # Extract the first column and clean it
@@ -112,7 +112,7 @@ def unite_csvs():
 
 def clean_and_save_csv(input_filename, output_filename):
     # Open the input CSV file
-    with open(input_filename, "r", newline="") as csvfile:
+    with open(input_filename, "r", newline="", encoding="utf-8") as csvfile:
         reader = csv.reader(csvfile, delimiter="\t")
         next(reader)  # Skip the header
 

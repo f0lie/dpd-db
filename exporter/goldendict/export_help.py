@@ -104,7 +104,7 @@ def add_abbrev_html(
     rows = read_tsv_dict(file_path)
 
     rows2 = []
-    with open(pth.abbreviations_tsv_path) as f:
+    with open(pth.abbreviations_tsv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             rows2.append(row)
@@ -161,7 +161,7 @@ def add_help_html(
     rows = read_tsv_dict(file_path)
 
     rows2 = []
-    with open(pth.help_tsv_path) as f:
+    with open(pth.help_tsv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             rows2.append(row)

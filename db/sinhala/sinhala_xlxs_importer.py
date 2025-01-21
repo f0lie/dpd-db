@@ -56,7 +56,7 @@ def main():
 def get_id_dict():
     p_green("loading id_dict.json")
     try:
-        with open("temp/id_dict.json") as f:
+        with open("temp/id_dict.json", encoding="utf-8") as f:
             data = json.load(f)
             p_yes(len(data))
             return {int(key): value for key, value in data.items()}

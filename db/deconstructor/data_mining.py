@@ -23,7 +23,7 @@ ebts_umatched_freq_path = Path("db/deconstructor/output/mining/umatched_freq_ebt
 
 
 def mine_unmatched():
-    with open(do_unmatched_path) as f:
+    with open(do_unmatched_path, encoding="utf-8") as f:
         reader = csv.reader(f)
         do_unmatched: list = [row[0] for row in reader]
 
@@ -51,7 +51,7 @@ def mine_unmatched():
 
 
 def mine_matches():
-    with open(do_matches_path) as f:
+    with open(do_matches_path, encoding="utf-8") as f:
         reader = csv.reader(f, delimiter="\t")
         do_matches: list = [row[1] for row in reader]
 
@@ -70,12 +70,12 @@ def mine_matches():
 
 def tipitaka_unmatched_frequency():
     tipitaka_freq: dict = {}
-    with open(tipitaka_word_freq) as f:
+    with open(tipitaka_word_freq, encoding="utf-8") as f:
         reader = csv.reader(f, delimiter="\t")
         for row in reader:
             tipitaka_freq[row[0]] = int(row[1])
 
-    with open(do_unmatched_path) as f:
+    with open(do_unmatched_path, encoding="utf-8") as f:
         reader = csv.reader(f)
         do_unmatched: list = [row[0] for row in reader]
 
@@ -103,12 +103,12 @@ def tipitaka_unmatched_frequency():
 
 def ebts_unmatched_frequency():
     ebts_freq: dict = {}
-    with open(ebts_word_freq) as f:
+    with open(ebts_word_freq, encoding="utf-8") as f:
         reader = csv.reader(f, delimiter="\t")
         for row in reader:
             ebts_freq[row[0]] = int(row[1])
 
-    with open(do_unmatched_path) as f:
+    with open(do_unmatched_path, encoding="utf-8") as f:
         reader = csv.reader(f)
         do_unmatched: list = [row[0] for row in reader]
 

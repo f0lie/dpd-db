@@ -27,12 +27,12 @@ def main():
 
     sandhi_dict = make_sandhi_contraction_dict(db_session)
 
-    with open(pth.hyphenations_dict_path) as f:
+    with open(pth.hyphenations_dict_path, encoding="utf-8") as f:
         hyphenations_dict = json.load(f)
 
     if imput_txt_file:
         try:
-            with open(imput_txt_file, "r") as f:
+            with open(imput_txt_file, "r", encoding="utf-8") as f:
                 text = f.read()
                 text = text.strip()
                 text = text.lower()

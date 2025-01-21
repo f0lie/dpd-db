@@ -23,11 +23,11 @@ def main():
 
     dict_data: list[DictEntry] = []
 
-    with open(pth.whitney_css_path, "r") as c:
+    with open(pth.whitney_css_path, "r", encoding="utf-8") as c:
         css = c.read()
 
     for filename in os.listdir(pth.whitney_source_dir):
-        with open(f"{pth.whitney_source_dir}/{filename}") as f:
+        with open(f"{pth.whitney_source_dir}/{filename}", encoding="utf-8") as f:
             soup = BeautifulSoup(f, "xml")
             root = str(soup.h2)
             if re.findall("√", root):

@@ -506,7 +506,7 @@ def make_raw_text_csv(pth: ProjectPaths, tipitaka_dict):
         text_clean = ""
 
         for t in texts:
-            f = open(pth.cst_txt_dir.joinpath(t))
+            f = open(pth.cst_txt_dir.joinpath(t), encoding="utf-8")
             file_read = f.read()
             text_clean += f"{clean_machine(file_read)}\n\n"
 

@@ -37,7 +37,7 @@ def main():
 
     # make data list
     print("[green]making data list")
-    with open(pth.cpd_source_path, "r") as file:
+    with open(pth.cpd_source_path, "r", encoding="utf-8") as file:
         cped_data = json.load(file)
 
     dict_data: list[DictEntry] = []

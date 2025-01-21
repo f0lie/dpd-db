@@ -18,10 +18,10 @@ def main():
     p_green("saving json")
     pth: ProjectPaths = ProjectPaths()
 
-    with open(pth.cone_source_path) as f:
+    with open(pth.cone_source_path, encoding="utf-8") as f:
         cone_dict = json.load(f)
 
-    with open(pth.cone_front_matter_path) as f:
+    with open(pth.cone_front_matter_path, encoding="utf-8") as f:
         front_matter_dict = json.load(f)
 
     cone_dict.update(front_matter_dict)

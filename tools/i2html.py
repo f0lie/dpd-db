@@ -94,9 +94,9 @@ def make_html(pth: ProjectPaths, headwords: List[str]):
     word_template = env.get_template("complete_word.html")
 
     # header
-    with open(pth.dpd_css_path) as f:
+    with open(pth.dpd_css_path, encoding="utf-8") as f:
         css = f.read()
-    with open(pth.buttons_js_path) as f:
+    with open(pth.buttons_js_path, encoding="utf-8") as f:
         js = f.read()
 
     html = header_templ.render(css=css, js=js)

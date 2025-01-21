@@ -277,7 +277,7 @@ def make_short_meaning(i: DpdHeadword) -> str:
 
 def read_set_ru_from_tsv():
     set_ru_dict = {}
-    with open(rupth.sets_ru_path, "r", newline="") as file:
+    with open(rupth.sets_ru_path, "r", newline="", encoding="utf-8") as file:
         reader = csv.reader(file, delimiter="\t")
         for row in reader:
             set_name, set_ru = row

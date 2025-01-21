@@ -19,14 +19,14 @@ def move_new_words_from_dps_backup():
     dps_headwords_path = os.path.join(dpspth.dps_backup_dir, "dpd_headwords.tsv")
 
     # Read the last ID from pali_word_new
-    with open(pth.pali_word_path, "r") as new_file:
+    with open(pth.pali_word_path, "r", encoding="utf-8") as new_file:
         reader = csv.reader(new_file, delimiter="\t")
         next(reader)  # Skip the header row
         max_id = max(int(row[0]) for row in reader)
 
     # Append rows from pali_word_old with IDs greater than max_id to pali_word_new
     with (
-        open(dps_headwords_path, "r") as dps_file,
+        open(dps_headwords_path, "r", encoding="utf-8") as dps_file,
         open(pth.pali_word_path, "a", newline="", encoding="utf-8") as new_file,
     ):
         reader = csv.reader(dps_file, delimiter="\t")

@@ -43,7 +43,7 @@ def dps_individual_internal_tests(dpspth, sg, window, values, flags_dps):
 
 def read_from_tsv(file_path):
     """Reads rows from a TSV file and returns a list of dictionaries."""
-    with open(file_path, newline="") as csvfile:
+    with open(file_path, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         rows = [row for row in reader]
 
@@ -134,7 +134,7 @@ def make_individual_internal_tests_list(dpspth):
 
 def write_exceptions_to_internal_tests_list(dpspth, internal_tests_list):
     # Read the current contents of the file
-    with open(dpspth.dps_internal_tests_path, "r", newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, "r", newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter="\t")
         current_data = [row for row in reader]
 

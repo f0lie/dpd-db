@@ -17,7 +17,7 @@ def main():
     dpd_db = db_session.query(DpdHeadword).all()
 
     dict = {}
-    with open(dpspth.dps_merge_dir.joinpath("meaning_1").with_suffix(".csv")) as f:
+    with open(dpspth.dps_merge_dir.joinpath("meaning_1").with_suffix(".csv"), encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter=",")
         for r in reader:
             text_string = f"{r['meaning_1']}"

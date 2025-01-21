@@ -333,7 +333,7 @@ def unstash_values_to(dpspth, window, num, error_field):
 
     # Load the stashed values
     try:
-        with open(dpspth.dps_stash_path, "r") as f:
+        with open(dpspth.dps_stash_path, "r", encoding="utf-8") as f:
             unstashed_values = json.load(f)
         print(f"Loaded values from {dpspth.dps_stash_path}: {unstashed_values}")
     except Exception as e:
@@ -560,7 +560,7 @@ def tail_log():
 
 # from_test_to_add_button
 def read_tsv_words(file_path):
-    with open(file_path, "r") as file:
+    with open(file_path, "r", encoding="utf-8") as file:
         reader = csv.reader(file, delimiter="\t")
         next(reader)  # Skip header row if present
         words = [row[0] for row in reader]

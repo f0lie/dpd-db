@@ -6,7 +6,7 @@ from typing import List
 
 
 def read_tsv(file_path):
-    with open(file_path, "r") as file:
+    with open(file_path, "r", encoding="utf-8") as file:
         reader = csv.reader(file, delimiter="\t")
         data = []
         for row in reader:
@@ -15,7 +15,7 @@ def read_tsv(file_path):
 
 
 def read_tsv_dict(file_path):
-    with open(file_path, "r") as file:
+    with open(file_path, "r", encoding="utf-8") as file:
         reader = csv.DictReader(file, delimiter="\t")
         data = []
         for row in reader:
@@ -32,7 +32,7 @@ class dotdict(dict):
 
 
 def read_tsv_dot_dict(file_path):
-    with open(file_path, "r") as file:
+    with open(file_path, "r", encoding="utf-8") as file:
         reader = csv.DictReader(file, delimiter="\t")
         data = []
         for row in reader:
@@ -76,7 +76,7 @@ def append_tsv_list(file_path: str, header: List[str], data: List[List[str]]) ->
 
 def read_tsv_as_dict(file_path: Path) -> dict:
     dict = {}
-    with open(file_path) as tsv_file:
+    with open(file_path, encoding="utf-8") as tsv_file:
         tsv_reader = csv.reader(tsv_file, delimiter="\t")
         headers = next(tsv_reader)  # Skip the header row
         for row in tsv_reader:
@@ -89,7 +89,7 @@ def read_tsv_as_dict(file_path: Path) -> dict:
 
 def read_tsv_as_dict_with_different_key(file_path: Path, key_index: int) -> dict:
     dict_result = {}
-    with open(file_path) as tsv_file:
+    with open(file_path, encoding="utf-8") as tsv_file:
         tsv_reader = csv.reader(tsv_file, delimiter="\t")
         headers = next(tsv_reader)  # Skip the header row
         for row in tsv_reader:
