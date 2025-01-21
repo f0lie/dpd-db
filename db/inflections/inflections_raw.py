@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Save a list of raw inflections (without stems) to TSV."""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Export DPD to PDF using Typst and Jinja templates."""
 

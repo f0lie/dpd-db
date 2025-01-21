@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Remove all sbs rows which not relevant for sbs study tools"""
 from rich import print

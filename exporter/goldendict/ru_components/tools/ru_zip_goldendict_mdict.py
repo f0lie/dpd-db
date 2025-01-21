@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Rezip the three files RU-DPD into one:
 1. ru-dpd.zip, 2. ru-dpd-grammar.zip, 3. ru-dpd-deconstructor.zip

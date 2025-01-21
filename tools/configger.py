@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Modules for initializing, reading, writing, updating and testing
 config.ini file."""

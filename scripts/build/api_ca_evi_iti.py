@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 Find all api ca eva iti iva in deconstructor and add to inflections and lookup table.

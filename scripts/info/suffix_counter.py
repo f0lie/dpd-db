@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Compile and count all the instances of various kita, kicca and taddhita
 suffixes in the DpdHeadword table and save to TSV."""

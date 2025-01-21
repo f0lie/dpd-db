@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Find words in example_1, example_2 and commentary columns which
 1. don't exist in the dictionary

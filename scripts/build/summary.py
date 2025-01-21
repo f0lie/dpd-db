@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Compile a summary of latest dictionary data to accompany a release."""
 

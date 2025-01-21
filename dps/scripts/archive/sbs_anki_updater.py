@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Update SBS Anki decks with latest data directly from the DB."""
 

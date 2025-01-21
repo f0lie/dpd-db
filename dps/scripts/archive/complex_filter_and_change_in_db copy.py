@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 from db.models import DpdHeadword
 from tools.paths import ProjectPaths

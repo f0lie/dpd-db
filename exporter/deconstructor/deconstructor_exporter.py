@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Export Deconstructor To GoldenDict and MDict formats."""
 

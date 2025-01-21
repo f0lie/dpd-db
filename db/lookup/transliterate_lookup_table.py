@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # coding: utf-8
 
 """Transliterate all Lookup table keys into Sinhala, Devanagari and Thai.

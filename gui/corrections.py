@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """GUI to add corrections.tsv to the database and give feedback."""
 

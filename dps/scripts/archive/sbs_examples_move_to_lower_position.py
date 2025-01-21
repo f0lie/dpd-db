@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Move all examples to lower position if the position is empty"""
 from rich import print

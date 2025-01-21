@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
     saving all words which dose not have an audio file. Saving them separately and unite them into one csv

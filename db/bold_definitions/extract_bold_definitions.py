@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Extract bold defined words from the CST corpus and ad to database."""
 

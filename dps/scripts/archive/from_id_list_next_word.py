@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Find the next word from id list and if needed change somthing in database"""
 
 import pyperclip

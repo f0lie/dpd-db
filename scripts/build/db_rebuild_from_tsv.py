@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Rebuild the database from scratch from files in backup_tsv folder."""
 

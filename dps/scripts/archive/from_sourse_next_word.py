@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Find the next word from some sourse which do not have ru_meaning yet."""
 
 import pyperclip

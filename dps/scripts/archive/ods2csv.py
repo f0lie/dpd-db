@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """convering ods into csv keeping bold <b> and new line formating <br> and sort result in pali alpabetical order also cheking duplicates before caving"""
 

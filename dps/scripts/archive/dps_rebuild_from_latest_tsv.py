@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Rebuild the databse from scratch from latest files in dps/backup folder. Modfied copy of https://github.com/digitalpalidictionary/dpd-db/blob/main/scripts/db_rebuild_from_tsv.py"""
 

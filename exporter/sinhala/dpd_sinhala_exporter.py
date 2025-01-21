@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Export Sinhala Version of DPD for GoldenDict and MDict."""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Find the next word from DPS for filling in missing information."""
 
 import pyperclip

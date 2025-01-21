@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Update the DpdHeadword, DpdRoot, Russian and SBS tables from backup_tsv"""
 

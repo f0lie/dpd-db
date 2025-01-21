@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Process Buddha Jayanti Tripitaka files from tipitaka.lk.
 

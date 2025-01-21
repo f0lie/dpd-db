@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """If today is an uposatha day, update the config.ini 
 for creating a release."""

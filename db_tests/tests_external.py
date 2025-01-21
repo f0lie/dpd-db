@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """External tests examine the relationship between a word's data and other
     words in the db. """

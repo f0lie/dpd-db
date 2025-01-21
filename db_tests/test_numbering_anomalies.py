@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Find anomalies in the headword numbering.
 Looks for words with different roots or words families."""

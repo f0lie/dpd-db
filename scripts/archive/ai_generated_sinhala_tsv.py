@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """making ai generated translation into Sinhala and saving to csv and xlsx"""
 

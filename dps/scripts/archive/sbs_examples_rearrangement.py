@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Distribute sbs examples according to Anki deck"""
 from rich import print

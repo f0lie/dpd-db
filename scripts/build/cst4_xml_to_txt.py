@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Convert VRI Chaṭṭha Saṅgāyana Devanagari xml to Roman txt."""
 
@@ -27,27 +27,31 @@ def main():
             p_counter(counter, 217, filename)
             try:
                 with open(
-                        pth.cst_xml_dir.joinpath(filename), 'r',
-                        encoding="UTF-16") as f:
-
+                    pth.cst_xml_dir.joinpath(filename), "r", encoding="UTF-16"
+                ) as f:
                     contents = f.read()
-                    soup = BeautifulSoup(contents, 'xml')
-                    text_tags = soup.find_all('text')
+                    soup = BeautifulSoup(contents, "xml")
+                    text_tags = soup.find_all("text")
 
                     text_extract = []
 
                     for text_tag in text_tags:
-                        text_extract.append(f"{text_tag.get_text()}\n")
-                    
-                    text = "".join(text_extract).lower()
+                        text_extract += text_tag.get_text() + "\n"
 
-                    with open(pth.cst_txt_dir.joinpath(filename) \
-                            .with_suffix(".txt"), "w") as f:
-                        f.write(text)
+                        text_translit = transliterate.process(
+                            "autodetect", "IASTPali", text_extract
+                        )
+
+                        with open(
+                            pth.cst_txt_dir.joinpath(filename).with_suffix(".txt"),
+                            "w",
+                            encoding="utf-8",
+                        ) as f:
+                            f.write(text_translit)
 
             except Exception:
                 print(f"[bright_red]ERROR: {filename} failed!")
-            
+
             counter += 1
     toc()
 

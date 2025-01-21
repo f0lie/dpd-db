@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
     Filter the database on a specified column by a given value, then update another specified column with a provided value.

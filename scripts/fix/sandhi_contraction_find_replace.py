@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Find and replace sandhi contractions (imam'eva) 
 in example_1, example_2 and commentary."""

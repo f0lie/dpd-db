@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Find words in example_1, example_2 and commentary columns which
 level 1. doesn't exist in the lookup table

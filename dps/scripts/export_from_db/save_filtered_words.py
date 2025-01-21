@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """ Filter words based on some codition and save into csv (with backing up existing temp csv)"""
 

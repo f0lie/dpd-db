@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Rename a root in the dpd_roots table and dpd_headwords tables """
 

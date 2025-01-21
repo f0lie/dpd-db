@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # unzip dpd from download folder to the goldendict dir.
 

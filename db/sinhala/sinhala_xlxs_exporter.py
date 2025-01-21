@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Export Sinhala database to spreadsheet for new additions."""
 

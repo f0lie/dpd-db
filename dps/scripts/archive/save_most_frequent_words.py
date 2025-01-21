@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """ Filter most frequent words into csv with limiting the number. Also not incluading those which already has been filtered."""
 

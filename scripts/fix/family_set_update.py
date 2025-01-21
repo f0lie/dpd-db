@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Update the family_set column in DpdHeadword with a new value."""
 

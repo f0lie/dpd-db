@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 Search for missing or wrong phonetic changes according to TSV criteria.

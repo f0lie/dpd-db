@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Create CSV files for Anki study based on id list, which extracted from docx or based on some source."""
 

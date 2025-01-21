@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Find all words starting with su and make sure they are kammadhāraka"""
 

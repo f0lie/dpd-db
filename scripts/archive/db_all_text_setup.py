@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 Setup a config.ini "deconstructor" "all_texts" "yes" for building db for all texts

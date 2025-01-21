@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """making sbs_chapter_flag 1 if any of sbs_chapter is not empty"""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # unzip dpd golden dict, mdict and pdf from local folder Download to the fileserver. And copy kindle and kobo versions as well. 
 

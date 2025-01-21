@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # unzip dpd from local folder share to the fileserver.
 

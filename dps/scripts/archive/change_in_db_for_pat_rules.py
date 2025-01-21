@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 The filter_and_update function updates the DpdHeadword database entries. For entries where lemma_1 ends with 'sikkhāpada' and meaning_2 is empty, it sets a new family set and updates meaning_2 based on patterns in meaning_1.

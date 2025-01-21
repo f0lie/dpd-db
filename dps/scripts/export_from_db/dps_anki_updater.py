@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Update DPS Anki deck with latest data directly from the DB."""
 

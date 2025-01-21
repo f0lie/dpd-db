@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Save latest Russian,ru roots and SBS tables to backup_tsv folder."""
 

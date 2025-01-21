@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """ Filter words which has only commentary example in DPD but sutta example in SBS"""
 

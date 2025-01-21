@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Update the Russian and SBS from dps.csv. Clean Russian and SBS before importing.
 Additionally check for duplicate ids."""

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Add new additions to the database without update additions tsv. Keeping same id as in additions.tsv file"""
 

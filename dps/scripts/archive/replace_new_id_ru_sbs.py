@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """replacing id in ru and sbs backup files according to additions.csv"""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 replace new id with old id according to additions.tsv in the backup files sbs and ru
 """

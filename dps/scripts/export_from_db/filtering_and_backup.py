@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """filtering words by some condition and make tsv of all tables DpdHeadword, DpdRoot, Russian and SBS into the pth.temp_dir"""
 

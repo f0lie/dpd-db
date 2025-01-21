@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 Adding column user_id to desired csv using old file with user_id linked with id

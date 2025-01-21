@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Create an html list of all words belonging to the same root family
 and add to db."""

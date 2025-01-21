@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """ Filter all russian words with roots and comp and save into csv"""
 

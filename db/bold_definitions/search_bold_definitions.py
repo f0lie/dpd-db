@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Search bold_definitions using vanilla find or regex."""
 

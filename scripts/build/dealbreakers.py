@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Fix all the dealbreakers which break exporter code."""
 import sys

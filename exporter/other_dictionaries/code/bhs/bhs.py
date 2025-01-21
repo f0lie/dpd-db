@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 from bs4 import BeautifulSoup
 from rich import print

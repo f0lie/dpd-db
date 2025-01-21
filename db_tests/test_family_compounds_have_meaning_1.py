@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Tets that family compounds have meaning_1 and headword."""
 

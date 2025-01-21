@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """replace example info in sbs backup according to sbs_correction tsv and mark replaced rows as "proccesed"""
 

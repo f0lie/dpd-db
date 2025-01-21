@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 Transliterate tipitaka.lk texts from Sinhala to Roman script.

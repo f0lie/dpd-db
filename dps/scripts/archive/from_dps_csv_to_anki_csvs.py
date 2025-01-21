@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Generates all csvs for anki from the dps-full.csv. Can enable/disable what is needed. https://sasanarakkha.github.io/study-tools/ """
 

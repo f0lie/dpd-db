@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Add TSV of Theragtha monks' names to db"""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """insert column of frequency count of EBTs into dpd_dps_full and add in into freq.db"""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """find compounds with sukha and dukkha which don't have antonyms"""
 

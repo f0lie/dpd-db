@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 1. Update and replace Sanskrit root families from tsv data.

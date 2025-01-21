@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Find duplicate examples in example_1 and example_2"""
 import pyperclip

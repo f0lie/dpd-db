@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """find changed lemma_1 from last check date, and save it into csv for compare what has been changed"""
 

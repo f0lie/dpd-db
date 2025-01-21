@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 This script reads IDs from tables in a Word document, removes duplicates, and writes the unique IDs into a CSV file.

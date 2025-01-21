@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Change tissa / tissā to iti assa / iti assā."""
 

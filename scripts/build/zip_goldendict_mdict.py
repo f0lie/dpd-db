@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Rezip the three files DPD into one:
 1. dpd.zip, 2. dpd-grammar.zip, 3. dpd-deconstructor.zip

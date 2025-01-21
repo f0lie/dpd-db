@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Create an EPUB and MOBI version of DPD. 
 The word set is limited to  
 - CST EBTS

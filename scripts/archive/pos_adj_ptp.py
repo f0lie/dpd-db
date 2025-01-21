@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Convery adj, ptp to ptp: pos, grammar and pattern"""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Creates a word frequency file for every book in
 VRI Chaṭṭha Saṅgāyana Tipiṭaka."""

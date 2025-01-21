@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """removing duplicates from tsv file keeping rows with content in the second column"""
 

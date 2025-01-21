@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # unzip other dict from local folder Download to the fileserver. And copy mdx to Sync 
 

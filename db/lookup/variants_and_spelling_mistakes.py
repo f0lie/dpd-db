@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Save a TSV of every inflection found in texts or deconstructed compounds
 and matching corresponding headwords."""

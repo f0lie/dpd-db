@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Recursive algorithm to deconstruct compounds and split sandhi. """
 

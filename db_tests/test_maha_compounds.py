@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Test and update mahā compound_type and compound_construction"""
 

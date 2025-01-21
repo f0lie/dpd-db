@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Test to see if lemma_1 and lemma_2 are almost identical"""
 

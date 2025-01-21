@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Search for text string in a given BJT book, and return 
 source code, sutta name and sentence example."""

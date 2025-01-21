@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """making ai generated translation into Russian and saving to db or saving promts in json format"""
 

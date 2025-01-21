@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Export simplified DPD data for integration with Tipitaka Pali Reader (TPR)."""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Find phonetic changes because of Sanskrit ṛ"""
 

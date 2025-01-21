@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Update commas with backslashes
 to show lexical variants in Sanskrit column"""

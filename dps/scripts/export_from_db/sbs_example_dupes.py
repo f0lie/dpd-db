@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Find duplicate examples in sbs_example_1,2,3,4 and save all ids of words with similar or identical examples in csv"""
 import csv

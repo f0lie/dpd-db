@@ -1,5 +1,5 @@
 
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Get cf_set and idioms_set from the DbInfo cache."""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Add combined view into db which have DpdHeadword, Russian, SBS tables and ebt_count together."""
 

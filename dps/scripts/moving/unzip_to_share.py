@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # unzip dpd-deconstructor and dpd-grammar from download folder to the share dir
 from datetime import date

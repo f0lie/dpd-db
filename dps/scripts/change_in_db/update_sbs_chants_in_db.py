@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Updating sbs_examples chanting book fields according to pali chant names"""
 

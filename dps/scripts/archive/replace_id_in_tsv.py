@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Read id_old and id_new from file and replace accordingly in ru and sbs tsvs"""
 
 import json

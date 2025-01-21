@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Export db into dps related format: dpd_dps_full - full data of dpd + dps - for making full db with latest adding frequency in ebt column. So one can sort things abd find relevant data for class preparation. dps_full - only those part of data which have ru_meaning not empty.
 also add sbs_index and sbs_audio based on some conditions"""

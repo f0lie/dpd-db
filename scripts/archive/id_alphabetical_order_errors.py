@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Find words with ID upto 71509 which are not in alphabetical order."""
 

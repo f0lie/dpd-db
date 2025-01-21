@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Compile data for Russian to Pāḷi dictionary and add to the Lookup table."""
 

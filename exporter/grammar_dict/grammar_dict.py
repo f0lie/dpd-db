@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Compile HTML table of all grammatical possibilities of every inflected word-form."""
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Clean up gatha by adding fixing punctation and addings line breaks."""
 

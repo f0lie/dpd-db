@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # unzip rudpd from local folder share to the fileserver. And copy mdx and kindl versions as well. 
 

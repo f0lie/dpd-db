@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Create frequency for collection of EBT suttas and Vinaya mūla and save into database."""
 
