@@ -58,7 +58,7 @@ def main():
 
     return
     # writing is disable in case of stupidity.
-    with open(pth.root_families_sanskrit_path, "w", newline="") as csvfile:
+    with open(pth.root_families_sanskrit_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "root_key",
             "root_group",

@@ -123,7 +123,7 @@ def make_html(pth: ProjectPaths, headwords: List[str]):
 def open_html_in_browser(pth, html_content):
     path = f"{pth.temp_html_file_path}"
     try:
-        with open(path, "w") as tmp:
+        with open(path, "w", encoding="utf-8") as tmp:
             tmp.write(html_content)
         webbrowser.open_new_tab("file://" + path)
     except Exception as e:

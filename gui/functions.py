@@ -103,12 +103,12 @@ def add_sandhi_correction(pth, window, values: dict) -> None:
         )
 
     else:
-        with open(pth.decon_manual_corrections, mode="a", newline="") as file:
+        with open(pth.decon_manual_corrections, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([sandhi_to_correct, sandhi_correction])
 
         # also add to sandhi ok
-        with open(pth.decon_checked, mode="a", newline="") as file:
+        with open(pth.decon_checked, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([sandhi_to_correct])
 
@@ -152,7 +152,7 @@ def add_sandhi_rule(pth, window, values: dict) -> None:
                     )
                     break
             else:
-                with open(pth.sandhi_rules_path, mode="a", newline="") as file:
+                with open(pth.sandhi_rules_path, mode="a", newline="", encoding="utf-8") as file:
                     writer = csv.writer(file, delimiter="\t")
                     writer.writerow([rule_no, chA, chB, ch1, ch2, example, weight])
                     window["messages"].update(
@@ -180,7 +180,7 @@ def add_spelling_mistake(pth, window, values: dict) -> None:
         window["messages"].update("you're shooting blanks!", text_color="red")
 
     else:
-        with open(pth.spelling_mistakes_path, mode="a", newline="") as file:
+        with open(pth.spelling_mistakes_path, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([spelling_mistake, spelling_correction])
             window["messages"].update(
@@ -203,7 +203,7 @@ def add_variant_reading(pth, window, values: dict) -> None:
         window["messages"].update("you're shooting blanks!", text_color="red")
 
     else:
-        with open(pth.variant_readings_path, mode="a", newline="") as file:
+        with open(pth.variant_readings_path, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow([variant_reading, main_reading])
             window["messages"].update(
@@ -454,7 +454,7 @@ def check_spelling(pth, field, error_field, values, window, flags) -> Flags:
 
 
 def add_spelling(pth, word):
-    with open(pth.user_dict_path, "a") as f:
+    with open(pth.user_dict_path, "a", encoding="utf-8") as f:
         f.write(f"{word}\n")
 
 
@@ -785,7 +785,7 @@ def sandhi_ok(
     window,
     word,
 ):
-    with open(pth.decon_checked, "a", newline="") as csvfile:
+    with open(pth.decon_checked, "a", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([word])
     window["messages"].update(f"{word} added", text_color="white")
@@ -1137,7 +1137,7 @@ def compare_differences(
                                 "",
                             ]
 
-                        with open(pth.corrections_tsv_path, "a") as file:
+                        with open(pth.corrections_tsv_path, "a", encoding="utf-8") as file:
                             writer = csv.writer(file, delimiter="\t")
                             writer.writerow(correction)
 

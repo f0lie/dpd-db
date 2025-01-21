@@ -58,7 +58,7 @@ def save_words():
         reverse=True,
     )
 
-    with open(dpspth.total_words_path, "w", newline="") as csvfile:
+    with open(dpspth.total_words_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "lemma",
             "sanskrit",
@@ -99,7 +99,7 @@ def save_roots():
 
     filtered_words = sorted(dpd_db, key=lambda rt: (rt.root_count), reverse=True)
 
-    with open(dpspth.total_roots_path, "w", newline="") as csvfile:
+    with open(dpspth.total_roots_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = ["root", "sanskrit", "count"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
         writer.writeheader()

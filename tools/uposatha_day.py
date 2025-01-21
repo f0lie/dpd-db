@@ -76,7 +76,7 @@ def write_uposatha_count(new_value: int):
     config = configparser.ConfigParser()
     config.read(pth.uposatha_day_ini)
     config.set("uposatha", "count", str(new_value))
-    with open(pth.uposatha_day_ini, "w") as f:
+    with open(pth.uposatha_day_ini, "w", encoding="utf-8") as f:
         config.write(f)
 
 

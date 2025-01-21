@@ -27,7 +27,7 @@ def move_new_words_from_dps_backup():
     # Append rows from pali_word_old with IDs greater than max_id to pali_word_new
     with (
         open(dps_headwords_path, "r") as dps_file,
-        open(pth.pali_word_path, "a", newline="") as new_file,
+        open(pth.pali_word_path, "a", newline="", encoding="utf-8") as new_file,
     ):
         reader = csv.reader(dps_file, delimiter="\t")
         writer = csv.writer(

@@ -287,7 +287,7 @@ def read_set_ru_from_tsv():
 
 def write_set_to_tsv(fs):
     # Write unique sets to a TSV file
-    with open("unique_sets.tsv", "w", newline="") as file:
+    with open("unique_sets.tsv", "w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file, delimiter="\t")
         for set_name in fs:
             writer.writerow([set_name])

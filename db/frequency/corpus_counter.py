@@ -515,7 +515,7 @@ def make_raw_text_csv(pth: ProjectPaths, tipitaka_dict):
 
         full_text += text_clean
 
-        with open(pth.raw_text_dir.joinpath(section).with_suffix(".txt"), "w") as f:
+        with open(pth.raw_text_dir.joinpath(section).with_suffix(".txt"), "w", encoding="utf-8") as f:
             f.write(text_clean)
 
         # !!! make one function for all these raw and csv saves
@@ -545,7 +545,7 @@ def save_tipitaka_raw_text_and_csv(pth: ProjectPaths, full_text):
     """Save full tipitaka frequency, all files in one."""
     print("[green]saving tipiṭaka csv")
 
-    with open(pth.tipitaka_raw_text_path, "w") as f:
+    with open(pth.tipitaka_raw_text_path, "w", encoding="utf-8") as f:
         f.write(full_text)
 
     full_text_df = make_word_count_df(full_text)
@@ -558,7 +558,7 @@ def save_ebt_raw_text_and_csv(pth: ProjectPaths, ebt_text):
     """Save Early Buddhist Texts frequency."""
     print("[green]saving ebts csv")
 
-    with open(pth.ebt_raw_text_path, "w") as f:
+    with open(pth.ebt_raw_text_path, "w", encoding="utf-8") as f:
         f.write(ebt_text)
 
     ebt_text_df = make_word_count_df(ebt_text)

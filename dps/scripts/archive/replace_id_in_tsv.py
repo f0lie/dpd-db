@@ -36,7 +36,7 @@ def replace_ids_in_file(json_path, tsv_path):
             row[0] = new_id
 
     # Write the updated rows back to the same TSV file with the required formatting
-    with open(tsv_path, "w", newline="") as tsv_file:
+    with open(tsv_path, "w", newline="", encoding="utf-8") as tsv_file:
         writer = csv.writer(
             tsv_file, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
         )

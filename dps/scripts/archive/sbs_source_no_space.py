@@ -64,7 +64,7 @@ def main():
                 if " " in i.sbs.sbs_source_4:
                     sutta_codes.add(i.sbs.sbs_source_4)
 
-    with open("temp/source.txt", "w") as f:
+    with open("temp/source.txt", "w", encoding="utf-8") as f:
         sutta_codes_sorted = pali_list_sorter(sutta_codes)
         for s in sutta_codes_sorted:
             f.write(f"{s}\n")

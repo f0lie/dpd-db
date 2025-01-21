@@ -47,7 +47,7 @@ def write_ids_to_csv(ids, output_file):
     :param ids: List of IDs.
     :param output_file: Path to the output CSV file.
     """
-    with open(output_file, "w") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["id"])  # Header row
         for _id in ids:
@@ -63,7 +63,7 @@ def convert_docx_to_txt(dpspth, input_docx_file):
         doc_text.append(paragraph.text)
 
     output_txt_file = dpspth.text_to_add_path
-    with open(output_txt_file, "w") as f:
+    with open(output_txt_file, "w", encoding="utf-8") as f:
         f.write("\n".join(doc_text))
 
     console.print(

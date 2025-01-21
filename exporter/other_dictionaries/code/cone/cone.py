@@ -27,7 +27,7 @@ def main():
     cone_dict.update(front_matter_dict)
 
     # save json
-    with open(pth.cone_json_path, "w") as f:
+    with open(pth.cone_json_path, "w", encoding="utf-8") as f:
         json.dump(cone_dict, f)
     p_yes("ok")
 
@@ -86,7 +86,7 @@ def main():
         p_red(f"ERRORS on: {errors_string}")
 
     # FIXME delete when done testing css
-    with open("exporter/other_dictionaries/code/cone/bulk_dump_html.html", "w") as f:
+    with open("exporter/other_dictionaries/code/cone/bulk_dump_html.html", "w", encoding="utf-8") as f:
         f.write(bulk_dump_html)
 
     p_green("making dict_info and dict_var")

@@ -63,7 +63,7 @@ def save_i2h_for_tpr(g: GlobalVars):
 
     p_green("saving to tsv for tpr")
 
-    with open(g.pth.tpr_i2h_tsv_path, "w") as f:
+    with open(g.pth.tpr_i2h_tsv_path, "w", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["inflection", "headwords"])
 

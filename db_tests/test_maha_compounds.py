@@ -38,7 +38,7 @@ class GlobalVars:
             return []
 
     def save_exceptions_list(self):
-        with open(self.pth.maha_exceptions_list, "w") as f:
+        with open(self.pth.maha_exceptions_list, "w", encoding="utf-8") as f:
             json.dump(self.exceptions_list, f)
 
     def add_exception(self):

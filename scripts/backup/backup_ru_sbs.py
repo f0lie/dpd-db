@@ -44,7 +44,7 @@ def backup_russian(db_session: Session, pth: ProjectPaths, custom_path: str = ""
     # Use the custom path if provided, otherwise use the default path
     russian_path = custom_path if custom_path else pth.russian_path
 
-    with open(russian_path, "w", newline="") as tsvfile:
+    with open(russian_path, "w", newline="", encoding="utf-8") as tsvfile:
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
         )
@@ -74,7 +74,7 @@ def backup_sbs(db_session: Session, pth: ProjectPaths, custom_path: str = ""):
     # Use the custom path if provided, otherwise use the default path
     sbs_path = custom_path if custom_path else pth.sbs_path
 
-    with open(sbs_path, "w", newline="") as tsvfile:
+    with open(sbs_path, "w", newline="", encoding="utf-8") as tsvfile:
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
         )
@@ -111,7 +111,7 @@ def backup_ru_roots(db_session: Session, pth: ProjectPaths, custom_path: str = "
     # Use the custom path if provided, otherwise use the default path
     ru_root_path = custom_path if custom_path else pth.ru_root_path
 
-    with open(ru_root_path, "w", newline="") as tsvfile:
+    with open(ru_root_path, "w", newline="", encoding="utf-8") as tsvfile:
         used_columns = ["root", "root_ru_meaning", "sanskrit_root_ru_meaning"]
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL

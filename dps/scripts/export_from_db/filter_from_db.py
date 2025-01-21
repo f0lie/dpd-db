@@ -230,7 +230,7 @@ def filter_and_save_txt(source_value):
     constructions_str = " ".join(constructions)
 
     # save constructions to text.txt
-    with open(f"{pth.temp_dir}/text.txt", "w") as file:
+    with open(f"{pth.temp_dir}/text.txt", "w", encoding="utf-8") as file:
         file.write(constructions_str)
 
     # # save constructions to temp.txt
@@ -241,7 +241,7 @@ def filter_and_save_txt(source_value):
     lemma_1s = [word.lemma_1 for word in db]
 
     # save constructions to temp.tsv
-    with open(f"{pth.temp_dir}/temp.tsv", "w") as file:
+    with open(f"{pth.temp_dir}/temp.tsv", "w", encoding="utf-8") as file:
         file.write("original_construction\tlemma_1\n")  # Add header
         for original_construction, lemma_1 in zip(original_constructions, lemma_1s):
             file.write(f"{original_construction}\t{lemma_1}\n")

@@ -279,11 +279,11 @@ def save_corections_tsv(values):
     headings = ["checked"]
 
     if not pth.corrections_tsv_path.exists():
-        with open(pth.corrections_tsv_path, "w", newline="") as file:
+        with open(pth.corrections_tsv_path, "w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file, delimiter="\t")
             writer.writerow(headings)
 
-    with open(pth.corrections_tsv_path, "a") as file:
+    with open(pth.corrections_tsv_path, "a", encoding="utf-8") as file:
         writer = csv.writer(file, delimiter="\t")
         new_row = [str(values.get(heading, "")) for heading in headings]
         writer.writerow(new_row)

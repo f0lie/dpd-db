@@ -64,7 +64,7 @@ def saving_paliwords(pth: ProjectPaths, db_session: Session, ids_to_saving):
     db = db_session.query(DpdHeadword).filter(DpdHeadword.id.in_(ids_to_saving)).all()
 
     file_path = os.path.join(pth.temp_dir, "dpd_headwords.tsv")
-    with open(file_path, "w", newline="") as tsvfile:
+    with open(file_path, "w", newline="", encoding="utf-8") as tsvfile:
         exclude_columns = ["created_at", "updated_at"]
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
@@ -91,7 +91,7 @@ def saving_paliroots(pth: ProjectPaths, db_session: Session, roots_to_saving):
     db = db_session.query(DpdRoot).filter(DpdRoot.root.in_(roots_to_saving)).all()
 
     file_path = os.path.join(pth.temp_dir, "dpd_roots.tsv")
-    with open(file_path, "w", newline="") as tsvfile:
+    with open(file_path, "w", newline="", encoding="utf-8") as tsvfile:
         exclude_columns = ["created_at", "updated_at", "root_info", "root_matrix"]
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
@@ -118,7 +118,7 @@ def saving_russian(pth: ProjectPaths, db_session: Session, ids_to_saving):
     db = db_session.query(Russian).filter(Russian.id.in_(ids_to_saving)).all()
 
     file_path = os.path.join(pth.temp_dir, "russian.tsv")
-    with open(file_path, "w", newline="") as tsvfile:
+    with open(file_path, "w", newline="", encoding="utf-8") as tsvfile:
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
         )
@@ -137,7 +137,7 @@ def saving_sbs(dpspth: DPSPaths, db_session: Session, ids_to_saving):
 
     # file_path = os.path.join(pth.temp_dir, 'sbs.tsv')
     file_path = dpspth.sbs_archive
-    with open(file_path, "w", newline="") as tsvfile:
+    with open(file_path, "w", newline="", encoding="utf-8") as tsvfile:
         csvwriter = csv.writer(
             tsvfile, delimiter="\t", quotechar='"', quoting=csv.QUOTE_ALL
         )

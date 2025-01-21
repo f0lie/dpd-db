@@ -39,7 +39,7 @@ def main():
 
     print(eng_sing_pos_dict)
 
-    with open("temp/eng_sing_pos_dict.json", "w") as f:
+    with open("temp/eng_sing_pos_dict.json", "w", encoding="utf-8") as f:
         json.dump(eng_sing_pos_dict, f, ensure_ascii=False, indent=4)
 
 

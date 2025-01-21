@@ -148,7 +148,7 @@ def write_exceptions_to_internal_tests_list(dpspth, internal_tests_list):
             row["exceptions"] = dumps(list(test.exceptions), ensure_ascii=False)
 
     # Write the updated rows back to the same file
-    with open(dpspth.dps_internal_tests_path, "w", newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, "w", newline="", encoding="utf-8") as csvfile:
         if current_data:
             fieldnames = current_data[0].keys()
         else:
@@ -161,7 +161,7 @@ def write_exceptions_to_internal_tests_list(dpspth, internal_tests_list):
 
 
 def write_internal_tests_list(dpspth, internal_tests_list):
-    with open(dpspth.dps_internal_tests_path, "w", newline="") as csvfile:
+    with open(dpspth.dps_internal_tests_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = internal_tests_list[0].__dict__.keys()
         writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
         writer.writeheader()

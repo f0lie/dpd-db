@@ -376,7 +376,7 @@ def save_pickle_and_tsv(g: ProgData):
 
     # save tsv of inflection and table
     p_green("saving grammar_dict tsv")
-    with open(g.pth.grammar_dict_tsv_path, "w") as f:
+    with open(g.pth.grammar_dict_tsv_path, "w", encoding="utf-8") as f:
         f.write("inflection\thtml\n")
         for inflection, table in g.grammar_dict_table.items():
             f.write(f"{inflection}\t{table}\n")

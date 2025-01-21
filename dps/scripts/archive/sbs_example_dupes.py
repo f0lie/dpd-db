@@ -48,7 +48,7 @@ def main():
                             ):
                                 ids_to_save.add(i.id)
 
-    with open(dpspth.id_temp_list_path, "w", newline="") as csvfile:
+    with open(dpspth.id_temp_list_path, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
         for _id in ids_to_save:
             writer.writerow([_id])

@@ -46,7 +46,7 @@ def main():
 
     db_session.commit()
 
-    with open("temp/id_dict.json", "w") as f:
+    with open("temp/id_dict.json", "w", encoding="utf-8") as f:
         json.dump(id_dict, f, indent=2)
 
 

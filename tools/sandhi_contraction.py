@@ -35,7 +35,7 @@ def main():
     counter = 0
 
     filepath = pth.temp_dir.joinpath("sandhi_contraction.tsv")
-    with open(filepath, "w") as f:
+    with open(filepath, "w", encoding="utf-8") as f:
         for key, values in sandhi_contractions.items():
             contractions = values["contractions"]
 

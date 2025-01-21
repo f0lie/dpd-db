@@ -167,11 +167,11 @@ def setup(pth: ProjectPaths):
     )
 
     # initalise matches.csv
-    with open(pth.matches_path, "w") as f:
+    with open(pth.matches_path, "w", encoding="utf-8") as f:
         f.write("")
 
     # initalise timer dict
-    with open(pth.sandhi_timer_path, "w") as f:
+    with open(pth.sandhi_timer_path, "w", encoding="utf-8") as f:
         f.write("")
 
 
@@ -332,7 +332,7 @@ def main():
 
 
 def save_matches(pth: ProjectPaths, matches_dict):
-    with open(pth.matches_path, "a") as f:
+    with open(pth.matches_path, "a", encoding="utf-8") as f:
         for word, data in matches_dict.items():
             for item in data:
                 f.write(f"{word}\t")
@@ -1403,7 +1403,7 @@ def dprint(d: DotDict) -> None:
 def summary(pth: ProjectPaths):
     print("[green]writing unmatched set")
 
-    with open(pth.unmatched_path, "w") as f:
+    with open(pth.unmatched_path, "w", encoding="utf-8") as f:
         for item in unmatched_set:
             f.write(f"{item}\n")
 

@@ -364,7 +364,7 @@ def write_tsvs(g: ProgData):
     p_green("writing tsv files")
 
     # write dpd_tsv
-    with open(g.pth.tpr_dpd_tsv_path, "w") as f:
+    with open(g.pth.tpr_dpd_tsv_path, "w", encoding="utf-8") as f:
         f.write("id\tword\tdefinition\tbook_id\n")
         for i in g.tpr_data_list:
             f.write(f"{i['id']}\t{i['word']}\t{i['definition']}\t{i['book_id']}\n")
@@ -475,7 +475,7 @@ def tpr_updater(g: ProgData):
 
     sql_string += "COMMIT;\n"
 
-    with open(g.pth.tpr_sql_file_path, "w") as f:
+    with open(g.pth.tpr_sql_file_path, "w", encoding="utf-8") as f:
         f.write(sql_string)
     p_yes("OK")
 
@@ -566,7 +566,7 @@ def copy_zip_to_tpr_downloads(g: ProgData):
 
             download_list[28] = devamitta_info
 
-        with open(g.pth.tpr_download_list_path, "w") as f:
+        with open(g.pth.tpr_download_list_path, "w", encoding="utf-8") as f:
             f.write(json.dumps(download_list, indent=4, ensure_ascii=False))
 
     p_yes(version)

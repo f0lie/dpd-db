@@ -66,7 +66,7 @@ def save_words_to_csv(sbs_class: int, filename: str, seen_words: set) -> int:
     # seen_words = seen_words or set()
 
     # Open the CSV file and write the headers
-    with open(filename, "w", newline="") as csvfile:
+    with open(filename, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "pali",
             "pos",
@@ -205,7 +205,7 @@ def convert_group_to_html(csv_files, output_filename, class_range, title):
 
     # Write the HTML content to the file in the same directory
     html_output_path = os.path.join(dpspth.pali_class_vocab_html_dir, output_filename)
-    with open(html_output_path, "w") as file:
+    with open(html_output_path, "w", encoding="utf-8") as file:
         file.write(html_content)
 
     print(f"HTML file '{output_filename}' created successfully.")

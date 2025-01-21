@@ -218,7 +218,7 @@ def save_bjṭ_text(books: list[str]) -> None:
             show_metadata=True,
         )
 
-    with open(f"temp/{books}.text", "w") as f:
+    with open(f"temp/{books}.text", "w", encoding="utf-8") as f:
         f.write(bjt_text)
 
 

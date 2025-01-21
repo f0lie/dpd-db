@@ -30,7 +30,7 @@ def process_tsv(input_file, output_file):
                     output_rows.append(row)
 
     # Write output to a new TSV file
-    with open(output_file, "w", newline="") as file:
+    with open(output_file, "w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file, delimiter="\t")
         writer.writerows(output_rows)
 

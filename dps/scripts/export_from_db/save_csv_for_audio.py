@@ -52,8 +52,8 @@ def save_words_to_csv(conditions, filename):
     words = db_session.query(DpdHeadword).join(SBS).filter(conditions).all()
 
     with open(
-        os.path.join(dpspth.csvs_for_audio_dir, filename), "w", newline=""
-    ) as csvfile:
+        os.path.join(dpspth.csvs_for_audio_dir, filename), "w", newline="", 
+    encoding="utf-8") as csvfile:
         fieldnames = ["pali"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -102,8 +102,8 @@ def unite_csvs():
 
     # Write the combined, deduplicated data to a new CSV file
     with open(
-        os.path.join(dpspth.csvs_for_audio_dir, "united.csv"), "w", newline=""
-    ) as f:
+        os.path.join(dpspth.csvs_for_audio_dir, "united.csv"), "w", newline="", 
+    encoding="utf-8") as f:
         fieldnames = ["pali"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -129,7 +129,7 @@ def clean_and_save_csv(input_filename, output_filename):
                 seen_values.add(pali)
 
     # Write the cleaned data to the output CSV file
-    with open(output_filename, "w", newline="") as csvfile:
+    with open(output_filename, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile, delimiter="\t")
         writer.writerows(cleaned_data)
 

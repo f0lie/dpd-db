@@ -58,7 +58,7 @@ def json_dumper(filepath: Path, dict: dict[str, str]):
         f"""var {filepath.stem} = {json.dumps(dict, ensure_ascii=False, indent=1)}"""
     )
 
-    with open(filepath, "w") as f:
+    with open(filepath, "w", encoding="utf-8") as f:
         f.write(js_content)
 
 

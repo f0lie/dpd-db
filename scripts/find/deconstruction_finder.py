@@ -13,7 +13,7 @@ find_me = "kaṭṭhattharaṇapaṇṇattharaṇaāsanādīni"
 def write_temp_file(found: list[str]):
     print("written to ", end="")
     temp_file = "temp/deconstruction_finder.csv"
-    with open(temp_file, "w") as f:
+    with open(temp_file, "w", encoding="utf-8") as f:
         f.write("".join(found))
     print(f"[blue]{temp_file}")
 

@@ -24,7 +24,7 @@ def main():
             new_exceptions_set.add(i)
 
     print(len(new_exceptions_set))
-    with open(pth.syn_var_exceptions_path, "w") as f:
+    with open(pth.syn_var_exceptions_path, "w", encoding="utf-8") as f:
         json.dump(list(new_exceptions_set), f, ensure_ascii=False, indent=2)
 
 

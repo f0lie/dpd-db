@@ -43,7 +43,7 @@ def add_exception(g: ProgData, idiom: str, id: int):
 
 
 def save_exceptions_dict(g: ProgData):
-    with open(g.pth.idioms_exceptions_dict, "w") as f:
+    with open(g.pth.idioms_exceptions_dict, "w", encoding="utf-8") as f:
         json.dump(g.exceptions_dict, f, ensure_ascii=False, indent=2)
 
 

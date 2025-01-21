@@ -7,16 +7,16 @@ csv_file = "../spreadsheets/dps-dpd-ex.csv"
 
 with (
     open(csv_file) as f,
-    open("../spreadsheets/to-merge/meaning_1.csv", "w") as meaning_1,
-    open("../spreadsheets/to-merge/meaning_lit.csv", "w") as meaning_lit,
-    open("../spreadsheets/to-merge/root_pali.csv", "w") as root_pali,
-    open("../spreadsheets/to-merge/root_base.csv", "w") as root_base,
-    open("../spreadsheets/to-merge/compound_type.csv", "w") as compound_type,
+    open("../spreadsheets/to-merge/meaning_1.csv", "w", encoding="utf-8") as meaning_1,
+    open("../spreadsheets/to-merge/meaning_lit.csv", "w", encoding="utf-8") as meaning_lit,
+    open("../spreadsheets/to-merge/root_pali.csv", "w", encoding="utf-8") as root_pali,
+    open("../spreadsheets/to-merge/root_base.csv", "w", encoding="utf-8") as root_base,
+    open("../spreadsheets/to-merge/compound_type.csv", "w", encoding="utf-8") as compound_type,
     open(
-        "../spreadsheets/to-merge/compound_construction.csv", "w"
-    ) as compound_construction,
-    open("../spreadsheets/to-merge/sanskrit.csv", "w") as sanskrit,
-    open("../spreadsheets/to-merge/notes.csv", "w") as notes,
+        "../spreadsheets/to-merge/compound_construction.csv", "w", 
+    encoding="utf-8") as compound_construction,
+    open("../spreadsheets/to-merge/sanskrit.csv", "w", encoding="utf-8") as sanskrit,
+    open("../spreadsheets/to-merge/notes.csv", "w", encoding="utf-8") as notes,
 ):
     dict_reader = csv.DictReader(f, delimiter="\t")
     out_files = [

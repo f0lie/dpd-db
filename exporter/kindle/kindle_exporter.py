@@ -192,7 +192,7 @@ def render_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
                 f"{counter}_{ascii_letter}.xhtml"
             )
 
-        with open(output_path, "w") as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             f.write(xhtml)
 
     p_yes(total)
@@ -382,11 +382,11 @@ def save_abbreviations_xhtml_page(
     entries = "".join(abbreviation_entries)
     if lang == "ru":
         xhtml = render_ebook_letter_templ(rupth, "Сокращения", entries)
-        with open(rupth.epub_abbreviations_path, "w") as f:
+        with open(rupth.epub_abbreviations_path, "w", encoding="utf-8") as f:
             f.write(xhtml)
     else:
         xhtml = render_ebook_letter_templ(pth, "Abbreviations", entries)
-        with open(pth.epub_abbreviations_path, "w") as f:
+        with open(pth.epub_abbreviations_path, "w", encoding="utf-8") as f:
             f.write(xhtml)
 
     p_yes(len(abbreviations_list))
@@ -426,10 +426,10 @@ def save_title_page_xhtml(pth: ProjectPaths, rupth: RuPaths, lang="en"):
     xhtml = str(ebook_title_page_templ.render(date=date, time=time))
 
     if lang == "ru":
-        with open(rupth.epub_titlepage_path, "w") as f:
+        with open(rupth.epub_titlepage_path, "w", encoding="utf-8") as f:
             f.write(xhtml)
     else:
-        with open(pth.epub_titlepage_path, "w") as f:
+        with open(pth.epub_titlepage_path, "w", encoding="utf-8") as f:
             f.write(xhtml)
 
     p_yes("OK")
@@ -457,10 +457,10 @@ def save_content_opf_xhtml(
     content = str(ebook_content_opf_templ.render(date_time_zulu=date_time_zulu))
 
     if lang == "ru":
-        with open(rupth.epub_content_opf_path, "w") as f:
+        with open(rupth.epub_content_opf_path, "w", encoding="utf-8") as f:
             f.write(content)
     else:
-        with open(pth.epub_content_opf_path, "w") as f:
+        with open(pth.epub_content_opf_path, "w", encoding="utf-8") as f:
             f.write(content)
 
     p_yes("OK")

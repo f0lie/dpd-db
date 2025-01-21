@@ -74,7 +74,7 @@ def import_tsv_to_dict(pth):
 
 
 def write_to_tsv(pth, root_dict) -> None:
-    with open(pth.root_families_sanskrit_path, "w", newline="") as csvfile:
+    with open(pth.root_families_sanskrit_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "root_key",
             "root_group",

@@ -196,7 +196,7 @@ def export_json(pth, bold_definitions_list):
     write_tsv_dot_dict(file_path, bold_definitions_list)
 
     file_path = pth.bold_definitions_json_path
-    with open(file_path, "w") as file:
+    with open(file_path, "w", encoding="utf-8") as file:
         json.dump(bold_definitions_list, file)
 
     p_yes("ok")

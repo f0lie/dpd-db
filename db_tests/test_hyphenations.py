@@ -52,7 +52,7 @@ class GlobalVars:
             return {}
 
     def save_hyphenations_dict(self):
-        with open(self.pth.hyphenations_dict_path, "w") as file:
+        with open(self.pth.hyphenations_dict_path, "w", encoding="utf-8") as file:
             json.dump(self.hyphenations_dict, file, ensure_ascii=False, indent=2)
 
     def update_hyphenations_dict(self, clean_word, dirty_word):
@@ -205,7 +205,7 @@ def process_long_words(g: GlobalVars):
             elif choice == "m":
                 dirty_words_str = "\n".join(dirty_words)
 
-                with open(g.pth.hyphenations_scratchpad_path, "w") as file:
+                with open(g.pth.hyphenations_scratchpad_path, "w", encoding="utf-8") as file:
                     file.write(f"{clean_word}\n{dirty_words_str}")
                 pyperclip.copy(f"{clean_word}\n{dirty_words_str}")
 

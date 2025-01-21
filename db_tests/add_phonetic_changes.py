@@ -127,7 +127,7 @@ def list_all_phonetic_changes(db, csv):
     #     print(p)
     # print(len(all_phonetic_list))
 
-    with open("temp/phonetic_changes.txt", "w") as f:
+    with open("temp/phonetic_changes.txt", "w", encoding="utf-8") as f:
         for p in all_phonetic_list:
             f.write(f"{p}\n")
 

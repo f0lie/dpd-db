@@ -55,7 +55,7 @@ def save_filtered_words():
     full_file_path = os.path.join(dpspth.freqent_words_dir, file_name)
 
     # Write to CSV using tab as delimiter first 300
-    with open(full_file_path, "w", newline="") as csvfile:
+    with open(full_file_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = ["id", "pali", "pos", "meaning"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
 

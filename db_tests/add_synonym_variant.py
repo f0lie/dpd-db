@@ -39,7 +39,7 @@ class ProgData:
 
     def save_exceptions(self):
         "Save exceptions json file."
-        with open(self.pth.syn_var_exceptions_path, "w") as f:
+        with open(self.pth.syn_var_exceptions_path, "w", encoding="utf-8") as f:
             json.dump(self.exceptions, f)
 
     def update_exceptions(self, exception: str):

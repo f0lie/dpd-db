@@ -133,7 +133,7 @@ class Pass2Data:
             return {self.book: dict()}
 
     def save_tried_dict(self) -> None:
-        with open(self.pth.pass2_checked_path, "w") as f:
+        with open(self.pth.pass2_checked_path, "w", encoding="utf-8") as f:
             json.dump(self.tried_dict, f, ensure_ascii=False, indent=2)
 
     def update_tried_dict(self, wd) -> None:

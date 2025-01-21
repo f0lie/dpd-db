@@ -170,7 +170,7 @@ def save_filtered_words():
         shutil.copy(dpspth.temp_csv_path, backup_name)
 
     # Write to CSV using tab as delimiter
-    with open(dpspth.temp_csv_path, "w", newline="") as csvfile:
+    with open(dpspth.temp_csv_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = ["id", "meaning_1"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
 

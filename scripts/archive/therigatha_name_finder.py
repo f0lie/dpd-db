@@ -139,7 +139,7 @@ def sutta_chapter_name_dict(name_list):
 
 
 def write_tsv(name_dict):
-    with open("temp/theris.tsv", "w") as f:
+    with open("temp/theris.tsv", "w", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter="\t")
         header = [
             "add",

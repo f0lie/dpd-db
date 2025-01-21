@@ -15,7 +15,7 @@ from tools.paths import ProjectPaths
 def save_json(variants_dict: VariantsDict) -> None:
     """Save variants to json"""
 
-    with open("temp/variants.json", "w") as f:
+    with open("temp/variants.json", "w", encoding="utf-8") as f:
         json.dump(variants_dict, f, ensure_ascii=False, indent=2)
 
 

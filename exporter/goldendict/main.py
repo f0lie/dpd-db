@@ -218,7 +218,7 @@ def write_size_dict(pth: ProjectPaths, size_dict):
     p_green("writing size_dict")
     filename = pth.temp_dir.joinpath("size_dict.tsv")
 
-    with open(filename, "w", newline="") as csvfile:
+    with open(filename, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile, delimiter="\t")
         for key, value in size_dict.items():
             writer.writerow([key, value])

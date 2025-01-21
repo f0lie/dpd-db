@@ -60,7 +60,7 @@ def save_words_to_csv(sbs_class: int, filename: str):
     )
 
     # Open the CSV file and write the headers
-    with open(filename, "w", newline="") as csvfile:
+    with open(filename, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "pali",
             "pos",
@@ -114,7 +114,7 @@ def save_words_with_examples_to_csv(sbs_class: int, filename: str):
     )
 
     # Open the CSV file and write the headers
-    with open(filename, "w", newline="") as csvfile:
+    with open(filename, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "pali",
             "pos",

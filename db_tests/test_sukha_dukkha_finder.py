@@ -105,7 +105,7 @@ def read_tried(pth: ProjectPaths):
 
 
 def write_tried(pth: ProjectPaths, tried: list[str]):
-    with open(pth.sukha_dukkha_finder_path, "w") as f:
+    with open(pth.sukha_dukkha_finder_path, "w", encoding="utf-8") as f:
         json.dump(tried, f, ensure_ascii=False, indent=4)
 
 

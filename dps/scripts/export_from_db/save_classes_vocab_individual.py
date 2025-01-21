@@ -86,7 +86,7 @@ def save_words_to_csv(sbs_class: int, filename: str) -> int:
     words_saved = 0
 
     # Open the CSV file and write the headers
-    with open(filename, "w", newline="") as csvfile:
+    with open(filename, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "pali",
             "pos",
@@ -136,7 +136,7 @@ def save_words_with_examples_to_csv(sbs_class: int, filename: str):
     print(f"total words for class {sbs_class}: {len(words)}")
 
     # Open the CSV file and write the headers
-    with open(filename, "w", newline="") as csvfile:
+    with open(filename, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "id",
             "pali",
@@ -196,7 +196,7 @@ def save_words_for_discources(sutta, filename: str):
     print(f"total words for {sutta}: {len(words)}")
 
     # Open the CSV file and write the headers
-    with open(filename, "w", newline="") as csvfile:
+    with open(filename, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "id",
             "pali",
@@ -329,7 +329,7 @@ def convert_csv_to_html():
         html_output_path = os.path.join(
             dpspth.pali_class_vocab_html_dir, html_output_file
         )
-        with open(html_output_path, "w") as file:
+        with open(html_output_path, "w", encoding="utf-8") as file:
             file.write(html_content)
 
         print(f"HTML file '{html_output_file}' created successfully.")

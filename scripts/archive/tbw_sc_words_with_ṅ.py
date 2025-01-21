@@ -54,7 +54,7 @@ def main():
     ṅ_list = pali_list_sorter(ṅ_set)
 
     output_path = "temp/words_with_ṅ_in_sc_texts.txt"
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write("words with ṅ in sutta central texts")
         for i in ṅ_list:
             f.write(f"{i}\n")

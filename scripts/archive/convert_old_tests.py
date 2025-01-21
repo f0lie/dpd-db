@@ -79,7 +79,7 @@ for t in internal_tests_list:
     t.exceptions = ", ".join(t.exceptions)
 
 pth = ProjectPaths()
-with open(pth.internal_tests_path, mode="w", newline="") as csvfile:
+with open(pth.internal_tests_path, mode="w", newline="", encoding="utf-8") as csvfile:
     fieldnames = internal_tests_list[0].__dict__.keys()
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
     writer.writeheader()

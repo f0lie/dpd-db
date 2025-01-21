@@ -256,15 +256,15 @@ def save_js_files_for_tbw(g: ProgData):
     p_green("saving .js files for tbw")
 
     i2h_json_dump = json.dumps(g.i2h_dict, ensure_ascii=False, indent=2)
-    with open(g.pth.tbw_i2h_js_path, "w") as f:
+    with open(g.pth.tbw_i2h_js_path, "w", encoding="utf-8") as f:
         f.write(f"dpd_i2h = {i2h_json_dump}")
 
     dpd_json_dump = json.dumps(g.dpd_dict, ensure_ascii=False, indent=2)
-    with open(g.pth.tbw_dpd_ebts_js_path, "w") as f:
+    with open(g.pth.tbw_dpd_ebts_js_path, "w", encoding="utf-8") as f:
         f.write(f"let dpd_ebts = {dpd_json_dump}")
 
     json_dump = json.dumps(g.deconstructor_dict, ensure_ascii=False, indent=2)
-    with open(g.pth.tbw_deconstructor_js_path, "w") as f:
+    with open(g.pth.tbw_deconstructor_js_path, "w", encoding="utf-8") as f:
         f.write(f"let dpd_deconstructor = {json_dump}")
 
     p_yes("ok")
@@ -275,13 +275,13 @@ def save_json_files_for_sc(g: ProgData):
 
     p_green("copying json files to sc-data")
 
-    with open(g.pth.sc_i2h_json_path, "w") as f:
+    with open(g.pth.sc_i2h_json_path, "w", encoding="utf-8") as f:
         json.dump(g.i2h_dict, f, ensure_ascii=False, indent=2)
 
-    with open(g.pth.sc_dpd_ebts_json_path, "w") as f:
+    with open(g.pth.sc_dpd_ebts_json_path, "w", encoding="utf-8") as f:
         json.dump(g.dpd_dict, f, ensure_ascii=False, indent=2)
 
-    with open(g.pth.sc_deconstructor_json_path, "w") as f:
+    with open(g.pth.sc_deconstructor_json_path, "w", encoding="utf-8") as f:
         json.dump(g.deconstructor_dict, f, ensure_ascii=False, indent=2)
 
     p_yes("ok")

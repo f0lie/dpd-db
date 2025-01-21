@@ -407,7 +407,7 @@ def dhp(dpspth, dpd_db):
 
     # Save the list of field names to a text file
     if dpspth.sbs_anki_style_dir:
-        with open(f"{dpspth.sbs_anki_style_dir}/field-list-dhp.txt", "w") as file:
+        with open(f"{dpspth.sbs_anki_style_dir}/field-list-dhp.txt", "w", encoding="utf-8") as file:
             file.write("\n".join(columns_names))
         console.print(
             f"[green] names of the DHP columns [/green]([bold]{len(columns_names)}[/bold]) [green]are saved to the txt"
@@ -530,7 +530,7 @@ def sbs_per(dpspth, dpd_db):
 
     # Save the list of field names to a text file
     if dpspth.sbs_anki_style_dir:
-        with open(f"{dpspth.sbs_anki_style_dir}/field-list-sbs.txt", "w") as file:
+        with open(f"{dpspth.sbs_anki_style_dir}/field-list-sbs.txt", "w", encoding="utf-8") as file:
             file.write("\n".join(columns_names))
         console.print(
             f"[green] names of the SBS columns [/green]([bold]{len(columns_names)}[/bold]) [green]are saved to the txt"
@@ -619,7 +619,7 @@ def parittas(dpspth, dpd_db):
 
     # Save the list of field names to a text file
     if dpspth.sbs_anki_style_dir:
-        with open(f"{dpspth.sbs_anki_style_dir}/field-list-parittas.txt", "w") as file:
+        with open(f"{dpspth.sbs_anki_style_dir}/field-list-parittas.txt", "w", encoding="utf-8") as file:
             file.write("\n".join(columns_names))
         console.print(
             f"[green] names of the Parittas columns [/green]([bold]{len(columns_names)}[/bold]) [green]are saved to the txt"
@@ -766,7 +766,7 @@ def dps(dpspth, dpd_db):
 
     # Save the list of field names to a text file
     if dpspth.sbs_anki_style_dir:
-        with open(f"{dpspth.sbs_anki_style_dir}/field-list-dps.txt", "w") as file:
+        with open(f"{dpspth.sbs_anki_style_dir}/field-list-dps.txt", "w", encoding="utf-8") as file:
             file.write("\n".join(columns_names))
         console.print(
             f"[green] names of the DPS columns [/green]([bold]{len(columns_names)}[/bold]) [green]are saved to the txt"
@@ -959,8 +959,8 @@ def classes(dpspth, dpd_db, unique_sbs_class_values):
     # Save the list of field names to a text file
     if dpspth.sbs_anki_style_dir:
         with open(
-            f"{dpspth.sbs_anki_style_dir}/field-list-vocab-class.txt", "w"
-        ) as file:
+            f"{dpspth.sbs_anki_style_dir}/field-list-vocab-class.txt", "w", 
+        encoding="utf-8") as file:
             file.write("\n".join(columns_names))
         console.print(
             f"[green] names of the Class columns [/green]([bold]{len(columns_names)}[/bold]) [green]are saved to the txt"
@@ -1080,8 +1080,8 @@ def suttas(dpspth, dpd_db, unique_sbs_category_values):
     # Save the list of field names to a text file
     if dpspth.sbs_anki_style_dir:
         with open(
-            f"{dpspth.sbs_anki_style_dir}/field-list-suttas-class.txt", "w"
-        ) as file:
+            f"{dpspth.sbs_anki_style_dir}/field-list-suttas-class.txt", "w", 
+        encoding="utf-8") as file:
             file.write("\n".join(columns_names))
         console.print(
             f"[green] names of the Suttas columns [/green]([bold]{len(columns_names)}[/bold]) [green]are saved to the txt"
@@ -1218,8 +1218,8 @@ def root_phonetic_class(dpspth, dpd_db, unique_sbs_class_values):
     # Save the list of field names to a text file
     if dpspth.sbs_anki_style_dir:
         with open(
-            f"{dpspth.sbs_anki_style_dir}/field-list-roots-class.txt", "w"
-        ) as file:
+            f"{dpspth.sbs_anki_style_dir}/field-list-roots-class.txt", "w", 
+        encoding="utf-8") as file:
             file.write("\n".join(columns_names))
         console.print(
             f"[green] names of the Root columns [/green]([bold]{len(columns_names)}[/bold]) [green]are saved to the txt"
@@ -1339,7 +1339,7 @@ def vibhanga(dpspth, dpd_db):
         field_file_path = os.path.join(
             dpspth.sbs_anki_style_dir, "field-list-vibhanga.txt"
         )
-        with open(field_file_path, "w") as file:
+        with open(field_file_path, "w", encoding="utf-8") as file:
             file.write("\n".join(columns_names))
         console.print(
             f"[green] Column names ([bold]{len(columns_names)}[/bold]) saved to the txt"

@@ -42,7 +42,7 @@ def read_tsv_dot_dict(file_path):
 
 
 def write_tsv_dot_dict(file_path, data):
-    with open(file_path, "w", newline="") as file:
+    with open(file_path, "w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=data[0].keys(), delimiter="\t")
         writer.writeheader()
         for row in data:
@@ -50,7 +50,7 @@ def write_tsv_dot_dict(file_path, data):
 
 
 def write_tsv_list(file_path: str, header: List[str], data: List[List[str]]) -> None:
-    with open(file_path, "w", newline="") as file:
+    with open(file_path, "w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file, delimiter="\t")
         if header:
             writer.writerow(header)
@@ -64,7 +64,7 @@ def append_tsv_list(file_path: str, header: List[str], data: List[List[str]]) ->
     file_exists = Path(file_path).exists()
     file_empty = False if file_exists else True
 
-    with open(file_path, "a", newline="") as file:
+    with open(file_path, "a", newline="", encoding="utf-8") as file:
         writer = csv.writer(file, delimiter="\t")
         # Write the header only if the file is empty
         if file_empty and header:

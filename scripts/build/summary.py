@@ -219,7 +219,7 @@ def main():
         new_words(g)
         make_summary_string(g)
 
-        with open(g.pth.summary_md_path, "w") as f:
+        with open(g.pth.summary_md_path, "w", encoding="utf-8") as f:
             f.write(g.summary)
 
         p_yes("ok")

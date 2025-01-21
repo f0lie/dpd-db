@@ -311,7 +311,7 @@ def stash_values_from(dpspth, values, num, window, error_field):
     print(f"Values to stash: {values_to_stash}")
 
     try:
-        with open(dpspth.dps_stash_path, "w") as f:
+        with open(dpspth.dps_stash_path, "w", encoding="utf-8") as f:
             json.dump(values_to_stash, f)
         print(f"Stashed values to {dpspth.dps_stash_path}.")
     except Exception as e:

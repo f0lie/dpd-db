@@ -41,7 +41,7 @@ class ProgData:
     def save_antonym_dict(self):
         self.last_word = self.w1.id
         self.antonym_dict["last_word"] = self.w1.id
-        with open(self.pth.antonym_dict_path, "w") as file:
+        with open(self.pth.antonym_dict_path, "w", encoding="utf-8") as file:
             json.dump(self.antonym_dict, file, ensure_ascii=False, indent=2)
 
     def update_exceptions(self):

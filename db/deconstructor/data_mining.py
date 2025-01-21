@@ -42,7 +42,7 @@ def mine_unmatched():
 
     sorted_groups = sorted(groups.items(), key=lambda x: len(x[1]), reverse=True)
 
-    with open(do_unmatched_groups_path, "w", newline="") as f:
+    with open(do_unmatched_groups_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["Count", "Group", "Words"])
         for group, words in sorted_groups:
@@ -61,7 +61,7 @@ def mine_matches():
         for pair in pairs:
             word_pairs[pair] += 1
 
-    with open(do_matches_pairs_path, "w", newline="") as f:
+    with open(do_matches_pairs_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["count", "pair"])
         for pair, count in word_pairs.most_common():
@@ -94,7 +94,7 @@ def tipitaka_unmatched_frequency():
         )
     ]
 
-    with open(tipitaka_umatched_freq_path, "w", newline="") as f:
+    with open(tipitaka_umatched_freq_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["unmatched_word", "count"])
         for i in tipitaka_unmatched_freq_sorted:
@@ -127,7 +127,7 @@ def ebts_unmatched_frequency():
         )
     ]
 
-    with open(ebts_umatched_freq_path, "w", newline="") as f:
+    with open(ebts_umatched_freq_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["unmatched_word", "count"])
         for i in ebts_unmatched_freq_sorted:

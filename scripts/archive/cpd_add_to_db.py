@@ -340,7 +340,7 @@ def add_to_db(cpd, dpd_length):
 
 
 def write_csv(cpd, cpd_path):
-    with open(cpd_path, "w", newline="") as f:
+    with open(cpd_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=cpd[0].keys(), delimiter="\t")
         writer.writeheader()
         for i in cpd:

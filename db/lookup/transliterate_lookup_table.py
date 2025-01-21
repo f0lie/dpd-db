@@ -73,7 +73,7 @@ def _parse_batch(
         f".batch_{batch_idx}_output.json"
     )
 
-    with open(json_input_for_translit, "w") as f:
+    with open(json_input_for_translit, "w", encoding="utf-8") as f:
         f.write(json.dumps(lookup_for_json_dict, ensure_ascii=False, indent=4))
 
     # transliterating with aksharamukha

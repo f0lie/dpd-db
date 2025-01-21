@@ -22,7 +22,7 @@ def main():
 
     clean_headwords = pali_list_sorter(list(clean_headwords))
 
-    with open("temp/dpd_headwords.csv", "w") as file:
+    with open("temp/dpd_headwords.csv", "w", encoding="utf-8") as file:
         for i in clean_headwords:
             file.write(f"{i}\n")
 

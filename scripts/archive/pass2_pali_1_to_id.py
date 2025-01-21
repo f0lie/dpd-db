@@ -68,7 +68,7 @@ def main():
 
     print(pd.pass2_dict)
 
-    with open("scripts/pass2.json", "w") as file:
+    with open("scripts/pass2.json", "w", encoding="utf-8") as file:
         json.dump(pd.pass2_dict, file, ensure_ascii=False, indent=4)
 
 

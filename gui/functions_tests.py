@@ -41,7 +41,7 @@ def make_internal_tests_list(pth):
 
 
 def write_internal_tests_list(pth, internal_tests_list):
-    with open(pth.internal_tests_path, "w", newline="") as csvfile:
+    with open(pth.internal_tests_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = internal_tests_list[0].__dict__.keys()
         writer = csv.DictWriter(csvfile, delimiter="\t", fieldnames=fieldnames)
         writer.writeheader()

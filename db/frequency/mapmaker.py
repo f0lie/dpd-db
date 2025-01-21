@@ -543,8 +543,8 @@ def make_data_dict_and_html(
         first_map_html = res[0]["freq_html"]
 
         with open(
-            pth.freq_html_dir.joinpath(first_word.lemma_1).with_suffix(".html"), "w"
-        ) as f:
+            pth.freq_html_dir.joinpath(first_word.lemma_1).with_suffix(".html"), "w", 
+        encoding="utf-8") as f:
             f.write(first_map_html)
 
     for batch_idx, batch in enumerate(batches):

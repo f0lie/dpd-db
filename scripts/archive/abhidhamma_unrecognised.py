@@ -27,7 +27,7 @@ def main():
     text_set = text_set - all_inflections_set
     text_set = sorted(text_set, key=pali_sort_key)
 
-    with open("abhidhamma_unrecognised.tsv", "w") as f:
+    with open("abhidhamma_unrecognised.tsv", "w", encoding="utf-8") as f:
         for word in text_set:
             f.write(f"{word}\n")
 

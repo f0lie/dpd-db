@@ -73,7 +73,7 @@ def save_total_ru_roots():
         reverse=True,
     )
 
-    with open(dpspth.ru_total_root_path, "w", newline="") as csvfile:
+    with open(dpspth.ru_total_root_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "id",
             "lemma",
@@ -173,7 +173,7 @@ def save_total_ru_comps():
 
     filtered_words = dpd_db
 
-    with open(dpspth.ru_total_comp_path, "w", newline="") as csvfile:
+    with open(dpspth.ru_total_comp_path, "w", newline="", encoding="utf-8") as csvfile:
         fieldnames = [
             "id",
             "lemma",

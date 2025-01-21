@@ -266,7 +266,7 @@ def add_bibliography(pth: ProjectPaths, header: str) -> List[DictEntry]:
 
     if pth.bibliography_md_path.exists():
         md = html2text.html2text(html)
-        with open(pth.bibliography_md_path, "w") as file:
+        with open(pth.bibliography_md_path, "w", encoding="utf-8") as file:
             file.write(md)
 
     return help_data_list
@@ -324,7 +324,7 @@ def add_thanks(pth: ProjectPaths, header: str) -> List[DictEntry]:
     # save markdown for website
     if pth.thanks_md_path.exists():
         md = html2text.html2text(html)
-        with open(pth.thanks_md_path, "w") as file:
+        with open(pth.thanks_md_path, "w", encoding="utf-8") as file:
             file.write(md)
 
     return help_data_list

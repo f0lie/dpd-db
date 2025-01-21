@@ -338,7 +338,7 @@ def clean_up_typst_data(g: GlobalVars):
 def save_typist_file(g: GlobalVars):
     p_green("saving typst data")
 
-    with open(g.pth.typst_lite_data_path, "w") as f:
+    with open(g.pth.typst_lite_data_path, "w", encoding="utf-8") as f:
         f.write("".join(g.typst_data))
     p_yes("ok")
 

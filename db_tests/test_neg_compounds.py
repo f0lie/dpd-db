@@ -34,7 +34,7 @@ def add_exception(g: ProgData, id: int):
 
 
 def save_exceptions_list(g: ProgData):
-    with open(g.pth.neg_compound_exceptions, "w") as f:
+    with open(g.pth.neg_compound_exceptions, "w", encoding="utf-8") as f:
         json.dump(g.exceptions_list, f, indent=2)
 
 

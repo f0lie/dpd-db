@@ -47,7 +47,7 @@ def update_poetry_version(pth, version):
         t = tomlkit.parse(doc)
         t["tool"]["poetry"]["version"] = version  # type: ignore
 
-    with open(pth.pyproject_path, "w") as file:
+    with open(pth.pyproject_path, "w", encoding="utf-8") as file:
         file.write(t.as_string())
 
     printer("pyproject.toml", "ok")

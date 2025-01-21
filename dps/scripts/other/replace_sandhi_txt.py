@@ -54,7 +54,7 @@ def main():
     replaced_text = replace_sandhi(text, sandhi_dict, hyphenations_dict)
 
     output_txt_file = imput_txt_file
-    with open(output_txt_file, "w") as f:
+    with open(output_txt_file, "w", encoding="utf-8") as f:
         f.write(replaced_text)
 
     console.print(f"[bold green]replaced_text saved to {output_txt_file}")

@@ -40,7 +40,7 @@ def reverse_replace_values_in_tsv():
             raise ValueError("Fieldnames could not be determined from the TSV.")
 
         # Write the original values back to the main TSV
-        with open(dpspth.dps_internal_tests_path, "w", newline="") as writefile:
+        with open(dpspth.dps_internal_tests_path, "w", newline="", encoding="utf-8") as writefile:
             writer = csv.DictWriter(
                 writefile, fieldnames=reader.fieldnames, delimiter="\t"
             )
@@ -89,8 +89,8 @@ def replace_values_in_tsv():
 
         # Write the modified rows to the TSV
         with open(
-            dpspth.dps_internal_tests_replaced_path, "w", newline=""
-        ) as writefile:
+            dpspth.dps_internal_tests_replaced_path, "w", newline="", 
+        encoding="utf-8") as writefile:
             writer = csv.DictWriter(
                 writefile, fieldnames=reader.fieldnames, delimiter="\t"
             )

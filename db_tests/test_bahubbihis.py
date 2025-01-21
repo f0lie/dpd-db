@@ -58,7 +58,7 @@ class ProgData:
         return bahubbihi_dict
 
     def save_bahubbhihi_dict(self):
-        with open(self.pth.bahubbihi_dict_path, "w") as f:
+        with open(self.pth.bahubbihi_dict_path, "w", encoding="utf-8") as f:
             json.dump(g.bahubbihi_dict, f, indent=4)
 
     def update_yes(self, id):

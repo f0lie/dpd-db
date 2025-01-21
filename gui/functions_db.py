@@ -770,7 +770,7 @@ def make_words_to_add_list_generic(
     )
 
     # Save to a file
-    with open(output_filename, "w") as f:
+    with open(output_filename, "w", encoding="utf-8") as f:
         for word in text_list:
             f.write(f"{word}\n")
 
