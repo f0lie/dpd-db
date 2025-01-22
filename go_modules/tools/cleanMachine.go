@@ -34,6 +34,11 @@ func CleanMachine(text string, niggahita string, addHyphenatedWords bool, source
 	HardCheck(err)
 	text = r.ReplaceAllString(text, " ")
 
+	// remove carriage returns
+	r, err = regexp.Compile(`\r`)
+	HardCheck(err)
+	text = r.ReplaceAllString(text, " ")
+
 	// standardize niggahitas
 	if niggahita == "ṃ" {
 		text = strings.Replace(text, "ṁ", "ṃ", -1)
