@@ -24,19 +24,25 @@ git submodule init && git submodule update
 
 6. Install [poetry](https://python-poetry.org/docs/) for your operating system
 
-7. Install all the dependencies with poetry
+7. If on Windows, install mingw for gcc to install sqlite3 for the go_modules.
+
+Use `choco install mingw` ease of install.
+
+Run `refreshenv` to refresh the environment variables or restart your terminal/vscode.
+
+8. Install all the dependencies with poetry.
 
 ```shell
 poetry install
 ```
 
-8. Run this once to initialize the project
+9. Run this once to initialize the project.
 
 ```shell
 poetry run bash scripts/bash/initial_setup_run_once.sh
 ```
 
-9. Build the database, this can take up to an hour the first time.
+10. Build the database, this can take up to an hour the first time.
 
 ```shell
 poetry run bash scripts/bash/build_db.sh

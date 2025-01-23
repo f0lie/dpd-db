@@ -6,6 +6,8 @@ if [ ! -e "dpd.db" ]; then
 fi
 
 set -e
+# Enable CGO for sqlite3 on Windows
+go env -w CGO_ENABLED=1
 
 tools/version.py
 
